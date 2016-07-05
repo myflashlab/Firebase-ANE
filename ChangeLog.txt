@@ -1,0 +1,4 @@
+Firebase Core Air Native Extension
+
+*Jul 05, 2016 - V1.0.0*
+* beginning of the journey!

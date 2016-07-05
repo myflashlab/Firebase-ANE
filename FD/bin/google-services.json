@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "000000000000",
+    "firebase_url": "https://XXX-XXXX.firebaseio.com",
+    "project_id": "XXX-XXXX",
+    "storage_bucket": "XXX-XXXX.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:000000000000:android:XXXXXXXXXXXXXXXX",
+        "android_client_info": {
+          "package_name": "air.com.site.yourApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "000000000000-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "XXXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
