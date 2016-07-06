@@ -86,6 +86,14 @@ FOR ANDROID:
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 	
+	<!-- 
+		Required by firebase_iid.ane 
+		Change "air.com.doitflash.firebaseCore" to your own app package name
+	-->
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+	<permission android:name="air.com.doitflash.firebaseCore.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+	<uses-permission android:name="air.com.doitflash.firebaseCore.permission.C2D_MESSAGE" />
+	
 	<application>
 		
 		<activity>
@@ -114,6 +122,27 @@ FOR ANDROID:
 		<meta-data 
 			android:name="com.google.android.gms.version" 
 			android:value="@integer/google_play_services_version" />
+		
+		<!-- 
+			Required by firebase_iid.ane 
+			Change "air.com.doitflash.firebaseCore" to your own app package name
+		-->
+		<receiver
+            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="air.com.doitflash.firebaseCore" />
+            </intent-filter>
+        </receiver>
+		<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" android:exported="false" />
+		<service android:name="com.google.firebase.iid.FirebaseInstanceIdService" android:exported="true">
+            <intent-filter android:priority="-500">
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
 		
 	</application>
 </manifest>
@@ -144,6 +173,7 @@ Embedding the ANE:
 	
 	<!-- download the dependency ANEs from https://github.com/myflashlab/common-dependencies-ANE -->
 	<extensionID>com.myflashlab.air.extensions.dependency.firebase.common</extensionID>
+	<extensionID>com.myflashlab.air.extensions.dependency.firebase.iid</extensionID>
 	<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.basement</extensionID>
 	<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.tasks</extensionID>
 	<extensionID>com.myflashlab.air.extensions.dependency.androidSupport</extensionID>
@@ -159,7 +189,7 @@ Embedding the ANE:
 1. Android API 15 or higher
 2. iOS SDK 7.0 or higher
 3. Air SDK 22 or higher
-4. This ANE is dependent on **androidSupport.ane**, **firebase_common.ane**, **googlePlayServices_basement.ane** and **googlePlayServices_tasks.ane** You need to add these ANEs to your project too. [Download them from here:](https://github.com/myflashlab/common-dependencies-ANE)
+4. This ANE is dependent on **androidSupport.ane**, **firebase_common.ane**, **firebase_iid.ane**, **googlePlayServices_basement.ane** and **googlePlayServices_tasks.ane** You need to add these ANEs to your project too. [Download them from here:](https://github.com/myflashlab/common-dependencies-ANE)
 5. To compile on iOS, you will need to add the Firebase core frameworks to your Air SDK.
   - download **FirebaseCoreFrameworks.zip** package from our github and extract it on your computer.
   - you will find some *.framework* files inside the package. Just copy them as they are and go to your AdobeAir SDK.

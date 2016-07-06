@@ -4,6 +4,7 @@ This ANE is dependent on the following ANEs. You need to add these to your proje
 
 androidSupport.ane
 firebase_common.ane
+firebase_iid.ane
 googlePlayServices_basement.ane
 googlePlayServices_tasks.ane
 
