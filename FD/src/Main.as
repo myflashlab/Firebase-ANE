@@ -5,8 +5,6 @@ package
 	import com.doitflash.mobileProject.commonCpuSrc.DeviceInfo;
 	import com.doitflash.starling.utils.list.List;
 	import com.doitflash.text.modules.MySprite;
-	import flash.filesystem.File;
-	import flash.utils.setTimeout;
 	
 	import com.luaye.console.C;
 	
@@ -30,9 +28,6 @@ package
 	
 	import com.myflashlab.air.extensions.firebase.core.Firebase;
 	import com.myflashlab.air.extensions.firebase.core.FirebaseConfig;
-	
-	import flash.net.URLRequestMethod;
-	import flash.net.URLVariables;
 	
 	
 	/**

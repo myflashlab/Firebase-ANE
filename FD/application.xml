@@ -106,6 +106,7 @@
 	<!-- download the dependency ANEs from https://github.com/myflashlab/common-dependencies-ANE -->
 	<extensionID>com.myflashlab.air.extensions.dependency.firebase.common</extensionID>
 	<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.basement</extensionID>
+	<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.tasks</extensionID>
 	<extensionID>com.myflashlab.air.extensions.dependency.androidSupport</extensionID>
 	
 	<!-- And finally embed the Firebase core ANE -->

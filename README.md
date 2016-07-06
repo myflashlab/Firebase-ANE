@@ -1,4 +1,4 @@
-**NOTICE: Firebase ANE is currently in Beta mode and is not yet available to public. Make sure you are registered in our [newsletter](http://www.myflashlabs.com/contact/) to be notified as soon as it's ready.**
+**NOTICE: Firebase ANE is currently in Beta mode and is not yet available to public. Make sure you are registered in our [newsletter](http://www.myflashlabs.com/contact/) to be notified as soon as it's ready. Before the final release of the ANE, the documentation may change a lot!**
 --------------------------------------------------
 
 # Firebase Air Native Extension V1.0.0 Android+iOS
@@ -145,6 +145,7 @@ Embedding the ANE:
 	<!-- download the dependency ANEs from https://github.com/myflashlab/common-dependencies-ANE -->
 	<extensionID>com.myflashlab.air.extensions.dependency.firebase.common</extensionID>
 	<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.basement</extensionID>
+	<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.tasks</extensionID>
 	<extensionID>com.myflashlab.air.extensions.dependency.androidSupport</extensionID>
 	
 	<!-- And finally embed the Firebase core ANE -->
@@ -158,7 +159,7 @@ Embedding the ANE:
 1. Android API 15 or higher
 2. iOS SDK 7.0 or higher
 3. Air SDK 22 or higher
-4. This ANE is dependent on **androidSupport.ane**, **firebase_common.ane** and **googlePlayServices_basement.ane** You need to add these ANEs to your project too. [Download them from here:](https://github.com/myflashlab/common-dependencies-ANE)
+4. This ANE is dependent on **androidSupport.ane**, **firebase_common.ane**, **googlePlayServices_basement.ane** and **googlePlayServices_tasks.ane** You need to add these ANEs to your project too. [Download them from here:](https://github.com/myflashlab/common-dependencies-ANE)
 5. To compile on iOS, you will need to add the Firebase core frameworks to your Air SDK.
   - download **FirebaseCoreFrameworks.zip** package from our github and extract it on your computer.
   - you will find some *.framework* files inside the package. Just copy them as they are and go to your AdobeAir SDK.
