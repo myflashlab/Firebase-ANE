@@ -68,6 +68,11 @@
             </intent-filter>
         </service>
 		
+		<!-- Required by googlePlayServices_base.ane -->
+		<activity android:name="com.google.android.gms.common.api.GoogleApiActivity"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                  android:exported="false"/>
+		
 	</application>
 </manifest>]]></manifestAdditions>
   </android>
@@ -135,6 +140,7 @@
 	<!-- download the dependency ANEs from https://github.com/myflashlab/common-dependencies-ANE -->
 	<extensionID>com.myflashlab.air.extensions.dependency.firebase.common</extensionID>
 	<extensionID>com.myflashlab.air.extensions.dependency.firebase.iid</extensionID>
+	<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.base</extensionID>
 	<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.basement</extensionID>
 	<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.tasks</extensionID>
 	<extensionID>com.myflashlab.air.extensions.dependency.androidSupport</extensionID>
