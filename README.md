@@ -22,7 +22,7 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 * [Admob](https://firebase.google.com/docs/admob/) Monetize through engaging ads 
 
 # asdoc
-[find the latest asdoc for this ANE here.](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/core/package-detail.html)  
+[find the latest asdoc for this ANE here.](http://myflashlab.github.io/asdoc/)  
 [How to get started? **read here**](https://github.com/myflashlab/Firebase-ANE/wiki)
 
 # Sample AS3 codes
