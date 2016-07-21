@@ -1,4 +1,4 @@
-**NOTICE: Firebase ANE is currently in Beta mode and is not yet available to public. Make sure you are registered in our [newsletter](http://www.myflashlabs.com/contact/) to be notified as soon as it's ready. Before the final release of the ANE, the documentation may change a lot!**
+**NOTICE: Firebase ANE is currently in Beta mode and is not yet available to public. Make sure you are registered in our [newsletter](http://www.myflashlabs.com/contact/) to be notified as soon as it's ready. You may also watch the approximate release dates of each Firebase child ANE [here](https://github.com/myflashlab/Firebase-ANE/milestones) Moreover, you may participate in the beta testing program and have early access to Firebase ANEs by dropping us an email from [here](http://www.myflashlabs.com/contact/).**
 --------------------------------------------------
 
 # Firebase Air Native Extension V1.0.0 Android+iOS
@@ -24,8 +24,6 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 # asdoc
 [find the latest asdoc for this ANE here.](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/core/package-detail.html)  
 [How to get started? **read here**](https://github.com/myflashlab/Firebase-ANE/wiki)
-
-**NOTICE**: Unlike our other ANEs, the Firebase will not be available for demo. You need to download the [Firebase core from here](http://www.myflashlabs.com/product/firebase-air-native-extension/).
 
 # Air Usage
 ```actionscript
@@ -203,14 +201,31 @@ Embedding the ANE:
   - paste the Firebase frameworks you had copied into this folder and you are ready to build your project on iOS too.
 
 # Commercial Version
-http://www.myflashlabs.com/product/firebase-air-native-extension/
+* [firebaseCore.ane](http://www.myflashlabs.com/product/firebase-air-native-extension/)
+* [firebaseDatabase.ane](http://www.myflashlabs.com/product/realtime-database-firebase-air-native-extension/)
+* firebaseRemoteConfig.ane (coming soon)
+* firebaseAuth.ane (coming soon)
+* firebaseDynamicLinks.ane (coming soon)
+* firebaseInvites.ane (coming soon)
+* firebaseStorage.ane (coming soon)
+* firebaseAppIndexing.ane (coming soon)
+* firebaseAnalytics.ane (coming soon)
+* firebaseCrash.ane (coming soon)
+* firebaseMessaging.ane (coming soon)
 
-![Firebase ANE](http://www.myflashlabs.com/wp-content/uploads/2016/06/product_adobe-air-ane-extension-firebase-595x738.jpg)
+![Firebase ANE](http://www.myflashlabs.com/wp-content/uploads/2016/07/product_adobe-air-ane-extension-firebase-595x738.jpg)
 
 # Tutorials
 [How to embed ANEs into **FlashBuilder**, **FlashCC** and **FlashDevelop**](https://www.youtube.com/watch?v=Oubsb_3F3ec&list=PL_mmSjScdnxnSDTMYb1iDX4LemhIJrt1O)  
 [How to get started with Firebase?](https://github.com/myflashlab/Firebase-ANE/wiki)
 
 # Changelog
+*Jul 21, 2016*
+* Realtime database and the core are ready for beta testing
+
+
 *Jul 05, 2016 - V1.0.0*
 * beginning of the journey!
+
+--------------------------------------
+**DISCRIMINATION:** Firebase SDKs are developed by Google and they own every copyright to the Firebase "native" projects. However, we have used their "compiled" native SDKs to develop the ActionScript API to be used in Adobe Air mobile projects. Moreover, as far as the documentations, we have copied and when needed has modified the Google documents so it will fit the needs of Adobe Air community. If you wish to see the original documentations in Android/iOS, [visit here](https://firebase.google.com/docs/). But if you are interested to do things in Adobe Air, then you are in the right place.

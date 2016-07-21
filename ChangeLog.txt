@@ -1,4 +1,8 @@
-Firebase Core Air Native Extension
+Firebase Air Native Extension
+
+*Jul 21, 2016*
+* Realtime database and the core are ready for beta testing
+
 
 *Jul 05, 2016 - V1.0.0*
 * beginning of the journey!
