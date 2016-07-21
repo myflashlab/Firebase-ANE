@@ -25,6 +25,19 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 [find the latest asdoc for this ANE here.](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/core/package-detail.html)  
 [How to get started? **read here**](https://github.com/myflashlab/Firebase-ANE/wiki)
 
+# Sample AS3 codes
+* [Firebase Core](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/Main.as)
+* [Firebase Realtime Database](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainDatabase.as)
+* Firebase Remote Config (Coming soon)
+* Firebase Authentication (Coming soon)
+* Firebase Dynamic Links (Coming soon)
+* Firebase Invites (Coming soon)
+* Firebase Storage (Coming soon)
+* Firebase App Indexing (Coming soon)
+* Firebase Analytics (Coming soon)
+* Firebase Crash Report (Coming soon)
+* Firebase FCM (Coming soon)
+
 # Air Usage
 ```actionscript
 import com.myflashlab.air.extensions.firebase.core.Firebase;
