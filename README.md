@@ -28,8 +28,8 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 # Sample AS3 codes
 * [Firebase Core](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/Main.as)
 * [Firebase Realtime Database](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainDatabase.as)
-* Firebase Remote Config (Coming soon)
-* Firebase Authentication (Coming soon)
+* [Firebase Remote Config](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainRemoteConfig.as)
+* [Firebase Authentication](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainAuth.as)
 * Firebase Dynamic Links (Coming soon)
 * Firebase Invites (Coming soon)
 * Firebase Storage (Coming soon)
@@ -216,8 +216,8 @@ Embedding the ANE:
 # Commercial Version
 * [firebaseCore.ane](http://www.myflashlabs.com/product/firebase-air-native-extension/)
 * [firebaseDatabase.ane](http://www.myflashlabs.com/product/realtime-database-firebase-air-native-extension/)
-* firebaseRemoteConfig.ane (coming soon)
-* firebaseAuth.ane (coming soon)
+* [firebaseRemoteConfig.ane](http://www.myflashlabs.com/product/remote-config-firebase-air-native-extension/)
+* [firebaseAuth.ane](http://www.myflashlabs.com/product/authentication-firebase-air-native-extension/)
 * firebaseDynamicLinks.ane (coming soon)
 * firebaseInvites.ane (coming soon)
 * firebaseStorage.ane (coming soon)
@@ -233,6 +233,10 @@ Embedding the ANE:
 [How to get started with Firebase?](https://github.com/myflashlab/Firebase-ANE/wiki)
 
 # Changelog
+*Jul 25, 2016*
+* Added Remote config and Authentication
+
+
 *Jul 21, 2016*
 * Realtime database and the core are ready for beta testing
 

@@ -1,5 +1,9 @@
 Firebase Air Native Extension
 
+*Jul 25, 2016*
+* Added Remote config and Authentication
+
+
 *Jul 21, 2016*
 * Realtime database and the core are ready for beta testing
 
