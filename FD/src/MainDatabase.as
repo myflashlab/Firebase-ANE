@@ -5,8 +5,6 @@ package
 	import com.doitflash.mobileProject.commonCpuSrc.DeviceInfo;
 	import com.doitflash.starling.utils.list.List;
 	import com.doitflash.text.modules.MySprite;
-	import flash.filesystem.File;
-	import flash.utils.setTimeout;
 	
 	import com.luaye.console.C;
 	
@@ -170,6 +168,9 @@ package
 		private function initDatabase():void
 		{
 			DB.init();
+			
+			if (DB.checkDependencies()) trace("All dependencies required by firebaseDatabase.ane are loaded successfully.");
+			else trace("some dependencies are missing!");
 			
 			var refDisconnect:DBReference;
 			if (Firebase.os == Firebase.IOS) refDisconnect = DB.getReference("disconFromIos");

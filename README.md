@@ -86,132 +86,26 @@ else
 */
 ```
 
-# Air .xml manifest
-```xml
-<!--
-FOR ANDROID:
--->
-<manifest android:installLocation="auto">
-	
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-	
-	<!-- 
-		Required by firebase_iid.ane 
-		Change "air.com.doitflash.firebaseCore" to your own app package name
-	-->
-	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-	<permission android:name="air.com.doitflash.firebaseCore.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-	<uses-permission android:name="air.com.doitflash.firebaseCore.permission.C2D_MESSAGE" />
-	
-	<application>
-		
-		<activity>
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.BROWSABLE" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		
-		<!-- 
-			Required by the firebase_common.ane 
-			Change "air.com.doitflash.firebaseCore" to your own app package name
-		-->
-		<provider
-			android:name="com.google.firebase.provider.FirebaseInitProvider"
-			android:authorities="air.com.doitflash.firebaseCore.firebaseinitprovider"
-			android:exported="false"
-			android:initOrder="100" />
-		
-		<!-- Required by the googlePlayServices_basement.ane -->
-		<meta-data 
-			android:name="com.google.android.gms.version" 
-			android:value="@integer/google_play_services_version" />
-		
-		<!-- 
-			Required by firebase_iid.ane 
-			Change "air.com.doitflash.firebaseCore" to your own app package name
-		-->
-		<receiver
-            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="air.com.doitflash.firebaseCore" />
-            </intent-filter>
-        </receiver>
-		<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" android:exported="false" />
-		<service android:name="com.google.firebase.iid.FirebaseInstanceIdService" android:exported="true">
-            <intent-filter android:priority="-500">
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-		
-		<!-- Required by googlePlayServices_base.ane -->
-		<activity android:name="com.google.android.gms.common.api.GoogleApiActivity"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar"
-                  android:exported="false"/>
-		
-	</application>
-</manifest>
+Firebase ANEs on Android are dependent on some other ANEs. Complete information about these dependencies are explained in wiki pages. However, to make sure you are not confused in the process of adding the dependencies, each Firebase ANE has an static public method named [checkDependencies](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/core/Firebase.html#checkDependencies()) which you may use while developing your app to be notified if you have correctly added all the required dependency ANEs or not.
 
+```actionscript
+Firebase.init();
+if (Firebase.checkDependencies()) trace("All dependencies required by firebaseCore.ane are loaded successfully.");
+else trace("some dependencies are missing!");
 
+DB.init();
+if (DB.checkDependencies()) trace("All dependencies required by firebaseDatabase.ane are loaded successfully.");
+else trace("some dependencies are missing!");
 
-
-
-<!--
-FOR iOS:
--->
-	<InfoAdditions>
-		
-		<!--iOS 7.0 or higher can support this ANE-->
-		<key>MinimumOSVersion</key>
-		<string>7.0</string>
-		
-	</InfoAdditions>
-	
-	
-	
-	
-	
-<!--
-Embedding the ANE:
--->
-  <extensions>
-	
-	<!-- download the dependency ANEs from https://github.com/myflashlab/common-dependencies-ANE -->
-	<extensionID>com.myflashlab.air.extensions.dependency.firebase.common</extensionID>
-	<extensionID>com.myflashlab.air.extensions.dependency.firebase.iid</extensionID>
-	<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.base</extensionID>
-	<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.basement</extensionID>
-	<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.tasks</extensionID>
-	<extensionID>com.myflashlab.air.extensions.dependency.androidSupport</extensionID>
-	
-	<!-- And finally embed the Firebase core ANE -->
-	<extensionID>com.myflashlab.air.extensions.firebase.core</extensionID>
-	
-  </extensions>
--->
+// All the other Firebase ANEs has this method too.
 ```
+
+**NOTICE:** When you are compiling a release version of your app, it's a good idea to remove this ```checkDependencies``` method so your app is not doing unnecessary operations.
 
 # Requirements 
 1. Android API 15 or higher
 2. iOS SDK 7.0 or higher
 3. Air SDK 22 or higher
-4. This ANE is dependent on **androidSupport.ane**, **firebase_common.ane**, **firebase_iid.ane**, **googlePlayServices_base.ane**, **googlePlayServices_basement.ane** and **googlePlayServices_tasks.ane** You need to add these ANEs to your project too. [Download them from here:](https://github.com/myflashlab/common-dependencies-ANE)
-5. To compile on iOS, you will need to add the Firebase core frameworks to your Air SDK.
-  - download **FirebaseCoreFrameworks.zip** package from our github and extract it on your computer.
-  - you will find some *.framework* files inside the package. Just copy them as they are and go to your AdobeAir SDK.
-  - when in your Air SDK, go to "\lib\aot\stub". There you will find all the iOS frameworks provided by Air SDK by default.
-  - paste the Firebase frameworks you had copied into this folder and you are ready to build your project on iOS too.
 
 # Commercial Version
 * [firebaseCore.ane](http://www.myflashlabs.com/product/firebase-air-native-extension/)
@@ -230,16 +124,16 @@ Embedding the ANE:
 
 # Tutorials
 [How to embed ANEs into **FlashBuilder**, **FlashCC** and **FlashDevelop**](https://www.youtube.com/watch?v=Oubsb_3F3ec&list=PL_mmSjScdnxnSDTMYb1iDX4LemhIJrt1O)  
-[How to get started with Firebase?](https://github.com/myflashlab/Firebase-ANE/wiki)
+[How to support Firebase in my Air app?](https://github.com/myflashlab/Firebase-ANE/wiki/A.-Get-Started)  
+[How to support Firebase Realtime database?](https://github.com/myflashlab/Firebase-ANE/wiki/B.-Realtime-Database#get-started-with-firebase-realtime-database-in-adobe-air)  
+[How to support Firebase Remote Config?](https://github.com/myflashlab/Firebase-ANE/wiki/C.-Remote-Config#get-started-with-firebase-remote-config-in-adobe-air)
 
 # Changelog
 *Jul 25, 2016*
 * Added Remote config and Authentication
 
-
 *Jul 21, 2016*
 * Realtime database and the core are ready for beta testing
-
 
 *Jul 05, 2016 - V1.0.0*
 * beginning of the journey!

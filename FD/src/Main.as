@@ -145,6 +145,9 @@ package
 		{
 			var isConfigFound:Boolean = Firebase.init();
 			
+			if (Firebase.checkDependencies()) trace("All dependencies required by firebaseCore.ane are loaded successfully.");
+			else trace("some dependencies are missing!");
+			
 			if (isConfigFound)
 			{
 				var config:FirebaseConfig = Firebase.getConfig();
