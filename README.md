@@ -1,6 +1,3 @@
-**NOTICE: Firebase ANE is currently in Beta mode and is not yet available to public. Make sure you are registered in our [newsletter](http://www.myflashlabs.com/contact/) to be notified as soon as it's ready. You may also watch the approximate release dates of each Firebase child ANE [here](https://github.com/myflashlab/Firebase-ANE/milestones) Moreover, you may participate in the beta testing program and have early access to Firebase ANEs by dropping us an email from [here](http://www.myflashlabs.com/contact/).**
---------------------------------------------------
-
 # Firebase Air Native Extension V1.0.0 Android+iOS
 Firebase ANE gives you access to the [Google Firebase project](https://firebase.google.com/docs/) in your AdobeAir projects supported on both Android and iOS with 100% identical ActionScript API. 
 
