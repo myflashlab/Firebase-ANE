@@ -1,4 +1,4 @@
-![back-firebase-project](https://www.kickstarter.com/projects/1836143618/firebase-air-native-extension)
+![back-firebase-project](http://www.myflashlabs.com/wp-content/uploads/2016/07/back-Firebase-project-now.jpg)
 Back us up at [Kickstarter campaign](https://www.kickstarter.com/projects/1836143618/firebase-air-native-extension/). If you think what we are doing is admirable, please don't hesitate to help us in our path. 
 ---
 
