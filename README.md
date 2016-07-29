@@ -1,3 +1,8 @@
+![back-firebase-project](https://www.kickstarter.com/projects/1836143618/firebase-air-native-extension)
+Back us up at [Kickstarter campaign](https://www.kickstarter.com/projects/1836143618/firebase-air-native-extension/). If you think what we are doing is admirable, please don't hesitate to help us in our path. 
+---
+
+
 # Firebase Air Native Extension V1.0.0 Android+iOS
 Firebase ANE gives you access to the [Google Firebase project](https://firebase.google.com/docs/) in your AdobeAir projects supported on both Android and iOS with 100% identical ActionScript API. 
 
