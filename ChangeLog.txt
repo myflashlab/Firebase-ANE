@@ -1,5 +1,10 @@
 Firebase Air Native Extension
 
+*Aug 10, 2016*
+* Updated to Firebase SDK 9.4.0 for Android. Make sure to update all your dependency files also.
+* Updated to Firebase SDK 3.4.0 for iOS. Make sure you are updating the Frameworks also.
+* minor bug fixes
+
 *Jul 25, 2016*
 * Added Remote config and Authentication
 
