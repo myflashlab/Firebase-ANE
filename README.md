@@ -3,7 +3,7 @@ Back us up at [Kickstarter campaign](https://www.kickstarter.com/projects/183614
 ---
 
 
-# Firebase Air Native Extension V1.0.0 Android+iOS
+# Firebase Air Native Extension V1.1.0 Android+iOS
 Firebase ANE gives you access to the [Google Firebase project](https://firebase.google.com/docs/) in your AdobeAir projects supported on both Android and iOS with 100% identical ActionScript API. 
 
 If you decide to use Firebase in your next AdobeAir project, you should consider the following structure: Firebase Air Native Extension is consist of a *Core* ANE plus some other individual ANEs which are all dependent on the *Core*. i.e, If you wish to use [Firebase Cloud Messaging (FCM)](https://firebase.google.com/docs/cloud-messaging/), you need to embed the Core ANE first and then use the required ANE(s) for the FCM. This structure will make sure that you are not compiling unused native code in your AdobeAir project. In result, your app file size will be as small as possible and faster to debug/compile. [The Wiki pages](https://github.com/myflashlab/Firebase-ANE/wiki) will provide you detailed information about how you can embed each ANE based on the Firebase feature you wish to use in your app.
@@ -131,6 +131,11 @@ else trace("some dependencies are missing!");
 [How to support Firebase Remote Config?](https://github.com/myflashlab/Firebase-ANE/wiki/C.-Remote-Config#get-started-with-firebase-remote-config-in-adobe-air)
 
 # Changelog
+*Aug 10, 2016*
+* Updated to Firebase SDK 9.4.0 for Android. Make sure to update all your dependency files also.
+* Updated to Firebase SDK 3.4.0 for iOS. Make sure you are updating the Frameworks also.
+* minor bug fixes
+
 *Jul 25, 2016*
 * Added Remote config and Authentication
 
