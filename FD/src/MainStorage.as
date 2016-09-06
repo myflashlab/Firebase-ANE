@@ -189,7 +189,7 @@ package
 			// Even if you wish to upload a new file to a location on Storage, you should first create a reference to it.
 			var imgUploadRef:StorageReference = rootRef.child("folder/FlashDevelop.png");
 			
-			// Generally, you download or upload objects to the Storage, you need to create references to those locations.
+			// Generally, to download or upload objects to the Storage, you need to create references to those locations.
 			
 			var fileUploadRef:StorageReference;
 			var fileDownloadRef:StorageReference;
