@@ -34,7 +34,7 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 * [Firebase Authentication](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainAuth.as)
 * Firebase Dynamic Links (Coming soon)
 * Firebase Invites (Coming soon)
-* Firebase Storage (Coming soon)
+* [Firebase Storage](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainStorage.as)
 * Firebase App Indexing (Coming soon)
 * Firebase Analytics (Coming soon)
 * Firebase Crash Report (Coming soon)
@@ -117,7 +117,7 @@ else trace("some dependencies are missing!");
 * [firebaseAuth.ane](http://www.myflashlabs.com/product/authentication-firebase-air-native-extension/)
 * firebaseDynamicLinks.ane (coming soon)
 * firebaseInvites.ane (coming soon)
-* firebaseStorage.ane (coming soon)
+* [firebaseStorage.ane](http://www.myflashlabs.com/product/storage-firebase-air-native-extension/)
 * firebaseAppIndexing.ane (coming soon)
 * firebaseAnalytics.ane (coming soon)
 * firebaseCrash.ane (coming soon)
@@ -133,6 +133,9 @@ else trace("some dependencies are missing!");
 [How to support Firebase Authentication?](https://github.com/myflashlab/Firebase-ANE/wiki/D.-Authentication#get-started-with-firebase-authentication-in-adobe-air)  
 
 # Changelog
+*Sep 06, 2016*
+* Added Storage
+
 *Aug 10, 2016*
 * Updated to Firebase SDK 9.4.0 for Android. Make sure to update all your dependency files also.
 * Updated to Firebase SDK 3.4.0 for iOS. Make sure you are updating the Frameworks also.

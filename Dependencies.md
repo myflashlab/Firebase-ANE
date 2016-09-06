@@ -54,3 +54,17 @@ firebaseCore.ane V1.1.0 | firebaseCore.ane V1.1.0
 + other ANEs required for the Core | + other frameworks required for the Core
 firebase_analyticsImpl.ane V9.4.0 | 
 firebase-analytics.ane V9.4.0 | 
+
+**firebaseStorage.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane V1.1.0 | firebaseCore.ane V1.1.0
++ other ANEs required for the Core | + other frameworks required for the Core
+firebase_storage.ane V9.4.0 | FirebaseStorage.framework V3.4.0
+firebase_storageCommon.ane V9.4.0 | GoogleSignIn.framework V3.4.0
+ | GoogleAppUtilities.framework V3.4.0
+ | GoogleAuthUtilities.framework V3.4.0
+ | GoogleNetworkingUtilities.framework V3.4.0
+ | GoogleSymbolUtilities.framework V3.4.0
+ | GoogleUtilities.framework V3.4.0
