@@ -37,7 +37,7 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 * [Firebase Storage](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainStorage.as)
 * Firebase App Indexing (Coming soon)
 * Firebase Analytics (Coming soon)
-* Firebase Crash Report (Coming soon)
+* [Firebase Crash Report](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainCrash.as)
 * Firebase FCM (Coming soon)
 
 # Air Usage
@@ -120,7 +120,7 @@ else trace("some dependencies are missing!");
 * [firebaseStorage.ane](http://www.myflashlabs.com/product/storage-firebase-air-native-extension/)
 * firebaseAppIndexing.ane (coming soon)
 * firebaseAnalytics.ane (coming soon)
-* firebaseCrash.ane (coming soon)
+* [firebaseCrash.ane](http://www.myflashlabs.com/product/crash-firebase-air-native-extension/)
 * firebaseMessaging.ane (coming soon)
 
 ![Firebase ANE](http://www.myflashlabs.com/wp-content/uploads/2016/07/product_adobe-air-ane-extension-firebase_all-595x738.jpg)
@@ -128,11 +128,16 @@ else trace("some dependencies are missing!");
 # Tutorials
 [How to embed ANEs into **FlashBuilder**, **FlashCC** and **FlashDevelop**](https://www.youtube.com/watch?v=Oubsb_3F3ec&list=PL_mmSjScdnxnSDTMYb1iDX4LemhIJrt1O)  
 [How to support Firebase in my Air app?](https://github.com/myflashlab/Firebase-ANE/wiki/A.-Get-Started)  
-[How to support Firebase Realtime database?](https://github.com/myflashlab/Firebase-ANE/wiki/B.-Realtime-Database#get-started-with-firebase-realtime-database-in-adobe-air)  
-[How to support Firebase Remote Config?](https://github.com/myflashlab/Firebase-ANE/wiki/C.-Remote-Config#get-started-with-firebase-remote-config-in-adobe-air)  
-[How to support Firebase Authentication?](https://github.com/myflashlab/Firebase-ANE/wiki/D.-Authentication#get-started-with-firebase-authentication-in-adobe-air)  
+[How to use Firebase Realtime database?](https://github.com/myflashlab/Firebase-ANE/wiki/B.-Realtime-Database#get-started-with-firebase-realtime-database-in-adobe-air)  
+[How to use Firebase Remote Config?](https://github.com/myflashlab/Firebase-ANE/wiki/C.-Remote-Config#get-started-with-firebase-remote-config-in-adobe-air)  
+[How to use Firebase Authentication?](https://github.com/myflashlab/Firebase-ANE/wiki/D.-Authentication#get-started-with-firebase-authentication-in-adobe-air)  
+[How to use Firebase Storage?](https://github.com/myflashlab/Firebase-ANE/wiki/E.-Storage#get-started-with-firebase-storage-in-adobe-air)  
+[How to use Firebase Crash?](https://github.com/myflashlab/Firebase-ANE/wiki/F.-Crash#get-started-with-firebase-crash-in-adobe-air)  
 
 # Changelog
+*Sep 13, 2016*
+* Added Crash
+
 *Sep 06, 2016*
 * Added Storage
 

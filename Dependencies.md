@@ -68,3 +68,11 @@ firebase_storageCommon.ane V9.4.0 | GoogleSignIn.framework V3.4.0
  | GoogleNetworkingUtilities.framework V3.4.0
  | GoogleSymbolUtilities.framework V3.4.0
  | GoogleUtilities.framework V3.4.0
+
+**firebaseCrash.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane V1.1.0 | firebaseCore.ane V1.1.0
++ other ANEs required for the Core | + other frameworks required for the Core
+firebase_crash.ane V9.4.0 | FirebaseCrash.framework V3.4.0

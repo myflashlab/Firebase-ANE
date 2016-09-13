@@ -1,5 +1,8 @@
 Firebase Air Native Extension
 
+*Sep 13, 2016*
+* Added Crash
+
 *Sep 06, 2016*
 * Added Storage
 
