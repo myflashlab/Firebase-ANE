@@ -1,4 +1,4 @@
-# Firebase Air Native Extension V1.1.0 Android+iOS
+# Firebase Air Native Extension V1.2.0 Android+iOS
 Firebase ANE gives you access to the [Google Firebase project](https://firebase.google.com/docs/) in your AdobeAir projects supported on both Android and iOS with 100% identical ActionScript API. 
 
 If you decide to use Firebase in your next AdobeAir project, you should consider the following structure: Firebase Air Native Extension is consist of a *Core* ANE plus some other individual ANEs which are all dependent on the *Core*. i.e, If you wish to use [Firebase Cloud Messaging (FCM)](https://firebase.google.com/docs/cloud-messaging/), you need to embed the Core ANE first and then use the required ANE(s) for the FCM. This structure will make sure that you are not compiling unused native code in your AdobeAir project. In result, your app file size will be as small as possible and faster to debug/compile. [The Wiki pages](https://github.com/myflashlab/Firebase-ANE/wiki) will provide you detailed information about how you can embed each ANE based on the Firebase feature you wish to use in your app.
@@ -83,21 +83,21 @@ else
 */
 ```
 
-Firebase ANEs on Android are dependent on some other ANEs. Complete information about these dependencies are explained in wiki pages. However, to make sure you are not confused in the process of adding the dependencies, each Firebase ANE has an static public method named [checkDependencies](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/core/Firebase.html#checkDependencies()) which you may use while developing your app to be notified if you have correctly added all the required dependency ANEs or not.
+Firebase ANEs on Android are dependent on some other ANEs. Complete information about these dependencies are explained in wiki pages. However, to make sure you are not confused in the process of adding the dependencies, you may use our [Inspector ANE](https://github.com/myflashlab/ANE-Inspector-Tool) while developing your app to be notified if you have correctly added all the required dependency ANEs or not.
 
 ```actionscript
-Firebase.init();
-if (Firebase.checkDependencies()) trace("All dependencies required by firebaseCore.ane are loaded successfully.");
-else trace("some dependencies are missing!");
+import com.myflashlab.air.extensions.inspector.Inspector;
 
-DB.init();
-if (DB.checkDependencies()) trace("All dependencies required by firebaseDatabase.ane are loaded successfully.");
-else trace("some dependencies are missing!");
+if (!Inspector.check(Firebase, true, true))
+{
+	// If you're here, it means that the Firebase Class cannot be initialized!
+	trace("Inspector.lastError = " + Inspector.lastError);
+}
 
-// All the other Firebase ANEs has this method too.
+// You can use the inspector ANE with other Firebase child ANEs and ALL of the other myflashlabs ANEs.
 ```
 
-**NOTICE:** When you are compiling a release version of your app, it's a good idea to remove this ```checkDependencies``` method so your app is not doing unnecessary operations.
+**NOTICE:** When you are compiling a release version of your app, it's a **very** good idea to set the third parameter of the [check()](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/inspector/Inspector.html#check()) method to ```false``` so your app is not doing unnecessary operations. The third parameter checks if all of the dependency ANEs are included or not and you would need this check only when developing your app. However, the second parameter checks if the current platform you are running your app on, can initialize the Firebase classes or not. For example, if you are running on a simulator, the ```check``` method will return ```false```.
 
 # Requirements 
 1. Android API 15 or higher
@@ -130,13 +130,22 @@ else trace("some dependencies are missing!");
 [How to use Firebase Crash?](https://github.com/myflashlab/Firebase-ANE/wiki/F.-Crash#get-started-with-firebase-crash-in-adobe-air)  
 
 # Changelog
+*Sep 25, 2016 - V1.2.0*
+* Updated to Firebase SDK 9.6.1 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) also.
+* Updated to Firebase SDK 3.6.0 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/3_6_0/Firebase.zip) too.
+* (DB) Added Child and single events requested on [issue #15](https://github.com/myflashlab/Firebase-ANE/issues/15)
+* (DB) Fixed Query EndAt method on iOS reported on [issue #16](https://github.com/myflashlab/Firebase-ANE/issues/16)
+* (DB) Added ```DBServerValue``` class requested on [issue #10](https://github.com/myflashlab/Firebase-ANE/issues/10)
+* (Auth) Added signInAnonymously. Simply pass ```null``` to the [signIn()](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/Auth.html#signIn()) method. [issue #8](https://github.com/myflashlab/Firebase-ANE/issues/8)
+* The ```checkDependencies``` method is now deprecated in all Firebase ANEs. instead, you should use the [Inspector ANE](https://github.com/myflashlab/ANE-Inspector-Tool/) if you wish to check the availablity of dependencies.
+
 *Sep 13, 2016*
 * Added Crash
 
 *Sep 06, 2016*
 * Added Storage
 
-*Aug 10, 2016*
+*Aug 10, 2016 - V1.1.0*
 * Updated to Firebase SDK 9.4.0 for Android. Make sure to update all your dependency files also.
 * Updated to Firebase SDK 3.4.0 for iOS. Make sure you are updating the Frameworks also.
 * minor bug fixes

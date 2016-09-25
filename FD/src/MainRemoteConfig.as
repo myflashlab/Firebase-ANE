@@ -29,6 +29,7 @@ package
 	import com.myflashlab.air.extensions.firebase.core.Firebase;
 	import com.myflashlab.air.extensions.firebase.core.FirebaseConfig;
 	import com.myflashlab.air.extensions.firebase.remoteConfig.*;
+	import com.myflashlab.air.extensions.inspector.Inspector;
 	
 	
 	/**
@@ -146,9 +147,6 @@ package
 		{
 			var isConfigFound:Boolean = Firebase.init();
 			
-			if (Firebase.checkDependencies()) trace("All dependencies required by firebaseCore.ane are loaded successfully.");
-			else trace("some dependencies are missing!");
-			
 			if (isConfigFound)
 			{
 				var config:FirebaseConfig = Firebase.getConfig();
@@ -171,6 +169,17 @@ package
 		
 		private function initRemoteConfig():void
 		{
+			/*
+				How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
+				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
+				All you have to do is to pass the Class name of the target ANE to the check method.
+			*/
+			if (!Inspector.check(Crash, true, true))
+			{
+				trace("Inspector.lastError = " + Inspector.lastError);
+				return;
+			}
+			
 			// initialize RemoteConfig only once in your app
 			RemoteConfig.init();
 			

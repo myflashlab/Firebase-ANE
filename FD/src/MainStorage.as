@@ -33,6 +33,7 @@ package
 	import com.myflashlab.air.extensions.firebase.core.Firebase;
 	import com.myflashlab.air.extensions.firebase.core.FirebaseConfig;
 	import com.myflashlab.air.extensions.firebase.storage.*;
+	import com.myflashlab.air.extensions.inspector.Inspector;
 	
 	
 	/**
@@ -175,6 +176,17 @@ package
 		
 		private function initStorage():void
 		{
+			/*
+				How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
+				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
+				All you have to do is to pass the Class name of the target ANE to the check method.
+			*/
+			if (!Inspector.check(Storage, true, true))
+			{
+				trace("Inspector.lastError = " + Inspector.lastError);
+				return;
+			}
+			
 			// initialize the Storage first
 			Storage.init();
 			
@@ -358,7 +370,7 @@ package
 				var file:File = File.applicationDirectory.resolvePath("myBigFile.zip");
 				//var file:File = File.applicationDirectory.resolvePath("FlashDevelop.png");
 				
-				// to use the "putFile()" method, you file must be in File.documentsDirectory or File.applicationStorageDirectory
+				// to use the "putFile()" method, your file must be in File.documentsDirectory or File.applicationStorageDirectory
 				//var copy:File = File.documentsDirectory.resolvePath(file.name);
 				var copy:File = File.applicationStorageDirectory.resolvePath(file.name);
 				
@@ -494,7 +506,7 @@ package
 			
 			function updateMetadata(e:MouseEvent):void
 			{
-				var metadata:StorageMetadata = new StorageMetadata([{var1:"Value1"}, {var2:"Value2"}, {var3:3}]);
+				var metadata:StorageMetadata = new StorageMetadata([{var1:"Value1"}, {var2:"Value2"}, {var3:3}, {var4:4}]);
 				imgRef.updateMetadata(metadata, onMetadataUpdateSuccess, onMetadataUpdateFailed);
 			}
 			

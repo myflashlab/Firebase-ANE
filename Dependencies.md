@@ -4,6 +4,67 @@ Every release of Firebase ANEs will work with specific versions of Dependency AN
 **Note2**: Always try to use the latest AdobeAir SDK. Doing this will automatically solve a lot of weird error messages.  
 **Note3**: Firebase ANEs will not run on simulators. make sure you are building on a real device.  
 
+# V1.2.0 #
+Find the Android dependencies on [this branch](https://github.com/myflashlab/common-dependencies-ANE/tree/11eb0c7370b0a38da923e6f1adb77ba23a826e2b). *The master branch may have newer versions of these files but if you are building for the specified version number, you will need this specific branch.* And download the iOS frameworks [from here](https://dl.google.com/firebase/sdk/ios/3_6_0/Firebase.zip).
+
+**firebaseCore.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+androidSupport.ane V23.4.0 | FirebaseAnalytics.framework V3.6.0
+firebase_common.ane V9.6.1 | FirebaseInstanceID.framework V3.6.0
+firebase_iid.ane V9.6.1 | GoogleInterchangeUtilities.framework V3.6.0
+googlePlayServices_base.ane V9.6.1 | GoogleSymbolUtilities.framework V3.6.0
+googlePlayServices_basement.ane V9.6.1 | GoogleUtilities.framework V3.6.0
+googlePlayServices_tasks.ane V9.6.1 | 
+
+**firebaseAuth.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
++ other ANEs required for the Core | + other frameworks required for the Core
+firebase_auth.ane V9.6.1 | FirebaseAuth.framework V3.6.0
+firebase_authCommon.ane V9.6.1 | GoogleNetworkingUtilities.framework V3.6.0
+firebase_authModule.ane V9.6.1 | 
+
+**firebaseDatabase.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
++ other ANEs required for the Core | + other frameworks required for the Core
+firebase_database.ane V9.6.1 | FirebaseDatabase.framework V3.6.0
+firebase_databaseConnection.ane V9.6.1 | 
+
+**firebaseRemoteConfig.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
++ other ANEs required for the Core | + other frameworks required for the Core
+firebase_config.ane V9.6.1 | FirebaseRemoteConfig.framework V3.6.0
+ | GoogleIPhoneUtilities.framework V3.6.0
+
+**firebaseStorage.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
++ other ANEs required for the Core | + other frameworks required for the Core
+firebase_storage.ane V9.6.1 | FirebaseStorage.framework V3.6.0
+firebase_storageCommon.ane V9.6.1 | GoogleNetworkingUtilities.framework V3.6.0
+
+**firebaseCrash.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
++ other ANEs required for the Core | + other frameworks required for the Core
+firebase_crash.ane V9.6.1 | FirebaseCrash.framework V3.6.0
+
+----------------------------------------------------------
+
 # V1.1.0 #
 Find the Android dependencies on [this branch](https://github.com/myflashlab/common-dependencies-ANE/tree/d2e6ca60f511ca4baf219a67de57ebda90d56772). *The master branch may have newer versions of these files but if you are building for the specified version number, you will need this specific branch.* And download the iOS frameworks [from here](https://dl.google.com/firebase/sdk/ios/3_4_0/Firebase.zip).
 

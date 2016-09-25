@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <application xmlns="http://ns.adobe.com/air/application/22.0">
   <id>com.doitflash.firebaseCore</id>
-  <versionNumber>1.0.0</versionNumber>
+  <versionNumber>1.2.0</versionNumber>
   <supportedProfiles>mobileDevice</supportedProfiles>
   <filename>exFirebaseCore</filename>
   <name>Firebase Core</name>
@@ -136,6 +136,9 @@
     <!--<image512x512>icons/icon_512.png</image512x512>-->
   </icon>
   <extensions>
+	
+	<!-- Use the inspector ANE tool to check if you have correctly added all the dependencies or not -->
+	<extensionID>com.myflashlab.air.extensions.inspector</extensionID>
 	
 	<!-- download the dependency ANEs from https://github.com/myflashlab/common-dependencies-ANE -->
 	<extensionID>com.myflashlab.air.extensions.dependency.firebase.common</extensionID>

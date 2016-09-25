@@ -58,6 +58,7 @@
     <element path="lib\barcodeExtension.ane" />
     <element path="lib\googlePlayServices.ane" />
     <element path="lib\firebaseCore.ane" />
+    <element path="lib\ANE-inspector.ane" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

@@ -29,6 +29,7 @@ package
 	import com.myflashlab.air.extensions.firebase.core.Firebase;
 	import com.myflashlab.air.extensions.firebase.core.FirebaseConfig;
 	import com.myflashlab.air.extensions.firebase.auth.*;
+	import com.myflashlab.air.extensions.inspector.Inspector;
 	
 	
 	/**
@@ -167,10 +168,18 @@ package
 		
 		private function initFirebaseAuth():void
 		{
-			Auth.init();
+			/*
+			 	How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
+				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
+				All you have to do is to pass the Class name of the target ANE to the check method.
+			*/
+			if (!Inspector.check(Auth, true, true))
+			{
+				trace("Inspector.lastError = " + Inspector.lastError);
+				return;
+			}
 			
-			if (Auth.checkDependencies()) trace("All dependencies required by firebaseAuth.ane are loaded successfully.");
-			else trace("some dependencies are missing!");
+			Auth.init();
 			
 			Auth.listener.addEventListener(AuthEvents.AUTH_STATE_CHANGED, 				onAuthStateChanged);
 			Auth.listener.addEventListener(AuthEvents.CREATE_NEW_USER_RESULT, 			onCreateNewUserResult);
@@ -230,6 +239,16 @@ package
 				
 				// and finally feed in the Auth.signIn method with the parsed credential info from the authProvider instance.
 				Auth.signIn(authProvider.getCredential());
+			}
+			
+			// -----------------------------------------------------------
+			var btn04:MySprite = createBtn("signIn anonymously");
+			btn04.addEventListener(MouseEvent.CLICK, signInAnonymously);
+			_list.add(btn04);
+			
+			function signInAnonymously(e:MouseEvent):void
+			{
+				Auth.signIn(null);
 			}
 			
 			// -----------------------------------------------------------

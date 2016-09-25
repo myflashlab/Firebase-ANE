@@ -29,6 +29,7 @@ package
 	import com.myflashlab.air.extensions.firebase.core.Firebase;
 	import com.myflashlab.air.extensions.firebase.core.FirebaseConfig;
 	import com.myflashlab.air.extensions.firebase.db.*;
+	import com.myflashlab.air.extensions.inspector.Inspector;
 	
 	
 	/**
@@ -167,6 +168,17 @@ package
 		
 		private function initDatabase():void
 		{
+			/*
+				How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
+				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
+				All you have to do is to pass the Class name of the target ANE to the check method.
+			*/
+			if (!Inspector.check(DB, true, true))
+			{
+				trace("Inspector.lastError = " + Inspector.lastError);
+				return;
+			}
+			
 			DB.init();
 			
 			if (DB.checkDependencies()) trace("All dependencies required by firebaseDatabase.ane are loaded successfully.");
@@ -248,7 +260,19 @@ package
 				obj.var4 = "Boolean";
 				obj.var5 = "Array";
 				obj.var6 = "or another object!";
+				obj.var7 = DBServerValue.TIMESTAMP;
 				refTests.setValue(obj);
+			}
+			
+			// -----------------------------------------------------------
+			
+			var btn9:MySprite = createBtn("setValue Timestamp");
+			btn9.addEventListener(MouseEvent.CLICK, setValueTimestamp);
+			_list.add(btn9);
+			
+			function setValueTimestamp(e:MouseEvent):void
+			{
+				refTests.setValue(DBServerValue.TIMESTAMP);
 			}
 			
 			// -----------------------------------------------------------
@@ -260,7 +284,7 @@ package
 			function setValueArray(e:MouseEvent):void
 			{
 				var arr:Array = [];
-				arr.push("You can add", "String", "Number", "Boolean", "Object", "or another Array!");
+				arr.push("You can add", "String", "Number", "Boolean", "Object", "or another Array!", DBServerValue.TIMESTAMP);
 				refTests.setValue(arr);
 			}
 			
@@ -275,7 +299,7 @@ package
 				var obj:Object = {};
 				obj.var1 = "val1";
 				obj.var2 = 2;
-				obj.var3 = ["a", "b", "c", {a:"a", b:0}];
+				obj.var3 = ["a", "b", "c", {a:"a", b:0, c:DBServerValue.TIMESTAMP}];
 				
 				var arr:Array = [];
 				arr.push("value1", obj);
@@ -307,6 +331,7 @@ package
 				var map:Object = {};
 				map["/branch1/myChild1/subChild1/"] = "123465789";
 				map["/branch1/myChild1/subChild2/"] = "adasdadsa";
+				map["/branch1/myChild1/subChild3/"] = DBServerValue.TIMESTAMP;
 				refTests.updateChildren(map);
 			}
 			
