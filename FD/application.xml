@@ -31,6 +31,12 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.BROWSABLE" />
 				<category android:name="android.intent.category.DEFAULT" />
+				
+				<!-- 
+					Required by firebase_messaging.ane 
+					Change "air.com.doitflash.firebaseCore" to your own app package name
+				-->
+				<data android:scheme="air.com.doitflash.firebaseCore" />
 			</intent-filter>
 		</activity>
 		
@@ -72,6 +78,22 @@
 		<activity android:name="com.google.android.gms.common.api.GoogleApiActivity"
                   android:theme="@android:style/Theme.Translucent.NoTitleBar"
                   android:exported="false"/>
+				  
+		<!-- Required by firebaseCrash.ane -->
+		<!-- <service android:name="com.google.firebase.crash.internal.service.FirebaseCrashReceiverService" android:process=":background_crash"/>
+		<service android:name="com.google.firebase.crash.internal.service.FirebaseCrashSenderService" android:process=":background_crash"/> -->
+		
+		<!-- Required by firebase_messaging.ane -->
+		<!-- <service android:name="com.myflashlab.firebase.fcm.MyFirebaseMessagingService">
+			<intent-filter>
+				<action android:name="com.google.firebase.MESSAGING_EVENT"/>
+			</intent-filter>
+		</service>
+		<service android:name="com.myflashlab.firebase.fcm.MyFirebaseInstanceIDService">
+			<intent-filter>
+				<action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+			</intent-filter>
+		</service> -->
 		
 	</application>
 </manifest>]]></manifestAdditions>

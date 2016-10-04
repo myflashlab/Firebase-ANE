@@ -63,6 +63,15 @@ firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
 + other ANEs required for the Core | + other frameworks required for the Core
 firebase_crash.ane V9.6.1 | FirebaseCrash.framework V3.6.0
 
+**firebaseMessaging.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
++ other ANEs required for the Core | + other frameworks required for the Core
+firebase_messaging.ane V9.6.1 | FirebaseMessaging.framework V3.6.0
+ | GoogleIPhoneUtilities.framework V3.6.0
+
 ----------------------------------------------------------
 
 # V1.1.0 #

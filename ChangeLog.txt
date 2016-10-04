@@ -1,5 +1,8 @@
 Firebase Air Native Extension
 
+*Oct 04, 2016*
+* Added FCM
+
 *Sep 25, 2016 - V1.2.0*
 * Updated to Firebase SDK 9.6.1 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) also.
 * Updated to Firebase SDK 3.6.0 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/3_6_0/Firebase.zip) too.

@@ -33,7 +33,7 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 * Firebase App Indexing (Coming soon)
 * Firebase Analytics (Coming soon)
 * [Firebase Crash Report](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainCrash.as)
-* Firebase FCM (Coming soon)
+* [Firebase FCM](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainFcm.as)
 
 # Air Usage
 ```actionscript
@@ -116,7 +116,7 @@ if (!Inspector.check(Firebase, true, true))
 * firebaseAppIndexing.ane (coming soon)
 * firebaseAnalytics.ane (coming soon)
 * [firebaseCrash.ane](http://www.myflashlabs.com/product/crash-firebase-air-native-extension/)
-* firebaseMessaging.ane (coming soon)
+* [firebaseMessaging.ane](http://www.myflashlabs.com/product/fcm-firebase-air-native-extension/)
 
 ![Firebase ANE](http://www.myflashlabs.com/wp-content/uploads/2016/07/product_adobe-air-ane-extension-firebase_all-595x738.jpg)
 
@@ -128,8 +128,12 @@ if (!Inspector.check(Firebase, true, true))
 [How to use Firebase Authentication?](https://github.com/myflashlab/Firebase-ANE/wiki/D.-Authentication#get-started-with-firebase-authentication-in-adobe-air)  
 [How to use Firebase Storage?](https://github.com/myflashlab/Firebase-ANE/wiki/E.-Storage#get-started-with-firebase-storage-in-adobe-air)  
 [How to use Firebase Crash?](https://github.com/myflashlab/Firebase-ANE/wiki/F.-Crash#get-started-with-firebase-crash-in-adobe-air)  
+[How to use Firebase FCM?](https://github.com/myflashlab/Firebase-ANE/wiki/G.-FCM#get-started-with-firebase-fcm-in-adobe-air)  
 
 # Changelog
+*Oct 04, 2016*
+* Added FCM
+
 *Sep 25, 2016 - V1.2.0*
 * Updated to Firebase SDK 9.6.1 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) also.
 * Updated to Firebase SDK 3.6.0 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/3_6_0/Firebase.zip) too.
