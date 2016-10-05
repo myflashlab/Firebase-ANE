@@ -95,6 +95,25 @@
 			</intent-filter>
 		</service> -->
 		
+		<!-- Required by firebase_analyticsImpl.ane and firebase-analytics.ane -->
+		<!-- <receiver
+			android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+			android:enabled="true" 
+			android:exported="false">
+		</receiver>
+		<receiver 
+			android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver" 
+			android:permission="android.permission.INSTALL_PACKAGES" 
+			android:enabled="true">
+			<intent-filter>
+				<action android:name="com.android.vending.INSTALL_REFERRER"/>
+			</intent-filter>
+		</receiver>
+		<service
+			android:name="com.google.android.gms.measurement.AppMeasurementService"
+			android:enabled="true"
+			android:exported="false"/> -->
+		
 	</application>
 </manifest>]]></manifestAdditions>
   </android>
@@ -117,9 +136,6 @@
 			
 		<key>UIRequiresPersistentWiFi</key>
 		<string>NO</string>
-		 
-		<key>UIFileSharingEnabled</key>
-		<string>YES</string>
 	
 		<key>UIDeviceFamily</key>
 		<array>
@@ -127,9 +143,44 @@
 			<string>2</string>
 		</array>
 		
+		<!-- Required by firebase_messaging.ane -->
+		<!-- <key>UIBackgroundModes</key>
+		<array>
+			<string>remote-notification</string>
+		</array> -->
+		
 	]]></InfoAdditions>
+	
     <requestedDisplayResolution>high</requestedDisplayResolution>
-	  
+	
+	<!-- Required by firebase_messaging.ane -->
+	<!-- <Entitlements>
+	<![CDATA[
+	
+		<key>keychain-access-groups</key>
+		<array>
+			<string>57AX1RU6SZ.*</string>		
+		</array>
+		
+		-- set to 'true' when debugging your app and set to 'false' when building for adhoc or distribution --
+		<key>get-task-allow</key>
+		<true/>
+		
+		<key>application-identifier</key>
+		<string>57AX1RU6SZ.com.doitflash.firebaseCore</string>
+		<key>com.apple.developer.team-identifier</key>
+		<string>57AX1RU6SZ</string>
+		
+		-- set to 'development' when debugging your app and set to 'production' when building for adhoc or distribution --
+		<key>aps-environment</key>
+		<string>development</string>
+		
+		-- Apple has silently added this key which is required ONLY when you are trying to upload your binary to itunesconnect --
+		--<key>beta-reports-active</key>
+		<false/>--
+		
+	]]></Entitlements> -->
+	
   </iPhone>
 	
 	

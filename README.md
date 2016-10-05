@@ -31,7 +31,7 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 * Firebase Invites (Coming soon)
 * [Firebase Storage](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainStorage.as)
 * Firebase App Indexing (Coming soon)
-* Firebase Analytics (Coming soon)
+* [Firebase Analytics](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainAnalytics.as)
 * [Firebase Crash Report](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainCrash.as)
 * [Firebase FCM](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainFcm.as)
 
@@ -114,7 +114,7 @@ if (!Inspector.check(Firebase, true, true))
 * firebaseInvites.ane (coming soon)
 * [firebaseStorage.ane](http://www.myflashlabs.com/product/storage-firebase-air-native-extension/)
 * firebaseAppIndexing.ane (coming soon)
-* firebaseAnalytics.ane (coming soon)
+* [firebaseAnalytics.ane](http://www.myflashlabs.com/product/analytics-firebase-air-native-extension/)
 * [firebaseCrash.ane](http://www.myflashlabs.com/product/crash-firebase-air-native-extension/)
 * [firebaseMessaging.ane](http://www.myflashlabs.com/product/fcm-firebase-air-native-extension/)
 
@@ -129,8 +129,12 @@ if (!Inspector.check(Firebase, true, true))
 [How to use Firebase Storage?](https://github.com/myflashlab/Firebase-ANE/wiki/E.-Storage#get-started-with-firebase-storage-in-adobe-air)  
 [How to use Firebase Crash?](https://github.com/myflashlab/Firebase-ANE/wiki/F.-Crash#get-started-with-firebase-crash-in-adobe-air)  
 [How to use Firebase FCM?](https://github.com/myflashlab/Firebase-ANE/wiki/G.-FCM#get-started-with-firebase-fcm-in-adobe-air)  
+[How to use Firebase Analytics?](https://github.com/myflashlab/Firebase-ANE/wiki/H.-Analytics#get-started-with-firebase-analytics-in-adobe-air)  
 
 # Changelog
+*Oct 05, 2016*
+* Added Analytics
+
 *Oct 04, 2016*
 * Added FCM
 

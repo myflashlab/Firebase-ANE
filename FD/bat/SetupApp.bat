@@ -18,13 +18,13 @@ set AND_ICONS=icons/android
 
 set AND_SIGNING_OPTIONS=-storetype pkcs12 -keystore "%AND_CERT_FILE%" -storepass %AND_CERT_PASS%
 
-:: iOS packaging
+:: iOS packaging -------------------------- .p12 files must NOT be the aps ones
 set IOS_DIST_CERT_FILE=cert\dis.p12
 set IOS_DEV_CERT_FILE=cert\dev.p12
 set IOS_DEV_CERT_PASS=pass
-set IOS_PROVISION_DEV=cert\comDoitflash.mobileprovision
+set IOS_PROVISION_DEV=cert\FirebaseCoreDev.mobileprovision
 set IOS_PROVISION_DIST=cert\xxx.mobileprovision
-set IOS_PROVISION_ADHOC=cert\AdHocDoitflash.mobileprovision
+set IOS_PROVISION_ADHOC=cert\FirebaseCoreAdhoc.mobileprovision
 set IOS_ICONS=icons/ios
 
 set IOS_DEV_SIGNING_OPTIONS=-hideAneLibSymbols no -storetype pkcs12 -keystore "%IOS_DEV_CERT_FILE%" -storepass %IOS_DEV_CERT_PASS% -provisioning-profile %IOS_PROVISION_DEV%

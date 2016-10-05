@@ -1,5 +1,8 @@
 Firebase Air Native Extension
 
+*Oct 05, 2016*
+* Added Analytics
+
 *Oct 04, 2016*
 * Added FCM
 
