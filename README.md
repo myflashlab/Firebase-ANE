@@ -100,9 +100,9 @@ if (!Inspector.check(Firebase, true, true))
 **NOTICE:** When you are compiling a release version of your app, it's a **very** good idea to set the third parameter of the [check()](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/inspector/Inspector.html#check()) method to ```false``` so your app is not doing unnecessary operations. The third parameter checks if all of the dependency ANEs are included or not and you would need this check only when developing your app. However, the second parameter checks if the current platform you are running your app on, can initialize the Firebase classes or not. For example, if you are running on a simulator, the ```check``` method will return ```false```.
 
 # Requirements 
-1. Android API 15 or higher
-2. iOS SDK 7.0 or higher
-3. Air SDK 22 or higher
+1. Android API 15+
+2. iOS SDK 7.0+ (FCM ANE works on iOS 8.0+)
+3. Air SDK 22+
 4. Every Firebase ANE might need some dependency Frameworks/ANEs which is [explained in details here](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md).
 
 # Commercial Version
