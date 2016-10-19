@@ -100,10 +100,12 @@ package
 			
 			if (payload) // If available, it means that the Invoke listener contains FCM data
 			{
+				C.log("---------------------------------");
 				for (var name:String in payload)
 				{
 					C.log(name + " = " + payload[name]);
 				}
+				C.log("---------------------------------");
 			}
 		}
 		

@@ -31,11 +31,6 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.BROWSABLE" />
 				<category android:name="android.intent.category.DEFAULT" />
-				
-				<!-- 
-					Required by firebase_messaging.ane 
-					Change "air.com.doitflash.firebaseCore" to your own app package name
-				-->
 				<data android:scheme="air.com.doitflash.firebaseCore" />
 			</intent-filter>
 		</activity>
@@ -93,7 +88,20 @@
 			<intent-filter>
 				<action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
 			</intent-filter>
-		</service> -->
+		</service>
+		<activity 
+			android:name="com.myflashlab.firebase.fcm.MyFirebaseMessagingIntent" 
+			android:theme="@style/Theme.Transparent"
+			android:exported="false"
+			android:noHistory="true"
+			android:clearTaskOnLaunch="true"
+			android:hardwareAccelerated="false"
+			android:stateNotNeeded="true">
+			<intent-filter>
+				<action android:name="MY_INTENT" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>-->
 		
 		<!-- Required by firebase_analyticsImpl.ane and firebase-analytics.ane -->
 		<!-- <receiver
@@ -127,6 +135,10 @@
 		<!--iOS 7.0 or higher can support this ANE-->
 		<key>MinimumOSVersion</key>
 		<string>7.0</string>
+		
+		<!-- If you are using the FCM ANE, you must change the min iOS to 8.0 -->
+		<!-- <key>MinimumOSVersion</key>
+		<string>8.0</string> -->
 		 
 		<key>UIPrerenderedIcon</key>
 		<true/>
@@ -223,6 +235,9 @@
 	
 	<!-- And finally embed the Firebase core ANE -->
 	<extensionID>com.myflashlab.air.extensions.firebase.core</extensionID>
+	
+	<!-- When adding other Firebase Child ANEs, make sure to study the following page carefully to know
+	which other ANEs/dependencies must be included to your project. -->
 	
   </extensions>
 </application>

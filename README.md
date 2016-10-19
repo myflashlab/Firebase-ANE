@@ -132,11 +132,14 @@ if (!Inspector.check(Firebase, true, true))
 [How to use Firebase Analytics?](https://github.com/myflashlab/Firebase-ANE/wiki/H.-Analytics#get-started-with-firebase-analytics-in-adobe-air)  
 
 # Changelog
+*Oct 19, 2016*
+* Added FCM
+
 *Oct 05, 2016*
 * Added Analytics
 
 *Oct 04, 2016*
-* Added FCM
+* Added FCM beta
 
 *Sep 25, 2016 - V1.2.0*
 * Updated to Firebase SDK 9.6.1 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) also.
