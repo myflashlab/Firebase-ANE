@@ -1,4 +1,4 @@
-# Firebase Air Native Extension V1.2.0 Android+iOS
+# Firebase Air Native Extension V2.0.0 Android+iOS
 Firebase ANE gives you access to the [Google Firebase project](https://firebase.google.com/docs/) in your AdobeAir projects supported on both Android and iOS with 100% identical ActionScript API. 
 
 If you decide to use Firebase in your next AdobeAir project, you should consider the following structure: Firebase Air Native Extension is consist of a *Core* ANE plus some other individual ANEs which are all dependent on the *Core*. i.e, If you wish to use [Firebase Cloud Messaging (FCM)](https://firebase.google.com/docs/cloud-messaging/), you need to embed the Core ANE first and then use the required ANE(s) for the FCM. This structure will make sure that you are not compiling unused native code in your AdobeAir project. In result, your app file size will be as small as possible and faster to debug/compile. [The Wiki pages](https://github.com/myflashlab/Firebase-ANE/wiki) will provide you detailed information about how you can embed each ANE based on the Firebase feature you wish to use in your app.
@@ -101,7 +101,7 @@ if (!Inspector.check(Firebase, true, true))
 
 # Requirements 
 1. Android API 15+
-2. iOS SDK 7.0+ (FCM ANE works on iOS 8.0+)
+2. iOS SDK 8.0+
 3. Air SDK 22+
 4. Every Firebase ANE might need some dependency Frameworks/ANEs which is [explained in details here](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md).
 
@@ -132,6 +132,18 @@ if (!Inspector.check(Firebase, true, true))
 [How to use Firebase Analytics?](https://github.com/myflashlab/Firebase-ANE/wiki/H.-Analytics#get-started-with-firebase-analytics-in-adobe-air)  
 
 # Changelog
+*Nov 27, 2016 - V2.0.0*
+* Updated to Firebase SDK 10.0.0 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v200)
+* Updated to Firebase SDK 3.10.0 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/3_10_0/Firebase-3.10.0.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v200)
+* All Firebase ANEs are now optimized for AIR 24
+* Minimum iOS version to support the Firebase ANEs will be iOS 8.0+ from now on
+* (Auth) Added [sendEmailVerification](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/FirebaseUser.html#sendEmailVerification()) method
+* (Auth) Added [isEmailVerified](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/FirebaseUser.html#isEmailVerified) property
+* (Auth) Added [fetchProvidersForEmail](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/Auth.html#fetchProvidersForEmail()) method
+* (Crash) You no longer need to add services to the manifest Android side.
+* Minor bug fixes on the ANE side.
+* With upgrading to the latest Firebase SDK, a lot of native bugs are also fixed. You can learn about them by checking the official native Firebase [release notes](https://firebase.google.com/support/releases).
+
 *Oct 19, 2016*
 * Added FCM
 

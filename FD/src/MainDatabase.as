@@ -173,16 +173,13 @@ package
 				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
 				All you have to do is to pass the Class name of the target ANE to the check method.
 			*/
-			if (!Inspector.check(DB, true, true))
+			/*if (!Inspector.check(DB, true, true))
 			{
 				trace("Inspector.lastError = " + Inspector.lastError);
 				return;
-			}
+			}*/
 			
 			DB.init();
-			
-			if (DB.checkDependencies()) trace("All dependencies required by firebaseDatabase.ane are loaded successfully.");
-			else trace("some dependencies are missing!");
 			
 			var refDisconnect:DBReference;
 			if (Firebase.os == Firebase.IOS) refDisconnect = DB.getReference("disconFromIos");

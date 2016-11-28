@@ -173,11 +173,11 @@ package
 				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
 				All you have to do is to pass the Class name of the target ANE to the check method.
 			*/
-			if (!Inspector.check(Auth, true, true))
+			/*if (!Inspector.check(Auth, true, true))
 			{
 				trace("Inspector.lastError = " + Inspector.lastError);
 				return;
-			}
+			}*/
 			
 			Auth.init();
 			
@@ -308,22 +308,23 @@ package
 		
 		private function getUserInfo():void
 		{
-			C.log("displayName = " + 	FirebaseUser.displayName);
-			C.log("email = " + 			FirebaseUser.email);
-			C.log("photoUrl = " + 		FirebaseUser.photoUrl);
-			C.log("providerId = " + 	FirebaseUser.providerId);
-			C.log("userId = " + 		FirebaseUser.userId);
+			C.log("displayName = " + 		FirebaseUser.displayName);
+			C.log("email = " + 				FirebaseUser.email);
+			C.log("photoUrl = " + 			FirebaseUser.photoUrl);
+			C.log("providerId = " + 		FirebaseUser.providerId);
+			C.log("userId = " + 			FirebaseUser.userId);
+			C.log("isEmailVerified = " +	FirebaseUser.isEmailVerified);
 			
 			var userInfoOnProviders:UserInfo;
 			for (var i:int = 0; i < FirebaseUser.providersData.length; i++) 
 			{
 				userInfoOnProviders = FirebaseUser.providersData[i];
 				C.log("-------------")
-				C.log("providerId = " + 	userInfoOnProviders.providerId);
-				C.log("displayName = " + 	userInfoOnProviders.displayName);
-				C.log("email = " + 			userInfoOnProviders.email);
-				C.log("photoUrl = " + 		userInfoOnProviders.photoUrl);
-				C.log("userId = " + 		userInfoOnProviders.userId);
+				C.log("providerId = " + 		userInfoOnProviders.providerId);
+				C.log("displayName = " + 		userInfoOnProviders.displayName);
+				C.log("email = " + 				userInfoOnProviders.email);
+				C.log("photoUrl = " + 			userInfoOnProviders.photoUrl);
+				C.log("userId = " + 			userInfoOnProviders.userId);
 				C.log("-------------")
 			}
 		}

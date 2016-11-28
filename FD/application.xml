@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<application xmlns="http://ns.adobe.com/air/application/22.0">
+<application xmlns="http://ns.adobe.com/air/application/24.0">
   <id>com.doitflash.firebaseCore</id>
-  <versionNumber>1.2.0</versionNumber>
+  <versionNumber>2.0.0</versionNumber>
   <supportedProfiles>mobileDevice</supportedProfiles>
   <filename>exFirebaseCore</filename>
   <name>Firebase Core</name>
@@ -74,9 +74,6 @@
                   android:theme="@android:style/Theme.Translucent.NoTitleBar"
                   android:exported="false"/>
 				  
-		<!-- Required by firebaseCrash.ane -->
-		<!-- <service android:name="com.google.firebase.crash.internal.service.FirebaseCrashReceiverService" android:process=":background_crash"/>
-		<service android:name="com.google.firebase.crash.internal.service.FirebaseCrashSenderService" android:process=":background_crash"/> -->
 		
 		<!-- Required by firebase_messaging.ane -->
 		<!-- <service android:name="com.myflashlab.firebase.fcm.MyFirebaseMessagingService">
@@ -102,6 +99,18 @@
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>-->
+		
+		<!-- Optional for firebaseMessaging.ane 
+			IMPORTANT: Works only if you are using the resources.ane project 
+			Learn more about the resources.ane project here:
+			http://www.myflashlabs.com/adobe-air-native-extension-resources-project
+		-->
+		<!--
+			<meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/myCustomColor" />
+			<meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/ic_my_custom_notification" />
+		-->
+		
+		
 		
 		<!-- Required by firebase_analyticsImpl.ane and firebase-analytics.ane -->
 		<!-- <receiver
@@ -132,13 +141,9 @@
 	  
 	 <InfoAdditions><![CDATA[
 	
-		<!--iOS 7.0 or higher can support this ANE-->
+		<!--iOS 8.0 or higher can support this ANE-->
 		<key>MinimumOSVersion</key>
-		<string>7.0</string>
-		
-		<!-- If you are using the FCM ANE, you must change the min iOS to 8.0 -->
-		<!-- <key>MinimumOSVersion</key>
-		<string>8.0</string> -->
+		<string>8.0</string>
 		 
 		<key>UIPrerenderedIcon</key>
 		<true/>
@@ -232,12 +237,16 @@
 	<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.basement</extensionID>
 	<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.tasks</extensionID>
 	<extensionID>com.myflashlab.air.extensions.dependency.androidSupport</extensionID>
+	<extensionID>com.myflashlab.air.extensions.dependency.overrideAir</extensionID>
 	
 	<!-- And finally embed the Firebase core ANE -->
 	<extensionID>com.myflashlab.air.extensions.firebase.core</extensionID>
 	
-	<!-- When adding other Firebase Child ANEs, make sure to study the following page carefully to know
-	which other ANEs/dependencies must be included to your project. -->
+	<!-- 
+		When adding other Firebase Child ANEs, make sure to study the following page carefully to know
+		which other ANEs/dependencies must be included to your project. 
+		https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md
+	-->
 	
   </extensions>
 </application>

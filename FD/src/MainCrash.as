@@ -163,15 +163,13 @@ package
 					You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
 					All you have to do is to pass the Class name of the target ANE to the check method.
 				*/
-				if (!Inspector.check(Crash, true, true))
+				/*if (!Inspector.check(Crash, true, true))
 				{
 					trace("Inspector.lastError = " + Inspector.lastError);
 					return;
-				}
-				else
-				{
-					startWithCrash();
-				}
+				}*/
+				
+				startWithCrash();
 			}
 			else
 			{
@@ -191,9 +189,9 @@ package
 				Crash.log("my log msg");
 			}
 			
-			var btn0:MySprite = createBtn("crash the app");
-			btn0.addEventListener(MouseEvent.CLICK, crashTheApp);
-			_list.add(btn0);
+			var btn1:MySprite = createBtn("crash the app");
+			btn1.addEventListener(MouseEvent.CLICK, crashTheApp);
+			_list.add(btn1);
 			
 			function crashTheApp(e:MouseEvent):void
 			{

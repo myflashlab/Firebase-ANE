@@ -32,6 +32,8 @@ package
 	import com.myflashlab.air.extensions.firebase.core.FirebaseConfig;
 	import com.myflashlab.air.extensions.firebase.fcm.*;
 	
+	import com.myflashlab.air.extensions.inspector.Inspector;
+	
 	
 	/**
 	 * ...

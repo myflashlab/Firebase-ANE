@@ -181,11 +181,11 @@ package
 				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
 				All you have to do is to pass the Class name of the target ANE to the check method.
 			*/
-			if (!Inspector.check(Storage, true, true))
+			/*if (!Inspector.check(Storage, true, true))
 			{
 				trace("Inspector.lastError = " + Inspector.lastError);
 				return;
-			}
+			}*/
 			
 			// initialize the Storage first
 			Storage.init();
@@ -552,7 +552,7 @@ package
 			function getFile(e:MouseEvent):void
 			{
 				// deside where you want to save the downloaded file. Note that this location must be writable.
-				var distination:File = File.documentsDirectory.resolvePath("myBigFile.zip");
+				var distination:File = File.applicationStorageDirectory.resolvePath("myBigFile.zip");
 				
 				fileDownloadRef = rootRef.child("folder/myBigFile.zip");
 				
