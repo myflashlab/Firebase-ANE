@@ -4,7 +4,7 @@ cd %~dp0 & cd ..
 :user_configuration
 
 :: Static path to Flex SDK
-set FLEX_SDK=D:\flex_sdk_4.6_air_sdk_24-beta
+set FLEX_SDK=D:\flex_sdk_4.6_air_sdk_24-180
 
 :: Path to Java SDK
 set JAVA_SDK=C:\Program Files (x86)\Java\jdk1.7.0_04

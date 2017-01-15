@@ -1,5 +1,14 @@
 Firebase Air Native Extension
 
+*Jan 14, 2017 - V3.0.0*
+* Firebase Core ANE needs the ```appinvite``` dependency also from now on.
+* You will need AIR SDK 24 or higher to compile Firebase ANEs. Older SDKs are just too old to support Firebase from mow on.
+* firebaseDynamicLinks.ane has been added and works on both Android and iOS. To make sure it works correctly, you need to initialize dynamicLinks as soon as possible in your app, right after you initialized the Core Firebase ANE. ```Firebase.init(true);```
+* ```FirebaseConfig``` now has two getter/setter properties (```projectID``` and ```webApiKey```) which can be used for accessing dynamicLinks REST API.
+* [Firebase.init](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/core/Firebase.html#init()) accepts a boolean which is set to ```false``` by default. If set to ```true```, the ANE will be prepared to use DynamicLinks.
+* ```FirebaseEvents``` has been introduced which notifies you when GoogleApiClient is connected or disconnected. You may find these events helpful only on the Android side when working with DynamicLinks. These events will not be dispatched at all when you're running on iOS.
+* If you are going to add DynamicLinks to your project, read the Wiki and make sure you are generating new provision files for iOS. Your old provisions will not work with DynamicLinks.
+
 *Nov 27, 2016 - V2.0.0*
 * Updated to Firebase SDK 10.0.0 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v200)
 * Updated to Firebase SDK 3.10.0 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/3_10_0/Firebase-3.10.0.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v200)

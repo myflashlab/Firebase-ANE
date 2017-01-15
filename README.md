@@ -1,7 +1,7 @@
-# Firebase Air Native Extension V2.0.0 Android+iOS
+# Firebase Air Native Extension V3.0.0 Android+iOS
 Firebase ANE gives you access to the [Google Firebase project](https://firebase.google.com/docs/) in your AdobeAir projects supported on both Android and iOS with 100% identical ActionScript API. 
 
-If you decide to use Firebase in your next AdobeAir project, you should consider the following structure: Firebase Air Native Extension is consist of a *Core* ANE plus some other individual ANEs which are all dependent on the *Core*. i.e, If you wish to use [Firebase Cloud Messaging (FCM)](https://firebase.google.com/docs/cloud-messaging/), you need to embed the Core ANE first and then use the required ANE(s) for the FCM. This structure will make sure that you are not compiling unused native code in your AdobeAir project. In result, your app file size will be as small as possible and faster to debug/compile. [The Wiki pages](https://github.com/myflashlab/Firebase-ANE/wiki) will provide you detailed information about how you can embed each ANE based on the Firebase feature you wish to use in your app.
+If you decide to use Firebase in your next AdobeAir project, you should consider the following structure: Firebase Air Native Extension is consist of a *Core* ANE plus some other individual ANEs which are all dependent on the *Core*. i.e, If you wish to use [Firebase Cloud Messaging (FCM)](http://www.myflashlabs.com/product/fcm-firebase-air-native-extension/), you need to embed the Core ANE first and then use the required ANE(s) for the FCM. This structure will make sure that you are not compiling unused native code in your AdobeAir project. In result, your app file size will be as small as possible and faster to debug/compile. [The Wiki pages](https://github.com/myflashlab/Firebase-ANE/wiki) will provide you detailed information about how you can embed each ANE based on the Firebase feature you wish to use in your app.
 
 **Main Features:**
 * [Analytics](https://firebase.google.com/docs/analytics/) Reimagine analytics for mobile 
@@ -12,7 +12,6 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 * [Remote Config](https://firebase.google.com/docs/remote-config/) Customize your app on the fly 
 * [Crash Reporting](https://firebase.google.com/docs/crash/) Keep your app stable 
 * [Notifications](https://firebase.google.com/docs/notifications/) Engage with users at the right moment 
-* [App Indexing](https://firebase.google.com/docs/app-indexing/) Drive organic search traffic to your app 
 * [Dynamic Links](https://firebase.google.com/docs/dynamic-links/) Send users to the right place inside your app 
 * [Invites](https://firebase.google.com/docs/invites/) Empower your users to share your app 
 * [AdWords](https://firebase.google.com/docs/adwords/) Acquire users with the reach of Google 
@@ -27,10 +26,9 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 * [Firebase Realtime Database](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainDatabase.as)
 * [Firebase Remote Config](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainRemoteConfig.as)
 * [Firebase Authentication](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainAuth.as)
-* Firebase Dynamic Links (Coming soon)
+* [Firebase Dynamic Links](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainDynamicLinks.as)
 * Firebase Invites (Coming soon)
 * [Firebase Storage](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainStorage.as)
-* Firebase App Indexing (Coming soon)
 * [Firebase Analytics](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainAnalytics.as)
 * [Firebase Crash Report](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainCrash.as)
 * [Firebase FCM](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainFcm.as)
@@ -102,7 +100,7 @@ if (!Inspector.check(Firebase, true, true))
 # Requirements 
 1. Android API 15+
 2. iOS SDK 8.0+
-3. Air SDK 22+
+3. Air SDK 24+
 4. Every Firebase ANE might need some dependency Frameworks/ANEs which is [explained in details here](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md).
 
 # Commercial Version
@@ -110,10 +108,9 @@ if (!Inspector.check(Firebase, true, true))
 * [firebaseDatabase.ane](http://www.myflashlabs.com/product/realtime-database-firebase-air-native-extension/)
 * [firebaseRemoteConfig.ane](http://www.myflashlabs.com/product/remote-config-firebase-air-native-extension/)
 * [firebaseAuth.ane](http://www.myflashlabs.com/product/authentication-firebase-air-native-extension/)
-* firebaseDynamicLinks.ane (coming soon)
+* [firebaseDynamicLinks.ane](http://www.myflashlabs.com/product/dynamic-links-firebase-air-native-extension)
 * firebaseInvites.ane (coming soon)
 * [firebaseStorage.ane](http://www.myflashlabs.com/product/storage-firebase-air-native-extension/)
-* firebaseAppIndexing.ane (coming soon)
 * [firebaseAnalytics.ane](http://www.myflashlabs.com/product/analytics-firebase-air-native-extension/)
 * [firebaseCrash.ane](http://www.myflashlabs.com/product/crash-firebase-air-native-extension/)
 * [firebaseMessaging.ane](http://www.myflashlabs.com/product/fcm-firebase-air-native-extension/)
@@ -130,8 +127,18 @@ if (!Inspector.check(Firebase, true, true))
 [How to use Firebase Crash?](https://github.com/myflashlab/Firebase-ANE/wiki/F.-Crash#get-started-with-firebase-crash-in-adobe-air)  
 [How to use Firebase FCM?](https://github.com/myflashlab/Firebase-ANE/wiki/G.-FCM#get-started-with-firebase-fcm-in-adobe-air)  
 [How to use Firebase Analytics?](https://github.com/myflashlab/Firebase-ANE/wiki/H.-Analytics#get-started-with-firebase-analytics-in-adobe-air)  
+[How to use Firebase Dynamic Links?](https://github.com/myflashlab/Firebase-ANE/wiki/I.-Dynamic-Links#get-started-with-firebase-dynamic-links-in-adobe-air)  
 
 # Changelog
+*Jan 14, 2017 - V3.0.0*
+* Firebase Core ANE needs the ```appinvite``` dependency also from now on.
+* You will need AIR SDK 24 or higher to compile Firebase ANEs. Older SDKs are just too old to support Firebase from mow on.
+* firebaseDynamicLinks.ane has been added and works on both Android and iOS. To make sure it works correctly, you need to initialize dynamicLinks as soon as possible in your app, right after you initialized the Core Firebase ANE. ```Firebase.init(true);```
+* ```FirebaseConfig``` now has two getter/setter properties (```projectID``` and ```webApiKey```) which can be used for accessing dynamicLinks REST API.
+* [Firebase.init](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/core/Firebase.html#init()) accepts a boolean which is set to ```false``` by default. If set to ```true```, the ANE will be prepared to use DynamicLinks.
+* ```FirebaseEvents``` has been introduced which notifies you when GoogleApiClient is connected or disconnected. You may find these events helpful only on the Android side when working with DynamicLinks. These events will not be dispatched at all when you're running on iOS.
+* If you are going to add DynamicLinks to your project, read the Wiki and make sure you are generating new provision files for iOS. Your old provisions will not work with DynamicLinks.
+
 *Nov 27, 2016 - V2.0.0*
 * Updated to Firebase SDK 10.0.0 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v200)
 * Updated to Firebase SDK 3.10.0 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/3_10_0/Firebase-3.10.0.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v200)
