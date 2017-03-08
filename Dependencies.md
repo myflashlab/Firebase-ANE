@@ -26,7 +26,7 @@ On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
 + other ANEs required by the Core | + other frameworks/ANEs required by the Core
-firebase_auth.ane V10.0.0 | FirebaseAuth.framework V3.13.0
+firebase_auth.ane V10.2.0 | FirebaseAuth.framework V3.13.0
  | GTMSessionFetcher.framework V3.13.0
 
 **firebaseDatabase.ane**
