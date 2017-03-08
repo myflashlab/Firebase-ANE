@@ -30,8 +30,7 @@ package
 	import flash.data.EncryptedLocalStore;
 	import flash.utils.ByteArray;
 	
-	import com.myflashlab.air.extensions.firebase.core.Firebase;
-	import com.myflashlab.air.extensions.firebase.core.FirebaseConfig;
+	import com.myflashlab.air.extensions.firebase.core.*;
 	import com.myflashlab.air.extensions.firebase.storage.*;
 	import com.myflashlab.air.extensions.inspector.Inspector;
 	
@@ -150,9 +149,6 @@ package
 		private function init():void
 		{
 			var isConfigFound:Boolean = Firebase.init();
-			
-			if (Firebase.checkDependencies()) trace("All dependencies required by firebaseCore.ane are loaded successfully.");
-			else trace("some dependencies are missing!");
 			
 			if (isConfigFound)
 			{

@@ -26,10 +26,10 @@ package
 	import flash.ui.Multitouch;
 	import flash.ui.MultitouchInputMode;
 	
-	import com.myflashlab.air.extensions.firebase.core.Firebase;
-	import com.myflashlab.air.extensions.firebase.core.FirebaseConfig;
+	import com.myflashlab.air.extensions.firebase.core.*;
 	import com.myflashlab.air.extensions.firebase.auth.*;
 	import com.myflashlab.air.extensions.inspector.Inspector;
+	import com.myflashlab.air.extensions.dependency.OverrideAir;
 	
 	
 	/**
@@ -142,9 +142,20 @@ package
 			}
 		}
 		
+		private function myDebuggerDelegate($ane:String, $class:String, $msg:String):void
+		{
+			trace("------------------");
+			trace("$ane = " + $ane);
+			trace("$class = " + $class);
+			trace("$msg = " + $msg);
+			trace("------------------");
+		}
 		
 		private function init():void
 		{
+			// remove this line in production build or pass null as the delegate
+			OverrideAir.enableDebugger(myDebuggerDelegate);
+			
 			var isConfigFound:Boolean = Firebase.init();
 			
 			if (isConfigFound)
@@ -175,7 +186,7 @@ package
 			*/
 			/*if (!Inspector.check(Auth, true, true))
 			{
-				trace("Inspector.lastError = " + Inspector.lastError);
+				C.log("Inspector.lastError = " + Inspector.lastError);
 				return;
 			}*/
 			

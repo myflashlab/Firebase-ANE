@@ -1,5 +1,29 @@
 Firebase Air Native Extension
 
+*Mar 07, 2017 - V4.0.0*
+* Updated to Firebase SDK 10.2.0 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v400)
+* Updated to Firebase SDK 3.13.0 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/3_13_0/Firebase-3.13.0.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v400)
+* firebaseInvites.ane has been added to the collection and it is highly dependent on on DynamicLinks ANE. In simple terms, if you wish to use the Firebase Invites SDK, you need to first add Firebase DynamicLinks to your app.
+* (Core) You need to regenerate the core ANE using the ane generator software V4.0.0 and you need to update all the other Firebase children that you are using in your project.
+* (Core) [setLoggerLevel](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/core/Firebase.html#setLoggerLevel()) has been intrduced and [logLevel](http://myflashlab.github.io/asdoc/com/myflashlab/air//extensions/firebase/db/DB.html#logLevel) is now deprecated.
+* (Core) Prior to this updated, other ANE dependencies were not required for iOS builds but from now on, you need to add ```overrideAir.ane``` even if you are building for iOS only. Just make sure you are reading [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v400) very carefully.
+* (Auth) Added [signInWithEmail](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/Auth.html#signInWithEmail()) 
+* (Auth) Added [signInWithCustomToken](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/Auth.html#signInWithCustomToken()) 
+* (Auth) Added [confirmPasswordResetWithCode](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/Auth.html#confirmPasswordResetWithCode()) 
+* (Auth) Added [checkActionCode](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/Auth.html#checkActionCode()) 
+* (Auth) Added [verifyPasswordResetCode](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/Auth.html#verifyPasswordResetCode()) 
+* (Auth) Added [applyActionCode](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/Auth.html#applyActionCode()) 
+* (Auth) fixed [issue 84](https://github.com/myflashlab/Firebase-ANE/issues/84)
+* (Analytics) Firebase team fixed [issue 34](https://github.com/firebase/quickstart-ios/issues/34) and we made sure it is also working on the ANE side.
+* (Analytics) Added [getAppInstanceID](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/analytics/FirebaseAnalytics.html#getAppInstanceID())
+* (DB) fixed [issue 65](https://github.com/myflashlab/Firebase-ANE/issues/65)
+* (DB) fixed setValue and updateChilderen methods so they are now correctly removing values at targetted references if you are sending an empty String ```""``` at those references.
+* (FCM) You can now use the [Resource Manager Software](http://www.myflashlabs.com/adobe-air-native-extension-resources-project/) to add custom icons for notifications on the Android side. *iOS shows app icon only. Firebase does not support this*
+* (FCM) You can create custom [.caf files](https://www.google.com/search?q=%22.caf%22+files&ie=utf-8&oe=utf-8&client=firefox-b-ab) for iOS notifications to play custom sounds when a notification arrives.
+* (FCM) known issue: custom sounds for Android must be placed in the res/raw folder using the [Resource Manager Software](http://www.myflashlabs.com/adobe-air-native-extension-resources-project/) but unfortunately this is not working because it seems like AIR is somehow compressing the files inside the raw folder. We will bring this issue to Adobe's attention so maybe they can fix this problem.  
+* Minor bug fixes on the ANE side.
+* With upgrading to the latest Firebase SDK, a lot of native bugs are also fixed. You can learn about them by checking the official native Firebase [release notes](https://firebase.google.com/support/releases).
+
 *Jan 14, 2017 - V3.0.0*
 * Firebase Core ANE needs the ```appinvite``` dependency also from now on.
 * You will need AIR SDK 24 or higher to compile Firebase ANEs. Older SDKs are just too old to support Firebase from mow on.

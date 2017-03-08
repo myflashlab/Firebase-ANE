@@ -26,8 +26,7 @@ package
 	import flash.ui.Multitouch;
 	import flash.ui.MultitouchInputMode;
 	
-	import com.myflashlab.air.extensions.firebase.core.Firebase;
-	import com.myflashlab.air.extensions.firebase.core.FirebaseConfig;
+	import com.myflashlab.air.extensions.firebase.core.*;
 	import com.myflashlab.air.extensions.firebase.db.*;
 	import com.myflashlab.air.extensions.inspector.Inspector;
 	

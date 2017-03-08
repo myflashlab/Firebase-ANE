@@ -26,9 +26,8 @@ package
 	
 	import com.luaye.console.C;
 	
-	import com.myflashlab.air.extensions.firebase.core.Firebase;
-	import com.myflashlab.air.extensions.firebase.core.FirebaseEvents;
-	import com.myflashlab.air.extensions.firebase.core.FirebaseConfig;
+	import com.myflashlab.air.extensions.dependency.OverrideAir;
+	import com.myflashlab.air.extensions.firebase.core.*;
 	import com.myflashlab.air.extensions.firebase.dynamicLinks.*;
 	
 	
@@ -145,9 +144,20 @@ package
 			}
 		}
 		
+		private function myDebuggerDelegate($ane:String, $class:String, $msg:String):void
+		{
+			trace("------------------");
+			trace("$ane = " + $ane);
+			trace("$class = " + $class);
+			trace("$msg = " + $msg);
+			trace("------------------");
+		}
 		
 		private function init():void
 		{
+			// remove this line in production build or pass null as the delegate
+			OverrideAir.enableDebugger(myDebuggerDelegate);
+			
 			// pass "true" for the init method so the ANE can prepare itself for accepting dynamic links.
 			var isConfigFound:Boolean = Firebase.init(true);
 			
@@ -169,7 +179,6 @@ package
 				
 				C.log("projectID = " + 						Firebase.getConfig().projectID);
 				C.log("webApiKey = " + 						Firebase.getConfig().webApiKey);
-				C.log("default_web_client_id = " + 			Firebase.getConfig().default_web_client_id);
 				C.log("default_web_client_id = " + 			Firebase.getConfig().default_web_client_id);
 				C.log("firebase_database_url = " + 			Firebase.getConfig().firebase_database_url);
 				C.log("gcm_defaultSenderId = " + 			Firebase.getConfig().gcm_defaultSenderId);
@@ -262,19 +271,6 @@ package
 				DynamicLinks.api.build("r23kf", "http://www.myflashlabs.com/deeplinks", true, androidParams, iosParams, socialMediaParams, analyticsParams, onDeeplinkBuiltDone);
 			}
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			onResize();
 		}
 		
@@ -296,6 +292,14 @@ package
 		private function onDynamicLinksInvoke(e:DynamicLinksEvents):void
 		{
 			C.log("e.link = " + e.link);
+			C.log("e.invitationId = " + e.invitationId);
+			
+			/*
+				NOTE: If the Invites ANE is added to your project, you will receive invitation IDs also
+				if not, DynamicLinks can only find the deeplink.
+			*/
+			trace("e.link = " + e.link);
+			trace("e.invitationId = " + e.invitationId);
 		}
 		
 		

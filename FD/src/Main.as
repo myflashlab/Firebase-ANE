@@ -5,6 +5,7 @@ package
 	import com.doitflash.mobileProject.commonCpuSrc.DeviceInfo;
 	import com.doitflash.starling.utils.list.List;
 	import com.doitflash.text.modules.MySprite;
+	import flash.utils.setTimeout;
 	
 	import com.luaye.console.C;
 	
@@ -26,14 +27,14 @@ package
 	import flash.ui.Multitouch;
 	import flash.ui.MultitouchInputMode;
 	
-	import com.myflashlab.air.extensions.firebase.core.Firebase;
-	import com.myflashlab.air.extensions.firebase.core.FirebaseConfig;
+	import com.myflashlab.air.extensions.firebase.core.*;
 	import com.myflashlab.air.extensions.inspector.Inspector;
 	
 	
 	/**
 	 * ...
 	 * @author Hadi Tavakoli - 5/28/2016 10:36 AM
+	 * 						 - 1/4/2017 7:39 PM
 	 */
 	public class Main extends Sprite 
 	{
@@ -145,6 +146,7 @@ package
 		private function init():void
 		{
 			var isConfigFound:Boolean = Firebase.init();
+			Firebase.setLoggerLevel(FirebaseConfig.LOGGER_LEVEL_MAX);
 			
 			/*
 			 	How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
@@ -167,6 +169,9 @@ package
 				C.log("google_app_id = " + 					config.google_app_id);
 				C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
 				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
+				
+				// You must initialize any of the other Firebase children after a successfull initialization
+				// of the Core ANE.
 			}
 			else
 			{
