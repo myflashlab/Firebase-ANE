@@ -26,7 +26,7 @@ googlePlayServices_appinvite.ane V10.2.0 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
-+ other ANEs required by the Core | + other frameworks/ANEs required by the Core
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebase_auth.ane V10.2.0 | FirebaseAuth.framework V3.13.0
  | GTMSessionFetcher.framework V3.13.0
 
@@ -35,7 +35,7 @@ firebase_auth.ane V10.2.0 | FirebaseAuth.framework V3.13.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
-+ other ANEs required by the Core | + other frameworks/ANEs required by the Core
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebase_database.ane V10.2.0 | FirebaseDatabase.framework V3.13.0
 firebase_databaseConnection.ane V10.2.0 | 
 
@@ -44,7 +44,7 @@ firebase_databaseConnection.ane V10.2.0 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
-+ other ANEs required by the Core | + other frameworks/ANEs required for by Core
++other ANEs required by the Core | +other frameworks/ANEs required for by Core
 firebase_config.ane V10.2.0 | FirebaseRemoteConfig.framework V3.13.0
  | Protobuf.framework V3.13.0
 
@@ -53,7 +53,7 @@ firebase_config.ane V10.2.0 | FirebaseRemoteConfig.framework V3.13.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
-+ other ANEs required for by Core | + other frameworks/ANEs required by the Core
++other ANEs required for by Core | +other frameworks/ANEs required by the Core
 firebase_storage.ane V10.2.0 | FirebaseStorage.framework V3.13.0
 firebase_storageCommon.ane V10.2.0 | GTMSessionFetcher.framework V3.13.0
 
@@ -62,7 +62,7 @@ firebase_storageCommon.ane V10.2.0 | GTMSessionFetcher.framework V3.13.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
-+ other ANEs required by the Core | + other frameworks/ANEs required by the Core
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebase_crash.ane V10.2.0 | FirebaseCrash.framework V3.13.0
 firebase_analyticsImpl.ane V10.2.0 | Protobuf.framework V3.13.0
 
@@ -71,7 +71,7 @@ firebase_analyticsImpl.ane V10.2.0 | Protobuf.framework V3.13.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
-+ other ANEs required by the Core | + other frameworks/ANEs required by the Core
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebase_messaging.ane V10.2.0 | FirebaseMessaging.framework V3.13.0
  | Protobuf.framework V3.13.0
 
@@ -80,7 +80,7 @@ firebase_messaging.ane V10.2.0 | FirebaseMessaging.framework V3.13.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
-+ other ANEs required by the Core | + other frameworks/ANEs required by the Core
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebase_analyticsImpl.ane V10.2.0 | 
 firebase-analytics.ane V10.2.0 | 
 
@@ -89,7 +89,7 @@ firebase-analytics.ane V10.2.0 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
-+ other ANEs required by the Core | + other frameworks/ANEs required by the Core
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
  | FirebaseDynamicLinks.framework V3.13.0
  
  **firebaseInvites.ane**
@@ -97,9 +97,9 @@ firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
-+ other ANEs required by the Core | + other frameworks/ANEs required by the Core
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebaseDynamicLinks.ane V4.0.0 | firebaseDynamicLinks.ane V4.0.0
-+ other ANEs required by the DynamicLinks | + other frameworks/ANEs required by the DynamicLinks
++other ANEs required by the DynamicLinks | +other frameworks/ANEs required by the DynamicLinks
  | FirebaseDynamicLinks.framework V3.13.0
  | FirebaseInvites.framework V3.13.0
  | GTMOAuth2.framework V3.13.0
@@ -129,7 +129,7 @@ googlePlayServices_appinvite.ane V10.0.0 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V3.0.0 | firebaseCore.ane V3.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_auth.ane V10.0.0 | FirebaseAuth.framework V3.10.0
  | GTMSessionFetcher.framework V3.10.0
 
@@ -138,7 +138,7 @@ firebase_auth.ane V10.0.0 | FirebaseAuth.framework V3.10.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V3.0.0 | firebaseCore.ane V3.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_database.ane V10.0.0 | FirebaseDatabase.framework V3.10.0
 firebase_databaseConnection.ane V10.0.0 | 
 
@@ -147,7 +147,7 @@ firebase_databaseConnection.ane V10.0.0 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V3.0.0 | firebaseCore.ane V3.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_config.ane V10.0.0 | FirebaseRemoteConfig.framework V3.10.0
 
 **firebaseStorage.ane**
@@ -155,7 +155,7 @@ firebase_config.ane V10.0.0 | FirebaseRemoteConfig.framework V3.10.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V3.0.0 | firebaseCore.ane V3.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_storage.ane V10.0.0 | FirebaseStorage.framework V3.10.0
 firebase_storageCommon.ane V10.0.0 | GTMSessionFetcher.framework V3.10.0
 
@@ -164,7 +164,7 @@ firebase_storageCommon.ane V10.0.0 | GTMSessionFetcher.framework V3.10.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V3.0.0 | firebaseCore.ane V3.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_crash.ane V10.0.0 | FirebaseCrash.framework V3.10.0
 firebase_analyticsImpl.ane V10.0.0 | 
 
@@ -173,7 +173,7 @@ firebase_analyticsImpl.ane V10.0.0 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V3.0.0 | firebaseCore.ane V3.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_messaging.ane V10.0.0 | FirebaseMessaging.framework V3.10.0
 
 **firebaseAnalytics.ane**
@@ -181,7 +181,7 @@ firebase_messaging.ane V10.0.0 | FirebaseMessaging.framework V3.10.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V3.0.0 | firebaseCore.ane V3.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_analyticsImpl.ane V10.0.0 | 
 firebase-analytics.ane V10.0.0 | 
 
@@ -190,7 +190,7 @@ firebase-analytics.ane V10.0.0 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V3.0.0 | firebaseCore.ane V3.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
  | FirebaseDynamicLinks.framework V3.10.0
 
 # V2.0.0 #
@@ -213,7 +213,7 @@ googlePlayServices_tasks.ane V10.0.0 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V2.0.0 | firebaseCore.ane V2.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_auth.ane V10.0.0 | FirebaseAuth.framework V3.10.0
  | GTMSessionFetcher.framework V3.10.0
 
@@ -222,7 +222,7 @@ firebase_auth.ane V10.0.0 | FirebaseAuth.framework V3.10.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V2.0.0 | firebaseCore.ane V2.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_database.ane V10.0.0 | FirebaseDatabase.framework V3.10.0
 firebase_databaseConnection.ane V10.0.0 | 
 
@@ -231,7 +231,7 @@ firebase_databaseConnection.ane V10.0.0 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V2.0.0 | firebaseCore.ane V2.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_config.ane V10.0.0 | FirebaseRemoteConfig.framework V3.10.0
 
 **firebaseStorage.ane**
@@ -239,7 +239,7 @@ firebase_config.ane V10.0.0 | FirebaseRemoteConfig.framework V3.10.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V2.0.0 | firebaseCore.ane V2.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_storage.ane V10.0.0 | FirebaseStorage.framework V3.10.0
 firebase_storageCommon.ane V10.0.0 | GTMSessionFetcher.framework V3.10.0
 
@@ -248,7 +248,7 @@ firebase_storageCommon.ane V10.0.0 | GTMSessionFetcher.framework V3.10.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V2.0.0 | firebaseCore.ane V2.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_crash.ane V10.0.0 | FirebaseCrash.framework V3.10.0
 firebase_analyticsImpl.ane V10.0.0 | 
 
@@ -257,7 +257,7 @@ firebase_analyticsImpl.ane V10.0.0 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V2.0.0 | firebaseCore.ane V2.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_messaging.ane V10.0.0 | FirebaseMessaging.framework V3.10.0
 
 **firebaseAnalytics.ane**
@@ -265,7 +265,7 @@ firebase_messaging.ane V10.0.0 | FirebaseMessaging.framework V3.10.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V2.0.0 | firebaseCore.ane V2.0.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_analyticsImpl.ane V10.0.0 | 
 firebase-analytics.ane V10.0.0 | 
 
@@ -288,7 +288,7 @@ googlePlayServices_tasks.ane V9.6.1 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_auth.ane V9.6.1 | FirebaseAuth.framework V3.6.0
 firebase_authCommon.ane V9.6.1 | GoogleNetworkingUtilities.framework V3.6.0
 firebase_authModule.ane V9.6.1 | 
@@ -298,7 +298,7 @@ firebase_authModule.ane V9.6.1 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_database.ane V9.6.1 | FirebaseDatabase.framework V3.6.0
 firebase_databaseConnection.ane V9.6.1 | 
 
@@ -307,7 +307,7 @@ firebase_databaseConnection.ane V9.6.1 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_config.ane V9.6.1 | FirebaseRemoteConfig.framework V3.6.0
  | GoogleIPhoneUtilities.framework V3.6.0
 
@@ -316,7 +316,7 @@ firebase_config.ane V9.6.1 | FirebaseRemoteConfig.framework V3.6.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_storage.ane V9.6.1 | FirebaseStorage.framework V3.6.0
 firebase_storageCommon.ane V9.6.1 | GoogleNetworkingUtilities.framework V3.6.0
 
@@ -325,7 +325,7 @@ firebase_storageCommon.ane V9.6.1 | GoogleNetworkingUtilities.framework V3.6.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_crash.ane V9.6.1 | FirebaseCrash.framework V3.6.0
 
 **firebaseMessaging.ane**
@@ -333,7 +333,7 @@ firebase_crash.ane V9.6.1 | FirebaseCrash.framework V3.6.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_messaging.ane V9.6.1 | FirebaseMessaging.framework V3.6.0
  | GoogleIPhoneUtilities.framework V3.6.0
  
@@ -342,7 +342,7 @@ firebase_messaging.ane V9.6.1 | FirebaseMessaging.framework V3.6.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_analyticsImpl.ane V9.6.1 | 
 firebase-analytics.ane V9.6.1 | 
 
@@ -367,7 +367,7 @@ googlePlayServices_tasks.ane V9.4.0 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V1.1.0 | firebaseCore.ane V1.1.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_auth.ane V9.4.0 | FirebaseAuth.framework V3.4.0
 firebase_authCommon.ane V9.4.0 | GoogleNetworkingUtilities.framework V3.4.0
 firebase_authModule.ane V9.4.0 | GoogleParsingUtilities.framework V3.4.0
@@ -377,7 +377,7 @@ firebase_authModule.ane V9.4.0 | GoogleParsingUtilities.framework V3.4.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V1.1.0 | firebaseCore.ane V1.1.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_database.ane V9.4.0 | FirebaseDatabase.framework V3.4.0
 firebase_databaseConnection.ane V9.4.0 | 
 
@@ -386,7 +386,7 @@ firebase_databaseConnection.ane V9.4.0 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V1.1.0 | firebaseCore.ane V1.1.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_config.ane V9.4.0 | FirebaseRemoteConfig.framework V3.4.0
  | GoogleIPhoneUtilities.framework V3.4.0
 
@@ -395,7 +395,7 @@ firebase_config.ane V9.4.0 | FirebaseRemoteConfig.framework V3.4.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V1.1.0 | firebaseCore.ane V1.1.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_analyticsImpl.ane V9.4.0 | 
 firebase-analytics.ane V9.4.0 | 
 
@@ -404,7 +404,7 @@ firebase-analytics.ane V9.4.0 |
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V1.1.0 | firebaseCore.ane V1.1.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_storage.ane V9.4.0 | FirebaseStorage.framework V3.4.0
 firebase_storageCommon.ane V9.4.0 | GoogleSignIn.framework V3.4.0
  | GoogleAppUtilities.framework V3.4.0
@@ -418,5 +418,5 @@ firebase_storageCommon.ane V9.4.0 | GoogleSignIn.framework V3.4.0
 On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V1.1.0 | firebaseCore.ane V1.1.0
-+ other ANEs required by the Core | + other frameworks required by the Core
++other ANEs required by the Core | +other frameworks required by the Core
 firebase_crash.ane V9.4.0 | FirebaseCrash.framework V3.4.0
