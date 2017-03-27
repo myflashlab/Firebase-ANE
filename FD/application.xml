@@ -104,16 +104,6 @@
 			</intent-filter>
 		</activity>-->
 		
-		<!-- Optional for firebaseMessaging.ane 
-			IMPORTANT: Works only if you are using the resources.ane project 
-			Learn more about the resources.ane project here:
-			http://www.myflashlabs.com/adobe-air-native-extension-resources-project
-		-->
-		<!--
-			<meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/myCustomColor" />
-			<meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/ic_my_custom_notification" />
-		-->
-		
 		
 		
 		<!-- Required by firebase_analyticsImpl.ane and firebase-analytics.ane -->
@@ -166,6 +156,24 @@
 			<string>2</string>
 		</array>
 		
+		<!-- 
+			Required by firebaseInvites.ane
+			Change google client id to your own. Find it in GoogleService-Info.plist
+		-->
+		<!-- <key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLName</key>
+				<string>google</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.googleusercontent.apps.163763113291-5j7w6ara6rgafjub3636in7h8q2lgbeb</string>
+				</array>
+			</dict>
+		</array> -->
+		
 		<!-- Required by firebase_messaging.ane -->
 		<!-- <key>UIBackgroundModes</key>
 		<array>
@@ -208,22 +216,16 @@
 			<false/>--
 		
 		
-		
-		
-		
-		
-		
-		
 		-- 
 			Required by firebaseDynamicLinks.ane 
 			
 			To know what is your own app_code value, go to the "Dynamic Links" section
-            in your Firebase Console and there you will see a URL like: https://r57kh.app.goo.gl/
-            then, your app_code will be "r57kh"
+            in your Firebase Console and there you will see a URL like: https://e73ko.app.goo.gl/
+            then, your app_code will be "e73ko"
 		--
 			<key>com.apple.developer.associated-domains</key>
 			<array>
-				<string>applinks:r57kh.app.goo.gl</string>
+				<string>applinks:e73ko.app.goo.gl</string>
 			</array>
 		
 	]]></Entitlements> -->

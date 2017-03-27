@@ -3,6 +3,7 @@ Every release of Firebase ANEs will work with specific versions of Dependency AN
 **Note1**: Always try to use the latest releases because we won't be able to provide support on older versions.  
 **Note2**: Always try to use the latest AdobeAir SDK. Doing this will automatically solve a lot of weird error messages.  
 **Note3**: Firebase ANEs will not run on simulators. make sure you are building on a real device.  
+**Note4**: When updating the .framework files, always delete the old ones and then copy the new ones. Never overwrite them.  
 
 # V4.0.0 #
 Find the Android dependencies on [this branch](https://github.com/myflashlab/common-dependencies-ANE/tree/072a311ad98ec34f9a4c8078b1d2cdd4229a4aaa). *The master branch may have newer versions of these files but if you are building for the specified version number, you will need this specific branch.* And download the iOS frameworks [from here](https://dl.google.com/firebase/sdk/ios/3_13_0/Firebase-3.13.0.zip).
