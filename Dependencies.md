@@ -28,7 +28,7 @@ On the Android side | On the iOS side
 firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
 +other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebase_auth.ane V10.2.0 | FirebaseAuth.framework V3.13.0
- | GTMSessionFetcher.framework V3.13.0
+. | GTMSessionFetcher.framework V3.13.0
 
 **firebaseDatabase.ane**
 
@@ -46,7 +46,7 @@ On the Android side | On the iOS side
 firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
 +other ANEs required by the Core | +other frameworks/ANEs required for by Core
 firebase_config.ane V10.2.0 | FirebaseRemoteConfig.framework V3.13.0
- | Protobuf.framework V3.13.0
+. | Protobuf.framework V3.13.0
 
 **firebaseStorage.ane**
 
@@ -73,7 +73,7 @@ On the Android side | On the iOS side
 firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
 +other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebase_messaging.ane V10.2.0 | FirebaseMessaging.framework V3.13.0
- | Protobuf.framework V3.13.0
+. | Protobuf.framework V3.13.0
 
 **firebaseAnalytics.ane**
 
@@ -90,7 +90,7 @@ On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
 +other ANEs required by the Core | +other frameworks/ANEs required by the Core
- | FirebaseDynamicLinks.framework V3.13.0
+. | FirebaseDynamicLinks.framework V3.13.0
  
  **firebaseInvites.ane**
 
@@ -100,13 +100,13 @@ firebaseCore.ane V4.0.0 | firebaseCore.ane V4.0.0
 +other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebaseDynamicLinks.ane V4.0.0 | firebaseDynamicLinks.ane V4.0.0
 +other ANEs required by the DynamicLinks | +other frameworks/ANEs required by the DynamicLinks
- | FirebaseDynamicLinks.framework V3.13.0
- | FirebaseInvites.framework V3.13.0
- | GTMOAuth2.framework V3.13.0
- | GTMSessionFetcher.framework V3.13.0
- | GoogleAPIClientForREST.framework V3.13.0
- | GoogleSignIn.framework V3.13.0
- | Protobuf.framework V3.13.0
+. | FirebaseDynamicLinks.framework V3.13.0
+. | FirebaseInvites.framework V3.13.0
+. | GTMOAuth2.framework V3.13.0
+. | GTMSessionFetcher.framework V3.13.0
+. | GoogleAPIClientForREST.framework V3.13.0
+. | GoogleSignIn.framework V3.13.0
+. | Protobuf.framework V3.13.0
 
 # V3.0.0 #
 Find the Android dependencies on [this branch](https://github.com/myflashlab/common-dependencies-ANE/tree/3df030020e09c17f31603a492171ed2dc3d5aa7d). *The master branch may have newer versions of these files but if you are building for the specified version number, you will need this specific branch.* And download the iOS frameworks [from here](https://dl.google.com/firebase/sdk/ios/3_10_0/Firebase-3.10.0.zip).
@@ -131,7 +131,7 @@ On the Android side | On the iOS side
 firebaseCore.ane V3.0.0 | firebaseCore.ane V3.0.0
 +other ANEs required by the Core | +other frameworks required by the Core
 firebase_auth.ane V10.0.0 | FirebaseAuth.framework V3.10.0
- | GTMSessionFetcher.framework V3.10.0
+. | GTMSessionFetcher.framework V3.10.0
 
 **firebaseDatabase.ane**
 
@@ -191,7 +191,7 @@ On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane V3.0.0 | firebaseCore.ane V3.0.0
 +other ANEs required by the Core | +other frameworks required by the Core
- | FirebaseDynamicLinks.framework V3.10.0
+. | FirebaseDynamicLinks.framework V3.10.0
 
 # V2.0.0 #
 Find the Android dependencies on [this branch](https://github.com/myflashlab/common-dependencies-ANE/tree/3df030020e09c17f31603a492171ed2dc3d5aa7d). *The master branch may have newer versions of these files but if you are building for the specified version number, you will need this specific branch.* And download the iOS frameworks [from here](https://dl.google.com/firebase/sdk/ios/3_10_0/Firebase-3.10.0.zip).
@@ -215,7 +215,7 @@ On the Android side | On the iOS side
 firebaseCore.ane V2.0.0 | firebaseCore.ane V2.0.0
 +other ANEs required by the Core | +other frameworks required by the Core
 firebase_auth.ane V10.0.0 | FirebaseAuth.framework V3.10.0
- | GTMSessionFetcher.framework V3.10.0
+. | GTMSessionFetcher.framework V3.10.0
 
 **firebaseDatabase.ane**
 
@@ -309,7 +309,7 @@ On the Android side | On the iOS side
 firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
 +other ANEs required by the Core | +other frameworks required by the Core
 firebase_config.ane V9.6.1 | FirebaseRemoteConfig.framework V3.6.0
- | GoogleIPhoneUtilities.framework V3.6.0
+. | GoogleIPhoneUtilities.framework V3.6.0
 
 **firebaseStorage.ane**
 
@@ -335,7 +335,7 @@ On the Android side | On the iOS side
 firebaseCore.ane V1.2.0 | firebaseCore.ane V1.2.0
 +other ANEs required by the Core | +other frameworks required by the Core
 firebase_messaging.ane V9.6.1 | FirebaseMessaging.framework V3.6.0
- | GoogleIPhoneUtilities.framework V3.6.0
+. | GoogleIPhoneUtilities.framework V3.6.0
  
 **firebaseAnalytics.ane**
 
@@ -388,7 +388,7 @@ On the Android side | On the iOS side
 firebaseCore.ane V1.1.0 | firebaseCore.ane V1.1.0
 +other ANEs required by the Core | +other frameworks required by the Core
 firebase_config.ane V9.4.0 | FirebaseRemoteConfig.framework V3.4.0
- | GoogleIPhoneUtilities.framework V3.4.0
+. | GoogleIPhoneUtilities.framework V3.4.0
 
 **firebaseAnalytics.ane**
 
@@ -407,11 +407,11 @@ firebaseCore.ane V1.1.0 | firebaseCore.ane V1.1.0
 +other ANEs required by the Core | +other frameworks required by the Core
 firebase_storage.ane V9.4.0 | FirebaseStorage.framework V3.4.0
 firebase_storageCommon.ane V9.4.0 | GoogleSignIn.framework V3.4.0
- | GoogleAppUtilities.framework V3.4.0
- | GoogleAuthUtilities.framework V3.4.0
- | GoogleNetworkingUtilities.framework V3.4.0
- | GoogleSymbolUtilities.framework V3.4.0
- | GoogleUtilities.framework V3.4.0
+. | GoogleAppUtilities.framework V3.4.0
+. | GoogleAuthUtilities.framework V3.4.0
+. | GoogleNetworkingUtilities.framework V3.4.0
+. | GoogleSymbolUtilities.framework V3.4.0
+. | GoogleUtilities.framework V3.4.0
 
 **firebaseCrash.ane**
 
