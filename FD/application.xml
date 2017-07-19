@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<application xmlns="http://ns.adobe.com/air/application/24.0">
+<application xmlns="http://ns.adobe.com/air/application/26.0">
   <id>com.doitflash.firebaseCore</id>
-  <versionNumber>4.0.0</versionNumber>
+  <versionNumber>5.0.0</versionNumber>
   <supportedProfiles>mobileDevice</supportedProfiles>
   <filename>exFirebaseCore</filename>
   <name>Firebase Core</name>
@@ -62,7 +62,6 @@
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
                 <category android:name="air.com.doitflash.firebaseCore" />
             </intent-filter>
         </receiver>
@@ -123,7 +122,12 @@
 		<service
 			android:name="com.google.android.gms.measurement.AppMeasurementService"
 			android:enabled="true"
-			android:exported="false"/> -->
+			android:exported="false"/> 
+		<service
+		    android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+		    android:permission="android.permission.BIND_JOB_SERVICE"
+		    android:enabled="true"
+		    android:exported="false"/> -->
 			
 		
 		

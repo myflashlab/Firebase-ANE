@@ -1,4 +1,4 @@
-# Firebase Air Native Extension V4.0.0 Android+iOS
+# Firebase Air Native Extension V5.0.0 Android+iOS
 Firebase ANE gives you access to the [Google Firebase project](https://firebase.google.com/docs/) in your AdobeAir projects supported on both Android and iOS with 100% identical ActionScript API. 
 
 If you decide to use Firebase in your next AdobeAir project, you should consider the following structure: Firebase Air Native Extension is consist of a *Core* ANE plus some other individual ANEs which are all dependent on the *Core*. i.e, If you wish to use [Firebase Cloud Messaging (FCM)](http://www.myflashlabs.com/product/fcm-firebase-air-native-extension/), you need to embed the Core ANE first and then use the required ANE(s) for the FCM. This structure will make sure that you are not compiling unused native code in your AdobeAir project. In result, your app file size will be as small as possible and faster to debug/compile. [The Wiki pages](https://github.com/myflashlab/Firebase-ANE/wiki) will provide you detailed information about how you can embed each ANE based on the Firebase feature you wish to use in your app.
@@ -102,7 +102,7 @@ if (!Inspector.check(Firebase, true, true))
 # Requirements 
 1. Android API 15+
 2. iOS SDK 8.0+
-3. Air SDK 24+
+3. Air SDK 25+
 4. Every Firebase ANE might need some dependency Frameworks/ANEs which is [explained in details here](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md).
 
 # Commercial Version
@@ -133,6 +133,29 @@ if (!Inspector.check(Firebase, true, true))
 [How to use Firebase Invites?](https://github.com/myflashlab/Firebase-ANE/wiki/J.-Invites#get-started-with-firebase-invites-in-adobe-air)  
 
 # Changelog
+*Jul 19, 2017 - V5.0.0*
+* Updated to Firebase SDK 11.0.2 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v500)
+* Updated to Firebase SDK 4.0.3 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/4_0_3/Firebase-4.0.3.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v500)
+* From now on, sample files are in IntelliJ IDE.
+* (Core) You need to regenerate the core ANE using the ane generator software V5.0.0 and you need to update all the other Firebase children that you are using in your project.
+* (Core) Remove the following from your manifest: ```<action android:name="com.google.android.c2dm.intent.REGISTRATION" />```
+* (Analytics) The following service must be added to the manifest:
+```xml
+<service
+	android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+	android:permission="android.permission.BIND_JOB_SERVICE"
+	android:enabled="true"
+	android:exported="false"/>
+```
+* (Auth) Corrected miss-spelling described at issue https://github.com/myflashlab/Firebase-ANE/issues/42
+* (Auth) ```Auth.RESULT_TOO_MANY_REQUESTS``` introduced.
+* (Auth) Listener ```AuthEvents.ID_TOKEN_CHANGED``` introduced. Listen to this even just like how you used to listen to ```AuthEvents.AUTH_STATE_CHANGED```
+* (Auth) Added support for Phone verification and sign in. ```Auth.verifyPhoneNumber()```, Check Wiki to know how you can use this feature.
+* (Auth) The new Phone verification feature on iOS will run only if you have setup push-notification on your app. To know how to do that, read the [setup information for FCM](https://github.com/myflashlab/Firebase-ANE/wiki/G.-FCM). If FCM is already added to your app, you're just good to go.
+* (Crash) ```Crash.crashCollectionEnabled``` introduced
+* (DynamicLinks) You need to add the follwoing dependency to your manifest: ```<extensionID>com.myflashlab.air.extensions.dependency.firebase.dynamicLinks</extensionID>```
+
+
 *Mar 07, 2017 - V4.0.0*
 * Updated to Firebase SDK 10.2.0 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v400)
 * Updated to Firebase SDK 3.13.0 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/3_13_0/Firebase-3.13.0.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v400)

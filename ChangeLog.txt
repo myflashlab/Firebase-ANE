@@ -1,11 +1,33 @@
 Firebase Air Native Extension
 
+*Jul 19, 2017 - V5.0.0*
+* Updated to Firebase SDK 11.0.2 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v500)
+* Updated to Firebase SDK 4.0.3 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/4_0_3/Firebase-4.0.3.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v500)
+* From now on, sample files are in IntelliJ IDE.
+* (Core) You need to regenerate the core ANE using the ane generator software V5.0.0 and you need to update all the other Firebase children that you are using in your project.
+* (Core) Remove the following from your manifest: ```<action android:name="com.google.android.c2dm.intent.REGISTRATION" />```
+* (Analytics) The following service must be added to the manifest:
+```xml
+<service
+	android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+	android:permission="android.permission.BIND_JOB_SERVICE"
+	android:enabled="true"
+	android:exported="false"/>
+```
+* (Auth) Corrected miss-spelling described at issue https://github.com/myflashlab/Firebase-ANE/issues/42
+* (Auth) ```Auth.RESULT_TOO_MANY_REQUESTS``` introduced.
+* (Auth) Listener ```AuthEvents.ID_TOKEN_CHANGED``` introduced. Listen to this even just like how you used to listen to ```AuthEvents.AUTH_STATE_CHANGED```
+* (Auth) Added support for Phone verification and sign in. ```Auth.verifyPhoneNumber()```, Check Wiki to know how you can use this feature.
+* (Auth) The new Phone verification feature on iOS will run only if you have setup push-notification on your app. To know how to do that, read the [setup information for FCM](https://github.com/myflashlab/Firebase-ANE/wiki/G.-FCM). If FCM is already added to your app, you're just good to go.
+* (Crash) ```Crash.crashCollectionEnabled``` introduced
+* (DynamicLinks) You need to add the follwoing dependency to your manifest: ```<extensionID>com.myflashlab.air.extensions.dependency.firebase.dynamicLinks</extensionID>```
+
 *Mar 07, 2017 - V4.0.0*
 * Updated to Firebase SDK 10.2.0 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v400)
 * Updated to Firebase SDK 3.13.0 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/3_13_0/Firebase-3.13.0.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v400)
 * firebaseInvites.ane has been added to the collection and it is highly dependent on on DynamicLinks ANE. In simple terms, if you wish to use the Firebase Invites SDK, you need to first add Firebase DynamicLinks to your app.
 * (Core) You need to regenerate the core ANE using the ane generator software V4.0.0 and you need to update all the other Firebase children that you are using in your project.
-* (Core) [setLoggerLevel](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/core/Firebase.html#setLoggerLevel()) has been intrduced and [logLevel](http://myflashlab.github.io/asdoc/com/myflashlab/air//extensions/firebase/db/DB.html#logLevel) is now deprecated.
+* (Core) [setLoggerLevel](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/core/Firebase.html#setLoggerLevel()) has been introduced and [logLevel](http://myflashlab.github.io/asdoc/com/myflashlab/air//extensions/firebase/db/DB.html#logLevel) is now deprecated.
 * (Core) Prior to this updated, other ANE dependencies were not required for iOS builds but from now on, you need to add ```overrideAir.ane``` even if you are building for iOS only. Just make sure you are reading [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v400) very carefully.
 * (Auth) Added [signInWithEmail](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/Auth.html#signInWithEmail()) 
 * (Auth) Added [signInWithCustomToken](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/Auth.html#signInWithCustomToken()) 

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="Flex" version="4">
+  <component name="FlexBuildConfigurationManager" active="AIR">
+    <configurations>
+      <configuration name="AIR" target-platform="Mobile" pure-as="true" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/out/production/AIR">
+        <dependencies target-player="25.0">
+          <entries>
+            <entry library-id="1c696a4b-410d-456b-b23a-cc85708819de">
+              <dependency linkage="Merged" />
+            </entry>
+          </entries>
+          <sdk name="AIR-26.118" />
+        </dependencies>
+        <compiler-options>
+          <map>
+            <entry key="compiler.debug.swf" value="true" />
+          </map>
+          <option name="additionalOptions" value="-swf-version=36" />
+        </compiler-options>
+        <packaging-air-desktop />
+        <packaging-android enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/Main-app.xml" package-file-name="Main">
+          <files-to-package>
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/icons" path-in-package="icons" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/bin/google-services.json" path-in-package="google-services.json" />
+          </files-to-package>
+          <AirSigningOptions keystore-path="$MODULE_DIR$/cert/myflashlabs.p12" use-temp-certificate="false" />
+        </packaging-android>
+        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/Main-app.xml" package-file-name="Main">
+          <files-to-package>
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/icons" path-in-package="icons" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default-375w-667h@2x~iphone.png" path-in-package="Default-375w-667h@2x~iphone.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default-414w-736h@3x~iphone.png" path-in-package="Default-414w-736h@3x~iphone.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default-568h@2x~iphone.png" path-in-package="Default-568h@2x~iphone.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default-Landscape-414w-736h@3x~iphone.png" path-in-package="Default-Landscape-414w-736h@3x~iphone.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default-Landscape~ipad.png" path-in-package="Default-Landscape~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default-LandscapeLeft@2x~ipad.png" path-in-package="Default-LandscapeLeft@2x~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default-LandscapeRight@2x~ipad.png" path-in-package="Default-LandscapeRight@2x~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default-LandscapeRight~ipad.png" path-in-package="Default-LandscapeRight~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default-Landscapet@2x~ipad.png" path-in-package="Default-Landscapet@2x~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default-Portrait@2x~ipad.png" path-in-package="Default-Portrait@2x~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default-Portrait~ipad.png" path-in-package="Default-Portrait~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default-PortraitUpsideDown@2x~ipad.png" path-in-package="Default-PortraitUpsideDown@2x~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default-PortraitUpsideDown~ipad.png" path-in-package="Default-PortraitUpsideDown~ipad.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default@2x~iphone.png" path-in-package="Default@2x~iphone.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/icons/Default~iphone.png" path-in-package="Default~iphone.png" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/bin/GoogleService-Info.plist" path-in-package="GoogleService-Info.plist" />
+          </files-to-package>
+          <AirSigningOptions keystore-path="$MODULE_DIR$/cert/dev.p12" provisioning-profile-path="$MODULE_DIR$/cert/FirebaseCoreDev.mobileprovision" />
+        </packaging-ios>
+      </configuration>
+    </configurations>
+    <compiler-options />
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="AIR-26.118" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="lib" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="1c696a4b-410d-456b-b23a-cc85708819de" />
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
+      </library>
+    </orderEntry>
+  </component>
+</module>
