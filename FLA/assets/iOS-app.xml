@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<application xmlns="http://ns.adobe.com/air/application/26.0">
+    <id>com.doitflash.firebaseCore</id>
+    <versionNumber>5.0.0</versionNumber>
+    <filename>Firebase</filename>
+    <name>Firebase</name>
+    <initialWindow>
+        <content>iOS.swf</content>
+        <systemChrome>standard</systemChrome>
+        <transparent>false</transparent>
+        <visible>true</visible>
+        <fullScreen>true</fullScreen>
+        <autoOrients>true</autoOrients>
+        <aspectRatio>portrait</aspectRatio>
+        <renderMode>gpu</renderMode>
+    </initialWindow>
+    <customUpdateUI>false</customUpdateUI>
+    <allowBrowserInvocation>false</allowBrowserInvocation>
+    <icon>
+        <image16x16>icons/icon_16.png</image16x16>
+        <image29x29>icons/icon_29.png</image29x29>
+        <image32x32>icons/icon_32.png</image32x32>
+        <image36x36>icons/icon_36.png</image36x36>
+        <image40x40>icons/icon_40.png</image40x40>
+        <image48x48>icons/icon_48.png</image48x48>
+        <image50x50>icons/icon_50.png</image50x50>
+        <image57x57>icons/icon_57.png</image57x57>
+        <image58x58>icons/icon_58.png</image58x58>
+        <image60x60>icons/icon_60.png</image60x60>
+        <image72x72>icons/icon_72.png</image72x72>
+        <image76x76>icons/icon_76.png</image76x76>
+        <image80x80>icons/icon_80.png</image80x80>
+        <image96x96>icons/icon_96.png</image96x96>
+        <image100x100>icons/icon_100.png</image100x100>
+        <image114x114>icons/icon_114.png</image114x114>
+        <image120x120>icons/icon_120.png</image120x120>
+        <image128x128>icons/icon_128.png</image128x128>
+        <image144x144>icons/icon_144.png</image144x144>
+        <image152x152>icons/icon_152.png</image152x152>
+        <image192x192>icons/icon_192.png</image192x192>
+        <image512x512>icons/icon_512.png</image512x512>
+        <image1024x1024>icons/icon_1024.png</image1024x1024>
+    </icon>
+    <iPhone>
+        <!--https://developer.apple.com/library/ios/documentation/general/reference/infoplistkeyreference/Articles/iPhoneOSKeys.html-->
+         <!--http://help.adobe.com/en_US/air/build/WSfffb011ac560372f7e64a7f12cd2dd1867-8000.html-->
+         
+         <InfoAdditions><![CDATA[
+         
+         <!--iOS 8.0 or higher can support this ANE-->
+        <key>MinimumOSVersion</key>
+        <string>8.0</string>
+        
+        <key>UIPrerenderedIcon</key>
+        <true/>
+        
+        <key>UIStatusBarStyle</key>
+        <string>UIStatusBarStyleBlackOpaque</string>
+        
+        <key>UIRequiresPersistentWiFi</key>
+        <string>NO</string>
+        
+        <key>UIDeviceFamily</key>
+        <array>
+            <string>1</string>
+            <string>2</string>
+        </array>
+
+        <!-- 
+			Required by firebaseInvites.ane
+			Change google client id to your own. Find it in GoogleService-Info.plist
+		-->
+		<!-- <key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLName</key>
+				<string>google</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.googleusercontent.apps.163763113291-5j7w6ara6rgafjub3636in7h8q2lgbeb</string>
+				</array>
+			</dict>
+		</array> -->
+        
+        <!-- Required by firebase_messaging.ane -->
+		<!-- <key>UIBackgroundModes</key>
+		<array>
+			<string>remote-notification</string>
+		</array> -->
+
+        <!-- Required by firebaseDynamicLinks.ane -->
+		<!-- <key>com.myflashlabs.firebase.deepLinkURLScheme</key>
+        <string>dlscheme</string> -->
+        
+        ]]></InfoAdditions>
+    
+    <requestedDisplayResolution>high</requestedDisplayResolution>
+    
+    <!-- Required by firebase_messaging.ane or firebaseDynamicLinks.ane -->
+	<!-- <Entitlements>
+	<![CDATA[
+	
+		-- Required by firebase_messaging.ane --
+			<key>keychain-access-groups</key>
+			<array>
+				<string>57AX1RU6SZ.*</string>		
+			</array>
+			
+			-- set to 'true' when debugging your app and set to 'false' when building for adhoc or distribution --
+			<key>get-task-allow</key>
+			<true/>
+			
+			<key>application-identifier</key>
+			<string>57AX1RU6SZ.com.doitflash.firebaseCore</string>
+			<key>com.apple.developer.team-identifier</key>
+			<string>57AX1RU6SZ</string>
+			
+			-- set to 'development' when debugging your app and set to 'production' when building for adhoc or distribution --
+			<key>aps-environment</key>
+			<string>development</string>
+			
+			-- Apple has silently added this key which is required ONLY when you are trying to upload your binary to itunesconnect --
+			--<key>beta-reports-active</key>
+			<false/>--
+		
+		
+		-- 
+			Required by firebaseDynamicLinks.ane 
+			
+			To know what is your own app_code value, go to the "Dynamic Links" section
+            in your Firebase Console and there you will see a URL like: https://e73ko.app.goo.gl/
+            then, your app_code will be "e73ko"
+		--
+			<key>com.apple.developer.associated-domains</key>
+			<array>
+				<string>applinks:e73ko.app.goo.gl</string>
+			</array>
+		
+	]]></Entitlements> -->
+    
+</iPhone>
+    <extensions>
+        <extensionID>com.myflashlab.air.extensions.dependency.overrideAir</extensionID>
+        <extensionID>com.myflashlab.air.extensions.firebase.core</extensionID>
+    </extensions>
+</application>

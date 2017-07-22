@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<application xmlns="http://ns.adobe.com/air/application/26.0">
+    <id>com.doitflash.firebaseCore</id>
+    <versionNumber>5.0.0</versionNumber>
+    <supportedProfiles>mobileDevice</supportedProfiles>
+    <filename>Firebase</filename>
+    <name>Firebase</name>
+    <initialWindow>
+        <content>Android.swf</content>
+        <systemChrome>standard</systemChrome>
+        <transparent>false</transparent>
+        <visible>true</visible>
+        <fullScreen>true</fullScreen>
+        <autoOrients>true</autoOrients>
+        <aspectRatio>portrait</aspectRatio>
+        <renderMode>gpu</renderMode>
+    </initialWindow>
+    <icon>
+        <image16x16>icons/icon_16.png</image16x16>
+        <image29x29>icons/icon_29.png</image29x29>
+        <image32x32>icons/icon_32.png</image32x32>
+        <image36x36>icons/icon_36.png</image36x36>
+        <image40x40>icons/icon_40.png</image40x40>
+        <image48x48>icons/icon_48.png</image48x48>
+        <image50x50>icons/icon_50.png</image50x50>
+        <image57x57>icons/icon_57.png</image57x57>
+        <image58x58>icons/icon_58.png</image58x58>
+        <image60x60>icons/icon_60.png</image60x60>
+        <image72x72>icons/icon_72.png</image72x72>
+        <image76x76>icons/icon_76.png</image76x76>
+        <image80x80>icons/icon_80.png</image80x80>
+        <image96x96>icons/icon_96.png</image96x96>
+        <image100x100>icons/icon_100.png</image100x100>
+        <image114x114>icons/icon_114.png</image114x114>
+        <image120x120>icons/icon_120.png</image120x120>
+        <image128x128>icons/icon_128.png</image128x128>
+        <image144x144>icons/icon_144.png</image144x144>
+        <image152x152>icons/icon_152.png</image152x152>
+        <image192x192>icons/icon_192.png</image192x192>
+        <image512x512>icons/icon_512.png</image512x512>
+        <image1024x1024>icons/icon_1024.png</image1024x1024>
+    </icon>
+    <customUpdateUI>false</customUpdateUI>
+    <allowBrowserInvocation>false</allowBrowserInvocation>
+    <versionLabel></versionLabel>
+    <android>
+        <manifestAdditions><![CDATA[<manifest android:installLocation="auto">
+            
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.WAKE_LOCK"/>
+            
+            <!--
+                Required by firebase_iid.ane
+                Change "air.com.doitflash.firebaseCore" to your own app package name
+            -->
+            <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+            <permission android:name="air.com.doitflash.firebaseCore.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+            <uses-permission android:name="air.com.doitflash.firebaseCore.permission.C2D_MESSAGE"/>
+            
+            <application>
+            
+                <activity>
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN"/>
+                        <category android:name="android.intent.category.LAUNCHER"/>
+                    </intent-filter>
+                    <intent-filter>
+                        <action android:name="android.intent.action.VIEW"/>
+                        <category android:name="android.intent.category.BROWSABLE"/>
+                        <category android:name="android.intent.category.DEFAULT"/>
+                        <data android:scheme="air.com.doitflash.firebaseCore" />
+				
+				        <!-- Required by firebaseDynamicLinks.ane -->
+				        <!--<data android:scheme="http" android:host="www.myflashlabs.com" />
+				        <data android:scheme="https" android:host="www.myflashlabs.com" />-->
+                    </intent-filter>
+                </activity>
+            
+                <!--
+                    Required by the firebase_common.ane
+                    Change "air.com.doitflash.firebaseCore" to your own app package name
+                -->
+                <provider
+                    android:name="com.google.firebase.provider.FirebaseInitProvider"
+                    android:authorities="air.com.doitflash.firebaseCore.firebaseinitprovider"
+                    android:exported="false"
+                    android:initOrder="100"/>
+            
+                <!-- Required by googlePlayServices_basement.ane -->
+                <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
+            
+                <!--
+                    Required by firebase_iid.ane
+                    Change "air.com.doitflash.firebaseCore" to your own app package name
+                -->
+                <receiver
+                    android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+                    android:exported="true"
+                    android:permission="com.google.android.c2dm.permission.SEND">
+                    <intent-filter>
+                        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                        <category android:name="air.com.doitflash.firebaseCore"/>
+                    </intent-filter>
+                </receiver>
+                <receiver
+                    android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver"
+                    android:exported="false"/>
+                <service
+                    android:name="com.google.firebase.iid.FirebaseInstanceIdService"
+                    android:exported="true">
+                    <intent-filter android:priority="-500">
+                        <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                    </intent-filter>
+                </service>
+            
+                <!-- Required by googlePlayServices_base.ane -->
+                <activity android:name="com.google.android.gms.common.api.GoogleApiActivity"
+                    android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                    android:exported="false"/>
+            
+                <!-- Required by firebase_messaging.ane -->
+                <!-- <service android:name="com.myflashlab.firebase.fcm.MyFirebaseMessagingService">
+                    <intent-filter>
+                        <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                    </intent-filter>
+                </service>
+                <service android:name="com.myflashlab.firebase.fcm.MyFirebaseInstanceIDService">
+                    <intent-filter>
+                        <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                    </intent-filter>
+                </service>
+                <activity 
+                    android:name="com.myflashlab.firebase.fcm.MyFirebaseMessagingIntent" 
+                    android:theme="@style/Theme.Transparent"
+                    android:exported="false"
+                    android:noHistory="true"
+                    android:clearTaskOnLaunch="true"
+                    android:hardwareAccelerated="false"
+                    android:stateNotNeeded="true">
+                    <intent-filter>
+                        <action android:name="MY_INTENT" />
+                        <category android:name="android.intent.category.DEFAULT" />
+                    </intent-filter>
+                </activity>-->
+
+
+                <!-- Required by firebase_analyticsImpl.ane and firebase-analytics.ane -->
+                <!-- <receiver
+                    android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+                    android:enabled="true" 
+                    android:exported="false">
+                </receiver>
+                <receiver 
+                    android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver" 
+                    android:permission="android.permission.INSTALL_PACKAGES" 
+                    android:enabled="true">
+                    <intent-filter>
+                        <action android:name="com.android.vending.INSTALL_REFERRER"/>
+                    </intent-filter>
+                </receiver>
+                <service
+                    android:name="com.google.android.gms.measurement.AppMeasurementService"
+                    android:enabled="true"
+                    android:exported="false"/> 
+                <service
+                    android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+                    android:permission="android.permission.BIND_JOB_SERVICE"
+                    android:enabled="true"
+                    android:exported="false"/> -->
+                    
+            </application>
+            </manifest>]]></manifestAdditions>
+    </android>
+    <extensions>
+        <extensionID>com.myflashlab.air.extensions.dependency.androidSupport</extensionID>
+        <extensionID>com.myflashlab.air.extensions.dependency.firebase.common</extensionID>
+        <extensionID>com.myflashlab.air.extensions.dependency.firebase.iid</extensionID>
+        <extensionID>com.myflashlab.air.extensions.firebase.core</extensionID>
+        <extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.appinvite</extensionID>
+        <extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.base</extensionID>
+        <extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.basement</extensionID>
+        <extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.tasks</extensionID>
+        <extensionID>com.myflashlab.air.extensions.dependency.overrideAir</extensionID>
+    </extensions>
+</application>
