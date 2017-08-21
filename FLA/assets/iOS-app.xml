@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <application xmlns="http://ns.adobe.com/air/application/26.0">
     <id>com.doitflash.firebaseCore</id>
-    <versionNumber>5.0.0</versionNumber>
+    <versionNumber>5.1.0</versionNumber>
     <filename>Firebase</filename>
     <name>Firebase</name>
     <initialWindow>

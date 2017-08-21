@@ -5,12 +5,6 @@ package
 	import com.doitflash.mobileProject.commonCpuSrc.DeviceInfo;
 	import com.doitflash.starling.utils.list.List;
 	import com.doitflash.text.modules.MySprite;
-	import com.myflashlab.air.extensions.dependency.OverrideAir;
-
-	import flash.filesystem.File;
-	import flash.utils.setTimeout;
-	
-	import com.luaye.console.C;
 	
 	import flash.desktop.NativeApplication;
 	import flash.desktop.SystemIdleMode;
@@ -30,16 +24,19 @@ package
 	import flash.ui.Multitouch;
 	import flash.ui.MultitouchInputMode;
 	
+	import com.luaye.console.C;
+	
 	import com.myflashlab.air.extensions.firebase.core.*;
-//	import com.myflashlab.air.extensions.inspector.Inspector;
+	import com.myflashlab.air.extensions.firebase.analytics.*;
+	import com.myflashlab.air.extensions.dependency.OverrideAir;
+	
 	
 	
 	/**
 	 * ...
 	 * @author Hadi Tavakoli - 5/28/2016 10:36 AM
-	 * 						 - 1/4/2017 7:39 PM
 	 */
-	public class Main extends Sprite 
+	public class MainAnalytics extends Sprite 
 	{
 		private const BTN_WIDTH:Number = 150;
 		private const BTN_HEIGHT:Number = 60;
@@ -49,7 +46,7 @@ package
 		private var _list:List;
 		private var _numRows:int = 1;
 		
-		public function Main():void 
+		public function MainAnalytics():void 
 		{
 			Multitouch.inputMode = MultitouchInputMode.GESTURE;
 			NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, handleActivate);
@@ -77,7 +74,7 @@ package
 			_txt.multiline = true;
 			_txt.wordWrap = true;
 			_txt.embedFonts = false;
-			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Core V"+Firebase.VERSION+"</font>";
+			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Analytics V"+Firebase.VERSION+"</font>";
 			_txt.scaleX = _txt.scaleY = DeviceInfo.dpiScaleMultiplier;
 			this.addChild(_txt);
 			
@@ -98,7 +95,7 @@ package
 		
 		private function onInvoke(e:InvokeEvent):void
 		{
-			NativeApplication.nativeApplication.removeEventListener(InvokeEvent.INVOKE, onInvoke);
+			
 		}
 		
 		private function handleActivate(e:Event):void
@@ -152,22 +149,9 @@ package
 		
 		private function init():void
 		{
-			// remove this line in production build or pass null as the delegate
 			OverrideAir.enableDebugger(myDebuggerDelegate);
 			
 			var isConfigFound:Boolean = Firebase.init();
-			Firebase.setLoggerLevel(FirebaseConfig.LOGGER_LEVEL_MAX);
-			
-			/*
-			 	How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
-				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
-				All you have to do is to pass the Class name of the target ANE to the check method.
-			*/
-			/*if (!Inspector.check(Firebase, true, true))
-			{
-				trace("Inspector.lastError = " + Inspector.lastError);
-				return;
-			}*/
 			
 			if (isConfigFound)
 			{
@@ -180,9 +164,7 @@ package
 				C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
 				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
 				
-				// You must initialize any of the other Firebase children after a successful initialization
-				// of the Core ANE.
-				readyToUseFirebase();
+				initFirebaseAnalytics();
 			}
 			else
 			{
@@ -190,57 +172,42 @@ package
 			}
 		}
 		
-		private function readyToUseFirebase():void
+		private function initFirebaseAnalytics():void
 		{
-			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN, onIdTokenReceived);
-			Firebase.iid.addEventListener(FirebaseEvents.IID_ID, onIdReceived);
-			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN_REFRESH, onIdTokenRefresh);
+			FirebaseAnalytics.init();
 			
-			var btn1:MySprite = createBtn("get iid Token");
-			btn1.addEventListener(MouseEvent.CLICK, getToken);
+			var btn1:MySprite = createBtn("Log event");
+			btn1.addEventListener(MouseEvent.CLICK, logEvent);
 			_list.add(btn1);
 			
-			function getToken(e:MouseEvent):void
+			function logEvent(e:MouseEvent):void
 			{
-				Firebase.iid.getToken();
+				C.log("send logEvent");
+				
+				var bundle:AnalyticsParam = new AnalyticsParam();
+				bundle.addString(AnalyticsParam.ITEM_ID, "yourContentId");
+				bundle.addString(AnalyticsParam.ITEM_NAME, "yourContentName");
+				bundle.addString(AnalyticsParam.CONTENT_TYPE, "image");
+				
+				FirebaseAnalytics.logEvent(AnalyticsEvent.SELECT_CONTENT, bundle);
 			}
 			
-			var btn2:MySprite = createBtn("get iid id");
-			btn2.addEventListener(MouseEvent.CLICK, getId);
+			var btn2:MySprite = createBtn("get app instance ID");
+			btn2.addEventListener(MouseEvent.CLICK, getAppInstanceID);
 			_list.add(btn2);
 			
-			function getId(e:MouseEvent):void
+			function getAppInstanceID(e:MouseEvent):void
 			{
-				Firebase.iid.getID();
+				FirebaseAnalytics.getAppInstanceID(onResult);
 			}
 			
-			var btn4:MySprite = createBtn("delete iid");
-			btn4.addEventListener(MouseEvent.CLICK, deliid);
-			_list.add(btn4);
-			
-			function deliid(e:MouseEvent):void
+			function onResult($id:String):void
 			{
-				Firebase.iid.deleteIID();
+				C.log("AppInstanceID = " + $id);
 			}
-			
-			onResize();
 		}
 		
-		private function onIdTokenReceived(e:FirebaseEvents):void
-		{
-			C.log("iidToken = "+e.iidToken);
-		}
 		
-		private function onIdReceived(e:FirebaseEvents):void
-		{
-			C.log("iid id = "+e.iidID);
-		}
-		
-		private function onIdTokenRefresh(e:FirebaseEvents):void
-		{
-			C.log(">>>>> onIdTokenRefresh");
-			Firebase.iid.getToken();
-		}
 		
 		
 		

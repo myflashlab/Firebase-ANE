@@ -5,12 +5,6 @@ package
 	import com.doitflash.mobileProject.commonCpuSrc.DeviceInfo;
 	import com.doitflash.starling.utils.list.List;
 	import com.doitflash.text.modules.MySprite;
-	import com.myflashlab.air.extensions.dependency.OverrideAir;
-
-	import flash.filesystem.File;
-	import flash.utils.setTimeout;
-	
-	import com.luaye.console.C;
 	
 	import flash.desktop.NativeApplication;
 	import flash.desktop.SystemIdleMode;
@@ -30,17 +24,22 @@ package
 	import flash.ui.Multitouch;
 	import flash.ui.MultitouchInputMode;
 	
+	import com.luaye.console.C;
+	
+	import com.myflashlab.air.extensions.dependency.OverrideAir;
 	import com.myflashlab.air.extensions.firebase.core.*;
-//	import com.myflashlab.air.extensions.inspector.Inspector;
+	import com.myflashlab.air.extensions.firebase.dynamicLinks.*;
+	import com.myflashlab.air.extensions.firebase.invites.*;
 	
 	
 	/**
 	 * ...
-	 * @author Hadi Tavakoli - 5/28/2016 10:36 AM
-	 * 						 - 1/4/2017 7:39 PM
+	 * @author Hadi Tavakoli - 2/7/2017 7:17 PM
 	 */
-	public class Main extends Sprite 
+	public class MainInvites extends Sprite 
 	{
+		private var _deepLink:String;
+		
 		private const BTN_WIDTH:Number = 150;
 		private const BTN_HEIGHT:Number = 60;
 		private const BTN_SPACE:Number = 2;
@@ -49,7 +48,7 @@ package
 		private var _list:List;
 		private var _numRows:int = 1;
 		
-		public function Main():void 
+		public function MainInvites():void 
 		{
 			Multitouch.inputMode = MultitouchInputMode.GESTURE;
 			NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, handleActivate);
@@ -77,7 +76,7 @@ package
 			_txt.multiline = true;
 			_txt.wordWrap = true;
 			_txt.embedFonts = false;
-			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Core V"+Firebase.VERSION+"</font>";
+			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Invites V"+Firebase.VERSION+"</font>";
 			_txt.scaleX = _txt.scaleY = DeviceInfo.dpiScaleMultiplier;
 			this.addChild(_txt);
 			
@@ -98,7 +97,7 @@ package
 		
 		private function onInvoke(e:InvokeEvent):void
 		{
-			NativeApplication.nativeApplication.removeEventListener(InvokeEvent.INVOKE, onInvoke);
+			//C.log(e.arguments);
 		}
 		
 		private function handleActivate(e:Event):void
@@ -155,34 +154,27 @@ package
 			// remove this line in production build or pass null as the delegate
 			OverrideAir.enableDebugger(myDebuggerDelegate);
 			
-			var isConfigFound:Boolean = Firebase.init();
-			Firebase.setLoggerLevel(FirebaseConfig.LOGGER_LEVEL_MAX);
-			
-			/*
-			 	How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
-				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
-				All you have to do is to pass the Class name of the target ANE to the check method.
-			*/
-			/*if (!Inspector.check(Firebase, true, true))
-			{
-				trace("Inspector.lastError = " + Inspector.lastError);
-				return;
-			}*/
+			// pass "true" for the init method so the ANE can prepare itself for accepting dynamic links / invites.
+			var isConfigFound:Boolean = Firebase.init(true);
 			
 			if (isConfigFound)
 			{
-				var config:FirebaseConfig = Firebase.getConfig();
-				C.log("default_web_client_id = " + 			config.default_web_client_id);
-				C.log("firebase_database_url = " + 			config.firebase_database_url);
-				C.log("gcm_defaultSenderId = " + 			config.gcm_defaultSenderId);
-				C.log("google_api_key = " + 				config.google_api_key);
-				C.log("google_app_id = " + 					config.google_app_id);
-				C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
-				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
+				// to be able to build dynamicLinks directly using the ANE, you need to set the projectID/Web API Key
+				// copy this information from Firebase console: https://console.firebase.google.com/project/_/settings/general/
+				Firebase.getConfig().projectID = "fir-proj";
+				Firebase.getConfig().webApiKey = "AIzySaBvQto5SVR6pPl8FU6LHlFsrgnepNhzxhQ";
 				
-				// You must initialize any of the other Firebase children after a successful initialization
-				// of the Core ANE.
-				readyToUseFirebase();
+				C.log("projectID = " + 						Firebase.getConfig().projectID);
+				C.log("webApiKey = " + 						Firebase.getConfig().webApiKey);
+				C.log("default_web_client_id = " + 			Firebase.getConfig().default_web_client_id);
+				C.log("firebase_database_url = " + 			Firebase.getConfig().firebase_database_url);
+				C.log("gcm_defaultSenderId = " + 			Firebase.getConfig().gcm_defaultSenderId);
+				C.log("google_api_key = " + 				Firebase.getConfig().google_api_key);
+				C.log("google_app_id = " + 					Firebase.getConfig().google_app_id);
+				C.log("google_crash_reporting_api_key = " + Firebase.getConfig().google_crash_reporting_api_key);
+				C.log("google_storage_bucket = " + 			Firebase.getConfig().google_storage_bucket);
+				
+				initDynamicLinks();
 			}
 			else
 			{
@@ -190,59 +182,105 @@ package
 			}
 		}
 		
-		private function readyToUseFirebase():void
+		private function initDynamicLinks():void
 		{
-			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN, onIdTokenReceived);
-			Firebase.iid.addEventListener(FirebaseEvents.IID_ID, onIdReceived);
-			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN_REFRESH, onIdTokenRefresh);
+			// DynamicLinks class must be initialized right after Firebase.init(true); and as soon as possible.
+			DynamicLinks.init();
 			
-			var btn1:MySprite = createBtn("get iid Token");
-			btn1.addEventListener(MouseEvent.CLICK, getToken);
-			_list.add(btn1);
+			// You should immedietly listen for possible DynamicLinksEvents.INVOKE event
+			DynamicLinks.listener.addEventListener(DynamicLinksEvents.INVOKE, onDynamicLinksInvoke);
 			
-			function getToken(e:MouseEvent):void
+			buildDeepLink();
+			
+			// when sending an invitation, you should use the dynamiclinks ANE to generate a valid deeplink
+			function buildDeepLink():void
 			{
-				Firebase.iid.getToken();
+				var androidParams:AndroidParams = new AndroidParams();
+				androidParams.apn = "air." + NativeApplication.nativeApplication.applicationID;
+				androidParams.amv = 3;
+				
+				var iosParams:IosParams = new IosParams();
+				iosParams.ibi = NativeApplication.nativeApplication.applicationID;
+				iosParams.isi = "2293507574";
+				
+				var socialMediaParams:SocialMediaParams = new SocialMediaParams();
+				socialMediaParams.st = "my Social Media title";
+				socialMediaParams.sd = "my Social Media description";
+				
+				var analyticsParams:AnalyticsParams = new AnalyticsParams();
+				
+				DynamicLinks.api.build("r23kf", "http://www.myflashlabs.com/deeplinks", false, androidParams, iosParams, socialMediaParams, analyticsParams, onDeeplinkBuiltDone);
+			}
+		}
+		
+		private function onDeeplinkBuiltDone($deeplink:String, $raw:String):void
+		{
+			if ($raw)
+			{
+				//trace("$raw = " + $raw);
 			}
 			
-			var btn2:MySprite = createBtn("get iid id");
-			btn2.addEventListener(MouseEvent.CLICK, getId);
-			_list.add(btn2);
-			
-			function getId(e:MouseEvent):void
+			if($deeplink)
 			{
-				Firebase.iid.getID();
+				_deepLink = $deeplink;
+				//C.log("_deepLink = " + _deepLink);
+				//trace("_deepLink = " + _deepLink);
+				
+				var btn1:MySprite = createBtn("send invitation");
+				btn1.addEventListener(MouseEvent.CLICK, sendInvitation);
+				_list.add(btn1);
+				
+				onResize();
 			}
 			
-			var btn4:MySprite = createBtn("delete iid");
-			btn4.addEventListener(MouseEvent.CLICK, deliid);
-			_list.add(btn4);
-			
-			function deliid(e:MouseEvent):void
+			function sendInvitation(e:MouseEvent):void
 			{
-				Firebase.iid.deleteIID();
+				// customize the invitation
+				var invitationBuilder:InvitesBuilder = new InvitesBuilder();
+				invitationBuilder.title = "my Title";
+				invitationBuilder.msg = "My Message";
+				invitationBuilder.callToAction = "Join the club!";
+				invitationBuilder.url = _deepLink;
+				invitationBuilder.img = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
+				
+				if (Firebase.os == Firebase.ANDROID)
+				{
+					invitationBuilder.otherPlatform = Invites.PROJECT_PLATFORM_IOS;
+					invitationBuilder.otherPlatformClientId = "183683121391-5t7j6ara6qgbwjub3636im7h5q2lgceb.apps.googleusercontent.com";
+				}
+				else
+				{
+					invitationBuilder.otherPlatform = Invites.PROJECT_PLATFORM_ANDROID;
+					invitationBuilder.otherPlatformClientId = "183683121391-h2hoth005fu6ata6n6pij4pba3297fe5.apps.googleusercontent.com";
+				}
+				
+				/*
+					NOTE: On iOS, invitation can be sent ONLY if the user is logged in with GoogleSignin ANE
+				*/
+				
+				// send the invitation
+				Invites.send(invitationBuilder, onFirebaseInviteResult);
+			}
+		}
+		
+		private function onDynamicLinksInvoke(e:DynamicLinksEvents):void
+		{
+			C.log("e.link = " + e.link);
+			C.log("e.invitationId = " + e.invitationId);
+		}
+		
+		private function onFirebaseInviteResult($invitationIds:Array):void
+		{
+			if ($invitationIds)
+			{
+				C.log($invitationIds);
+			}
+			else
+			{
+				C.log("invitation canceled or closed.");
 			}
 			
-			onResize();
 		}
-		
-		private function onIdTokenReceived(e:FirebaseEvents):void
-		{
-			C.log("iidToken = "+e.iidToken);
-		}
-		
-		private function onIdReceived(e:FirebaseEvents):void
-		{
-			C.log("iid id = "+e.iidID);
-		}
-		
-		private function onIdTokenRefresh(e:FirebaseEvents):void
-		{
-			C.log(">>>>> onIdTokenRefresh");
-			Firebase.iid.getToken();
-		}
-		
-		
 		
 		
 		

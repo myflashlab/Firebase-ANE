@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <application xmlns="http://ns.adobe.com/air/application/26.0">
   <id>com.doitflash.firebaseCore</id>
-  <versionNumber>5.0.0</versionNumber>
+  <versionNumber>5.1.0</versionNumber>
   <supportedProfiles>mobileDevice</supportedProfiles>
   <filename>exFirebaseCore</filename>
   <name>Firebase Core</name>
@@ -48,6 +48,14 @@
             android:authorities="air.com.doitflash.firebaseCore.firebaseinitprovider"
             android:exported="false"
             android:initOrder="100" />
+
+		<service
+            android:name="com.myflashlab.firebase.core.MyFirebaseInstanceIdService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
 		
 		<!-- Required by googlePlayServices_basement.ane -->
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />

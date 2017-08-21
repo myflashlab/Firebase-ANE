@@ -5,10 +5,6 @@ package
 	import com.doitflash.mobileProject.commonCpuSrc.DeviceInfo;
 	import com.doitflash.starling.utils.list.List;
 	import com.doitflash.text.modules.MySprite;
-	import com.myflashlab.air.extensions.dependency.OverrideAir;
-
-	import flash.filesystem.File;
-	import flash.utils.setTimeout;
 	
 	import com.luaye.console.C;
 	
@@ -31,15 +27,14 @@ package
 	import flash.ui.MultitouchInputMode;
 	
 	import com.myflashlab.air.extensions.firebase.core.*;
-//	import com.myflashlab.air.extensions.inspector.Inspector;
+	import com.myflashlab.air.extensions.firebase.crash.*;
 	
 	
 	/**
 	 * ...
-	 * @author Hadi Tavakoli - 5/28/2016 10:36 AM
-	 * 						 - 1/4/2017 7:39 PM
+	 * @author Hadi Tavakoli - 9/12/2016 5:41 PM
 	 */
-	public class Main extends Sprite 
+	public class MainCrash extends Sprite 
 	{
 		private const BTN_WIDTH:Number = 150;
 		private const BTN_HEIGHT:Number = 60;
@@ -49,7 +44,7 @@ package
 		private var _list:List;
 		private var _numRows:int = 1;
 		
-		public function Main():void 
+		public function MainCrash():void 
 		{
 			Multitouch.inputMode = MultitouchInputMode.GESTURE;
 			NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, handleActivate);
@@ -77,7 +72,7 @@ package
 			_txt.multiline = true;
 			_txt.wordWrap = true;
 			_txt.embedFonts = false;
-			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Core V"+Firebase.VERSION+"</font>";
+			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Crash V"+Firebase.VERSION+"</font>";
 			_txt.scaleX = _txt.scaleY = DeviceInfo.dpiScaleMultiplier;
 			this.addChild(_txt);
 			
@@ -145,29 +140,10 @@ package
 			}
 		}
 		
-		private function myDebuggerDelegate($ane:String, $class:String, $msg:String):void
-		{
-			trace($ane + "(" + $class + ")" + " " + $msg);
-		}
 		
 		private function init():void
 		{
-			// remove this line in production build or pass null as the delegate
-			OverrideAir.enableDebugger(myDebuggerDelegate);
-			
 			var isConfigFound:Boolean = Firebase.init();
-			Firebase.setLoggerLevel(FirebaseConfig.LOGGER_LEVEL_MAX);
-			
-			/*
-			 	How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
-				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
-				All you have to do is to pass the Class name of the target ANE to the check method.
-			*/
-			/*if (!Inspector.check(Firebase, true, true))
-			{
-				trace("Inspector.lastError = " + Inspector.lastError);
-				return;
-			}*/
 			
 			if (isConfigFound)
 			{
@@ -180,9 +156,18 @@ package
 				C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
 				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
 				
-				// You must initialize any of the other Firebase children after a successful initialization
-				// of the Core ANE.
-				readyToUseFirebase();
+				/*
+					How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
+					You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
+					All you have to do is to pass the Class name of the target ANE to the check method.
+				*/
+				/*if (!Inspector.check(Crash, true, true))
+				{
+					trace("Inspector.lastError = " + Inspector.lastError);
+					return;
+				}*/
+				
+				startWithCrash();
 			}
 			else
 			{
@@ -190,57 +175,41 @@ package
 			}
 		}
 		
-		private function readyToUseFirebase():void
+		private function startWithCrash():void
 		{
-			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN, onIdTokenReceived);
-			Firebase.iid.addEventListener(FirebaseEvents.IID_ID, onIdReceived);
-			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN_REFRESH, onIdTokenRefresh);
+			var btn0:MySprite = createBtn("log");
+			btn0.addEventListener(MouseEvent.CLICK, log);
+			_list.add(btn0);
 			
-			var btn1:MySprite = createBtn("get iid Token");
-			btn1.addEventListener(MouseEvent.CLICK, getToken);
+			function log(e:MouseEvent):void
+			{
+				C.log("send log message");
+				Crash.log("my log msg");
+			}
+			
+			var btn1:MySprite = createBtn("crash the app");
+			btn1.addEventListener(MouseEvent.CLICK, crashTheApp);
 			_list.add(btn1);
 			
-			function getToken(e:MouseEvent):void
+			function crashTheApp(e:MouseEvent):void
 			{
-				Firebase.iid.getToken();
+				C.log("calling: Crash.crash();");
+				Crash.crash();
 			}
 			
-			var btn2:MySprite = createBtn("get iid id");
-			btn2.addEventListener(MouseEvent.CLICK, getId);
+			var btn2:MySprite = createBtn("toggle crash collection");
+			btn2.addEventListener(MouseEvent.CLICK, toggleCrashCollection);
 			_list.add(btn2);
 			
-			function getId(e:MouseEvent):void
+			function toggleCrashCollection(e:MouseEvent):void
 			{
-				Firebase.iid.getID();
+				C.log("crash collection before: " + Crash.crashCollectionEnabled);
+				Crash.crashCollectionEnabled = !Crash.crashCollectionEnabled;
+				C.log("crash collection after: " + Crash.crashCollectionEnabled);
 			}
-			
-			var btn4:MySprite = createBtn("delete iid");
-			btn4.addEventListener(MouseEvent.CLICK, deliid);
-			_list.add(btn4);
-			
-			function deliid(e:MouseEvent):void
-			{
-				Firebase.iid.deleteIID();
-			}
-			
-			onResize();
 		}
 		
-		private function onIdTokenReceived(e:FirebaseEvents):void
-		{
-			C.log("iidToken = "+e.iidToken);
-		}
 		
-		private function onIdReceived(e:FirebaseEvents):void
-		{
-			C.log("iid id = "+e.iidID);
-		}
-		
-		private function onIdTokenRefresh(e:FirebaseEvents):void
-		{
-			C.log(">>>>> onIdTokenRefresh");
-			Firebase.iid.getToken();
-		}
 		
 		
 		

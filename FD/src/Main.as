@@ -5,6 +5,9 @@ package
 	import com.doitflash.mobileProject.commonCpuSrc.DeviceInfo;
 	import com.doitflash.starling.utils.list.List;
 	import com.doitflash.text.modules.MySprite;
+	import com.myflashlab.air.extensions.dependency.OverrideAir;
+
+	import flash.filesystem.File;
 	import flash.utils.setTimeout;
 	
 	import com.luaye.console.C;
@@ -142,9 +145,16 @@ package
 			}
 		}
 		
+		private function myDebuggerDelegate($ane:String, $class:String, $msg:String):void
+		{
+			trace($ane + "(" + $class + ")" + " " + $msg);
+		}
 		
 		private function init():void
 		{
+			// remove this line in production build or pass null as the delegate
+			OverrideAir.enableDebugger(myDebuggerDelegate);
+			
 			var isConfigFound:Boolean = Firebase.init();
 			Firebase.setLoggerLevel(FirebaseConfig.LOGGER_LEVEL_MAX);
 			
@@ -170,8 +180,9 @@ package
 				C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
 				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
 				
-				// You must initialize any of the other Firebase children after a successfull initialization
+				// You must initialize any of the other Firebase children after a successful initialization
 				// of the Core ANE.
+				readyToUseFirebase();
 			}
 			else
 			{
@@ -179,9 +190,57 @@ package
 			}
 		}
 		
+		private function readyToUseFirebase():void
+		{
+			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN, onIdTokenReceived);
+			Firebase.iid.addEventListener(FirebaseEvents.IID_ID, onIdReceived);
+			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN_REFRESH, onIdTokenRefresh);
+			
+			var btn1:MySprite = createBtn("get iid Token");
+			btn1.addEventListener(MouseEvent.CLICK, getToken);
+			_list.add(btn1);
+			
+			function getToken(e:MouseEvent):void
+			{
+				Firebase.iid.getToken();
+			}
+			
+			var btn2:MySprite = createBtn("get iid id");
+			btn2.addEventListener(MouseEvent.CLICK, getId);
+			_list.add(btn2);
+			
+			function getId(e:MouseEvent):void
+			{
+				Firebase.iid.getID();
+			}
+			
+			var btn4:MySprite = createBtn("delete iid");
+			btn4.addEventListener(MouseEvent.CLICK, deliid);
+			_list.add(btn4);
+			
+			function deliid(e:MouseEvent):void
+			{
+				Firebase.iid.deleteIID();
+			}
+			
+			onResize();
+		}
 		
+		private function onIdTokenReceived(e:FirebaseEvents):void
+		{
+			C.log("iidToken = "+e.iidToken);
+		}
 		
+		private function onIdReceived(e:FirebaseEvents):void
+		{
+			C.log("iid id = "+e.iidID);
+		}
 		
+		private function onIdTokenRefresh(e:FirebaseEvents):void
+		{
+			C.log(">>>>> onIdTokenRefresh");
+			Firebase.iid.getToken();
+		}
 		
 		
 		

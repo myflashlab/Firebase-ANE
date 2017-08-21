@@ -5,10 +5,6 @@ package
 	import com.doitflash.mobileProject.commonCpuSrc.DeviceInfo;
 	import com.doitflash.starling.utils.list.List;
 	import com.doitflash.text.modules.MySprite;
-	import com.myflashlab.air.extensions.dependency.OverrideAir;
-
-	import flash.filesystem.File;
-	import flash.utils.setTimeout;
 	
 	import com.luaye.console.C;
 	
@@ -31,15 +27,15 @@ package
 	import flash.ui.MultitouchInputMode;
 	
 	import com.myflashlab.air.extensions.firebase.core.*;
+	import com.myflashlab.air.extensions.firebase.remoteConfig.*;
 //	import com.myflashlab.air.extensions.inspector.Inspector;
 	
 	
 	/**
 	 * ...
 	 * @author Hadi Tavakoli - 5/28/2016 10:36 AM
-	 * 						 - 1/4/2017 7:39 PM
 	 */
-	public class Main extends Sprite 
+	public class MainRemoteConfig extends Sprite 
 	{
 		private const BTN_WIDTH:Number = 150;
 		private const BTN_HEIGHT:Number = 60;
@@ -49,7 +45,7 @@ package
 		private var _list:List;
 		private var _numRows:int = 1;
 		
-		public function Main():void 
+		public function MainRemoteConfig():void 
 		{
 			Multitouch.inputMode = MultitouchInputMode.GESTURE;
 			NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, handleActivate);
@@ -77,7 +73,7 @@ package
 			_txt.multiline = true;
 			_txt.wordWrap = true;
 			_txt.embedFonts = false;
-			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Core V"+Firebase.VERSION+"</font>";
+			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase RemoteConfig V"+Firebase.VERSION+"</font>";
 			_txt.scaleX = _txt.scaleY = DeviceInfo.dpiScaleMultiplier;
 			this.addChild(_txt);
 			
@@ -145,29 +141,10 @@ package
 			}
 		}
 		
-		private function myDebuggerDelegate($ane:String, $class:String, $msg:String):void
-		{
-			trace($ane + "(" + $class + ")" + " " + $msg);
-		}
 		
 		private function init():void
 		{
-			// remove this line in production build or pass null as the delegate
-			OverrideAir.enableDebugger(myDebuggerDelegate);
-			
 			var isConfigFound:Boolean = Firebase.init();
-			Firebase.setLoggerLevel(FirebaseConfig.LOGGER_LEVEL_MAX);
-			
-			/*
-			 	How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
-				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
-				All you have to do is to pass the Class name of the target ANE to the check method.
-			*/
-			/*if (!Inspector.check(Firebase, true, true))
-			{
-				trace("Inspector.lastError = " + Inspector.lastError);
-				return;
-			}*/
 			
 			if (isConfigFound)
 			{
@@ -180,9 +157,7 @@ package
 				C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
 				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
 				
-				// You must initialize any of the other Firebase children after a successful initialization
-				// of the Core ANE.
-				readyToUseFirebase();
+				initRemoteConfig();
 			}
 			else
 			{
@@ -190,57 +165,108 @@ package
 			}
 		}
 		
-		private function readyToUseFirebase():void
+		
+		private function initRemoteConfig():void
 		{
-			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN, onIdTokenReceived);
-			Firebase.iid.addEventListener(FirebaseEvents.IID_ID, onIdReceived);
-			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN_REFRESH, onIdTokenRefresh);
+			/*
+				How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
+				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
+				All you have to do is to pass the Class name of the target ANE to the check method.
+			*/
+			/*if (!Inspector.check(Crash, true, true))
+			{
+				trace("Inspector.lastError = " + Inspector.lastError);
+				return;
+			}*/
 			
-			var btn1:MySprite = createBtn("get iid Token");
-			btn1.addEventListener(MouseEvent.CLICK, getToken);
+			// initialize RemoteConfig only once in your app
+			RemoteConfig.init();
+			
+			// start listening to the fetch results
+			RemoteConfig.listener.addEventListener(RemoteConfigEvents.FETCH_RESULT, onFetched);
+			
+			// when developing, set this to true so the developer mode will be on
+			RemoteConfig.setConfigSettings(true);
+			
+			// create an object with the following format (key/value) and add all your default values to it.
+			var myDefaults:Object = {};
+			myDefaults["first_key"] = "my default value";
+			
+			// insert the default values to the ANE
+			RemoteConfig.setDefaults(myDefaults);
+			
+			
+			var btn1:MySprite = createBtn("fetch");
+			btn1.addEventListener(MouseEvent.CLICK, fetch);
 			_list.add(btn1);
 			
-			function getToken(e:MouseEvent):void
+			function fetch(e:MouseEvent):void
 			{
-				Firebase.iid.getToken();
+				var cacheExpiration:Number = 3600; // 1 hour in seconds.
+				
+				C.log("isDeveloperModeEnabled = " + RemoteConfig.isDeveloperModeEnabled);
+				
+				if (RemoteConfig.isDeveloperModeEnabled)
+				{
+					// If in developer mode cacheExpiration is set to 0 so each fetch will retrieve values from the server.
+					cacheExpiration = 0;
+				}
+				
+				// when you call fetch, make sure you are listening to the RemoteConfigEvents.FETCH_RESULT event to know the fetch result
+				RemoteConfig.fetch(cacheExpiration);
 			}
 			
-			var btn2:MySprite = createBtn("get iid id");
-			btn2.addEventListener(MouseEvent.CLICK, getId);
+			var btn2:MySprite = createBtn("get source");
+			btn2.addEventListener(MouseEvent.CLICK, getSource);
 			_list.add(btn2);
 			
-			function getId(e:MouseEvent):void
+			function getSource(e:MouseEvent):void
 			{
-				Firebase.iid.getID();
+				// get the source for your values to know if they are local or from Firebase servers
+				var source:int = RemoteConfig.getSource("first_key");
+				
+				switch (source) 
+				{
+					case RemoteConfig.VALUE_SOURCE_DEFAULT:
+						C.log("source = VALUE_SOURCE_DEFAULT");
+					break;
+					case RemoteConfig.VALUE_SOURCE_REMOTE:
+						C.log("source = VALUE_SOURCE_REMOTE");
+					break;
+					case RemoteConfig.VALUE_SOURCE_STATIC:
+						C.log("source = VALUE_SOURCE_STATIC");
+					break;
+					default:
+				}
 			}
 			
-			var btn4:MySprite = createBtn("delete iid");
-			btn4.addEventListener(MouseEvent.CLICK, deliid);
-			_list.add(btn4);
+			var btn3:MySprite = createBtn("get value");
+			btn3.addEventListener(MouseEvent.CLICK, getValue);
+			_list.add(btn3);
 			
-			function deliid(e:MouseEvent):void
+			function getValue(e:MouseEvent):void
 			{
-				Firebase.iid.deleteIID();
+				var value:String = RemoteConfig.getValue("first_key", RemoteConfig.AS_STRING) as String;
+				
+				C.log("value = " + value);
 			}
-			
-			onResize();
 		}
 		
-		private function onIdTokenReceived(e:FirebaseEvents):void
+		private function onFetched(e:RemoteConfigEvents):void
 		{
-			C.log("iidToken = "+e.iidToken);
+			if (e.result == 1)
+			{
+				C.log("onFetched was successfull, Now, let's call RemoteConfig.activateFetched() to activate the new data");
+				
+				// When you fetch the new information from server, you can activate them anytime you think is appropriate in your app
+				RemoteConfig.activateFetched();
+			}
+			else
+			{
+				C.log("onFetched was NOT successfull");
+			}
 		}
 		
-		private function onIdReceived(e:FirebaseEvents):void
-		{
-			C.log("iid id = "+e.iidID);
-		}
-		
-		private function onIdTokenRefresh(e:FirebaseEvents):void
-		{
-			C.log(">>>>> onIdTokenRefresh");
-			Firebase.iid.getToken();
-		}
 		
 		
 		

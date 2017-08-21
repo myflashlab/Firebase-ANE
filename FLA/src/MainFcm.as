@@ -5,8 +5,6 @@ package
 	import com.doitflash.mobileProject.commonCpuSrc.DeviceInfo;
 	import com.doitflash.starling.utils.list.List;
 	import com.doitflash.text.modules.MySprite;
-	import com.myflashlab.air.extensions.dependency.OverrideAir;
-
 	import flash.filesystem.File;
 	import flash.utils.setTimeout;
 	
@@ -31,15 +29,16 @@ package
 	import flash.ui.MultitouchInputMode;
 	
 	import com.myflashlab.air.extensions.firebase.core.*;
-//	import com.myflashlab.air.extensions.inspector.Inspector;
+	import com.myflashlab.air.extensions.firebase.fcm.*;
+	import com.myflashlab.air.extensions.dependency.OverrideAir;
+	
 	
 	
 	/**
 	 * ...
 	 * @author Hadi Tavakoli - 5/28/2016 10:36 AM
-	 * 						 - 1/4/2017 7:39 PM
 	 */
-	public class Main extends Sprite 
+	public class MainFcm extends Sprite 
 	{
 		private const BTN_WIDTH:Number = 150;
 		private const BTN_HEIGHT:Number = 60;
@@ -49,7 +48,7 @@ package
 		private var _list:List;
 		private var _numRows:int = 1;
 		
-		public function Main():void 
+		public function MainFcm():void 
 		{
 			Multitouch.inputMode = MultitouchInputMode.GESTURE;
 			NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, handleActivate);
@@ -77,7 +76,7 @@ package
 			_txt.multiline = true;
 			_txt.wordWrap = true;
 			_txt.embedFonts = false;
-			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Core V"+Firebase.VERSION+"</font>";
+			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase FCM V"+Firebase.VERSION+"</font>";
 			_txt.scaleX = _txt.scaleY = DeviceInfo.dpiScaleMultiplier;
 			this.addChild(_txt);
 			
@@ -98,7 +97,17 @@ package
 		
 		private function onInvoke(e:InvokeEvent):void
 		{
-			NativeApplication.nativeApplication.removeEventListener(InvokeEvent.INVOKE, onInvoke);
+			var payload:Object = FCM.parsePayloadFromArguments(e.arguments);
+			
+			if (payload) // If available, it means that the Invoke listener contains FCM data
+			{
+				C.log("---------------------------------");
+				for (var name:String in payload)
+				{
+					C.log(name + " = " + payload[name]);
+				}
+				C.log("---------------------------------");
+			}
 		}
 		
 		private function handleActivate(e:Event):void
@@ -155,19 +164,8 @@ package
 			// remove this line in production build or pass null as the delegate
 			OverrideAir.enableDebugger(myDebuggerDelegate);
 			
-			var isConfigFound:Boolean = Firebase.init();
-			Firebase.setLoggerLevel(FirebaseConfig.LOGGER_LEVEL_MAX);
 			
-			/*
-			 	How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
-				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
-				All you have to do is to pass the Class name of the target ANE to the check method.
-			*/
-			/*if (!Inspector.check(Firebase, true, true))
-			{
-				trace("Inspector.lastError = " + Inspector.lastError);
-				return;
-			}*/
+			var isConfigFound:Boolean = Firebase.init();
 			
 			if (isConfigFound)
 			{
@@ -180,9 +178,10 @@ package
 				C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
 				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
 				
-				// You must initialize any of the other Firebase children after a successful initialization
-				// of the Core ANE.
-				readyToUseFirebase();
+				// FCM needs Google Services so, before using FCM, we need to check that first.
+				// https://firebase.google.com/docs/cloud-messaging/android/client#sample-play
+				if (Firebase.os == Firebase.ANDROID) Firebase.checkGoogleAvailability(onCheckResult);
+				else onCheckResult(Firebase.SUCCESS);
 			}
 			else
 			{
@@ -190,57 +189,117 @@ package
 			}
 		}
 		
-		private function readyToUseFirebase():void
+		private function onCheckResult($result:int):void
 		{
-			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN, onIdTokenReceived);
-			Firebase.iid.addEventListener(FirebaseEvents.IID_ID, onIdReceived);
-			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN_REFRESH, onIdTokenRefresh);
+			switch($result)
+			{
+				case Firebase.SUCCESS:
+					
+					C.log("checkGoogleAvailability result = SUCCESS");
+					
+					// now you can use FCM
+					initFCM();
+					onResize();
+					
+				break;
+				case Firebase.SERVICE_MISSING:
+					
+					C.log("checkGoogleAvailability result = SERVICE_MISSING");
+					
+				break;
+				case Firebase.SERVICE_VERSION_UPDATE_REQUIRED:
+					
+					C.log("checkGoogleAvailability result = SERVICE_VERSION_UPDATE_REQUIRED");
+					
+				break;
+				case Firebase.SERVICE_UPDATING:
+					
+					C.log("checkGoogleAvailability result = SERVICE_UPDATING");
+					
+				break;
+				case Firebase.SERVICE_DISABLED:
+					
+					C.log("checkGoogleAvailability result = SERVICE_DISABLED");
+					
+				break;
+				case Firebase.SERVICE_INVALID:
+					
+					C.log("checkGoogleAvailability result = SERVICE_INVALID");
+					
+				break;
+			}
+		}
+		
+		
+		private function initFCM():void
+		{
+			FCM.init();
+			FCM.listener.addEventListener(FcmEvents.TOKEN_REFRESH, onTokenRefresh);
+			FCM.listener.addEventListener(FcmEvents.MESSAGE, onMessage);
 			
-			var btn1:MySprite = createBtn("get iid Token");
+			var btn1:MySprite = createBtn("getToken");
 			btn1.addEventListener(MouseEvent.CLICK, getToken);
 			_list.add(btn1);
 			
 			function getToken(e:MouseEvent):void
 			{
-				Firebase.iid.getToken();
+				C.log("token = " + FCM.getToken());
+				trace("token = " + FCM.getToken());
 			}
 			
-			var btn2:MySprite = createBtn("get iid id");
-			btn2.addEventListener(MouseEvent.CLICK, getId);
+			var btn2:MySprite = createBtn("subscribe to 'news'");
+			btn2.addEventListener(MouseEvent.CLICK, subscribe);
 			_list.add(btn2);
 			
-			function getId(e:MouseEvent):void
+			function subscribe(e:MouseEvent):void
 			{
-				Firebase.iid.getID();
+				// It will take 24 hours before you can see this topic on the Firebase console
+				FCM.subscribeToTopic("news");
 			}
 			
-			var btn4:MySprite = createBtn("delete iid");
-			btn4.addEventListener(MouseEvent.CLICK, deliid);
-			_list.add(btn4);
+			var btn3:MySprite = createBtn("unsubscribe from 'news'");
+			btn3.addEventListener(MouseEvent.CLICK, unsubscribe);
+			_list.add(btn3);
 			
-			function deliid(e:MouseEvent):void
+			function unsubscribe(e:MouseEvent):void
 			{
-				Firebase.iid.deleteIID();
+				FCM.unsubscribeFromTopic("news");
 			}
+		}
+		
+		private function onTokenRefresh(e:FcmEvents):void
+		{
+			trace("onTokenRefresh = " + e.token);
+			C.log("onTokenRefresh = " + e.token);
+		}
+		
+		private function onMessage(e:FcmEvents):void
+		{
+			trace(e.msg)
+			var payload:Object = FCM.parsePayloadFromString(e.msg);
 			
-			onResize();
+			if (payload)
+			{
+				for (var name:String in payload)
+				{
+					C.log(name + " = " + payload[name]);
+				}
+			}
 		}
 		
-		private function onIdTokenReceived(e:FirebaseEvents):void
-		{
-			C.log("iidToken = "+e.iidToken);
-		}
 		
-		private function onIdReceived(e:FirebaseEvents):void
-		{
-			C.log("iid id = "+e.iidID);
-		}
 		
-		private function onIdTokenRefresh(e:FirebaseEvents):void
-		{
-			C.log(">>>>> onIdTokenRefresh");
-			Firebase.iid.getToken();
-		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
