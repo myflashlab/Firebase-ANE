@@ -7,9 +7,14 @@ Before opening a new issue, make sure you are using the latest available ANE. If
 
 ## Problem Description ##
 Describe your problem in detail.
-
 * Copy your manifest ```.xml``` file.
+```xml
+<my><manifest/></my>
+```
 * Copy your Actionscript code.
+```actionscript
+var myScript:AS;
+```
 
 ## Steps to Reproduce ##
 Tell us how this issue can be reproduced.
