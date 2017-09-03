@@ -1,5 +1,9 @@
 Firebase Air Native Extension
 
+*Sep 03, 2017 - V5.1.1*
+
+* (Core) Fixed [issue 148](https://github.com/myflashlab/Firebase-ANE/issues/148). The core ANE must be regenerated with the new ane generator V5.1.1.
+
 *Aug 21, 2017 - V5.1.0*
 
 * (Core) the core ANE must be regenerated with the new ane generator V5.1.0.

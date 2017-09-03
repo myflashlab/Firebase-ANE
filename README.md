@@ -1,4 +1,4 @@
-# Firebase Air Native Extension V5.1.0 Android+iOS
+# Firebase Air Native Extension V5.1.1 Android+iOS
 Firebase ANE gives you access to the [Google Firebase project](https://firebase.google.com/docs/) in your AdobeAir projects supported on both Android and iOS with 100% identical ActionScript API. 
 
 If you decide to use Firebase in your next AdobeAir project, you should consider the following structure: Firebase Air Native Extension is consist of a *Core* ANE plus some other individual ANEs which are all dependent on the *Core*. i.e, If you wish to use [Firebase Cloud Messaging (FCM)](http://www.myflashlabs.com/product/fcm-firebase-air-native-extension/), you need to embed the Core ANE first and then use the required ANE(s) for the FCM. This structure will make sure that you are not compiling unused native code in your AdobeAir project. In result, your app file size will be as small as possible and faster to debug/compile. [The Wiki pages](https://github.com/myflashlab/Firebase-ANE/wiki) will provide you detailed information about how you can embed each ANE based on the Firebase feature you wish to use in your app.
@@ -133,6 +133,10 @@ if (!Inspector.check(Firebase, true, true))
 [How to use Firebase Invites?](https://github.com/myflashlab/Firebase-ANE/wiki/J.-Invites#get-started-with-firebase-invites-in-adobe-air)  
 
 # Changelog #
+*Sep 03, 2017 - V5.1.1*
+
+* (Core) Fixed [issue 148](https://github.com/myflashlab/Firebase-ANE/issues/148). The core ANE must be regenerated with the new ane generator V5.1.1.
+
 *Aug 21, 2017 - V5.1.0*
 
 * (Core) the core ANE must be regenerated with the new ane generator V5.1.0.

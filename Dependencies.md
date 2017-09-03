@@ -25,7 +25,7 @@ googlePlayServices_appinvite.ane V11.0.2 |
 
 On the Android side | On the iOS side
 ------------ | -------------
-firebaseCore.ane V5.1.0 | firebaseCore.ane V5.1.0
+firebaseCore.ane V5.1.1 | firebaseCore.ane V5.1.1
 +other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebase_auth.ane V11.0.2 | FirebaseAuth.framework
 . | GTMSessionFetcher.framework
@@ -34,7 +34,7 @@ firebase_auth.ane V11.0.2 | FirebaseAuth.framework
 
 On the Android side | On the iOS side
 ------------ | -------------
-firebaseCore.ane V5.1.0 | firebaseCore.ane V5.1.0
+firebaseCore.ane V5.1.1 | firebaseCore.ane V5.1.1
 +other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebase_database.ane V11.0.2 | FirebaseDatabase.framework
 firebase_databaseConnection.ane V11.0.2 | 
@@ -43,7 +43,7 @@ firebase_databaseConnection.ane V11.0.2 |
 
 On the Android side | On the iOS side
 ------------ | -------------
-firebaseCore.ane V5.1.0 | firebaseCore.ane V5.1.0
+firebaseCore.ane V5.1.1 | firebaseCore.ane V5.1.1
 +other ANEs required by the Core | +other frameworks/ANEs required for by Core
 firebase_config.ane V11.0.2 | FirebaseRemoteConfig.framework
 . | Protobuf.framework
@@ -52,7 +52,7 @@ firebase_config.ane V11.0.2 | FirebaseRemoteConfig.framework
 
 On the Android side | On the iOS side
 ------------ | -------------
-firebaseCore.ane V5.1.0 | firebaseCore.ane V5.1.0
+firebaseCore.ane V5.1.1 | firebaseCore.ane V5.1.1
 +other ANEs required for by Core | +other frameworks/ANEs required by the Core
 firebase_storage.ane V11.0.2 | FirebaseStorage.framework
 firebase_storageCommon.ane V11.0.2 | GTMSessionFetcher.framework
@@ -61,7 +61,7 @@ firebase_storageCommon.ane V11.0.2 | GTMSessionFetcher.framework
 
 On the Android side | On the iOS side
 ------------ | -------------
-firebaseCore.ane V5.1.0 | firebaseCore.ane V5.1.0
+firebaseCore.ane V5.1.1 | firebaseCore.ane V5.1.1
 +other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebase_crash.ane V11.0.2 | FirebaseCrash.framework
 firebase_analyticsImpl.ane V11.0.2 | Protobuf.framework
@@ -70,7 +70,7 @@ firebase_analyticsImpl.ane V11.0.2 | Protobuf.framework
 
 On the Android side | On the iOS side
 ------------ | -------------
-firebaseCore.ane V5.1.0 | firebaseCore.ane V5.1.0
+firebaseCore.ane V5.1.1 | firebaseCore.ane V5.1.1
 +other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebase_messaging.ane V11.0.2 | FirebaseMessaging.framework
 . | Protobuf.framework
@@ -79,7 +79,7 @@ firebase_messaging.ane V11.0.2 | FirebaseMessaging.framework
 
 On the Android side | On the iOS side
 ------------ | -------------
-firebaseCore.ane V5.1.0 | firebaseCore.ane V5.1.0
+firebaseCore.ane V5.1.1 | firebaseCore.ane V5.1.1
 +other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebase_analyticsImpl.ane V11.0.2 | 
 firebase-analytics.ane V11.0.2 | 
@@ -88,7 +88,7 @@ firebase-analytics.ane V11.0.2 |
 
 On the Android side | On the iOS side
 ------------ | -------------
-firebaseCore.ane V5.1.0 | firebaseCore.ane V5.1.0
+firebaseCore.ane V5.1.1 | firebaseCore.ane V5.1.1
 +other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebase_dynamicLinks.ane V11.0.2 | FirebaseDynamicLinks.framework
  
@@ -96,7 +96,7 @@ firebase_dynamicLinks.ane V11.0.2 | FirebaseDynamicLinks.framework
 
 On the Android side | On the iOS side
 ------------ | -------------
-firebaseCore.ane V5.1.0 | firebaseCore.ane V5.1.0
+firebaseCore.ane V5.1.1 | firebaseCore.ane V5.1.1
 +other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebaseDynamicLinks.ane V5.1.0 | firebaseDynamicLinks.ane V5.1.0
 +other ANEs required by the DynamicLinks | +other frameworks/ANEs required by the DynamicLinks
