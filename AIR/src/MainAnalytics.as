@@ -163,6 +163,7 @@ package
 				C.log("google_app_id = " + 					config.google_app_id);
 				C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
 				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
+				C.log("project_id = " + 					config.project_id);
 				
 				initFirebaseAnalytics();
 			}

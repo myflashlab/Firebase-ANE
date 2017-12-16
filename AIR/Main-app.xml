@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<application xmlns="http://ns.adobe.com/air/application/26.0">
+<application xmlns="http://ns.adobe.com/air/application/27.0">
     <id>com.doitflash.firebaseCore</id>
-    <versionNumber>5.1.1</versionNumber>
+    <versionNumber>6.0.0</versionNumber>
     <supportedProfiles>mobileDevice</supportedProfiles>
     <filename>exFirebaseCore</filename>
     <name>Firebase Core</name>
@@ -73,9 +73,6 @@
                         <category android:name="air.com.doitflash.firebaseCore"/>
                     </intent-filter>
                 </receiver>
-                <receiver
-                    android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver"
-                    android:exported="false"/>
                 <service
                     android:name="com.google.firebase.iid.FirebaseInstanceIdService"
                     android:exported="true">
@@ -167,7 +164,7 @@
             <string>1</string>
             <string>2</string>
         </array>
-
+        
         <!-- 
 			Required by firebaseInvites.ane
 			Change google client id to your own. Find it in GoogleService-Info.plist
@@ -195,8 +192,8 @@
         <!-- Required by firebaseDynamicLinks.ane -->
 		<!-- <key>com.myflashlabs.firebase.deepLinkURLScheme</key>
         <string>dlscheme</string> -->
-        
-        ]]></InfoAdditions>
+
+                ]]></InfoAdditions>
     
     <requestedDisplayResolution>high</requestedDisplayResolution>
     
@@ -283,9 +280,6 @@
 </icon>
 <extensions>
     
-    <!-- Use the inspector ANE tool to check if you have correctly added all the dependencies or not -->
-    <!--<extensionID>com.myflashlab.air.extensions.inspector</extensionID>-->
-    
     <!-- download the dependency ANEs from https://github.com/myflashlab/common-dependencies-ANE -->
     <extensionID>com.myflashlab.air.extensions.dependency.firebase.common</extensionID>
     <extensionID>com.myflashlab.air.extensions.dependency.firebase.iid</extensionID>
@@ -298,7 +292,7 @@
     
     <!-- And finally embed the Firebase core ANE -->
     <extensionID>com.myflashlab.air.extensions.firebase.core</extensionID>
-
+    
     <!-- 
 		When adding other Firebase Child ANEs, make sure to study the following page carefully to know
 		which other ANEs/dependencies must be included to your project. 

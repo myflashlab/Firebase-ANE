@@ -159,20 +159,20 @@ package
 			
 			if (isConfigFound)
 			{
-				// to be able to build dynamicLinks directly using the ANE, you need to set the projectID/Web API Key
+				// to be able to build dynamicLinks, you need to set the Web API Key manually
 				// copy this information from Firebase console: https://console.firebase.google.com/project/_/settings/general/
-				Firebase.getConfig().projectID = "fir-proj";
 				Firebase.getConfig().webApiKey = "AIzySaBvQto5SVR6pPl8FU6LHlFsrgnepNhzxhQ";
 				
-				C.log("projectID = " + 						Firebase.getConfig().projectID);
-				C.log("webApiKey = " + 						Firebase.getConfig().webApiKey);
-				C.log("default_web_client_id = " + 			Firebase.getConfig().default_web_client_id);
-				C.log("firebase_database_url = " + 			Firebase.getConfig().firebase_database_url);
-				C.log("gcm_defaultSenderId = " + 			Firebase.getConfig().gcm_defaultSenderId);
-				C.log("google_api_key = " + 				Firebase.getConfig().google_api_key);
-				C.log("google_app_id = " + 					Firebase.getConfig().google_app_id);
-				C.log("google_crash_reporting_api_key = " + Firebase.getConfig().google_crash_reporting_api_key);
-				C.log("google_storage_bucket = " + 			Firebase.getConfig().google_storage_bucket);
+				var config:FirebaseConfig = Firebase.getConfig();
+				C.log("webApiKey = " + 						config.webApiKey);
+				C.log("default_web_client_id = " + 			config.default_web_client_id);
+				C.log("firebase_database_url = " + 			config.firebase_database_url);
+				C.log("gcm_defaultSenderId = " + 			config.gcm_defaultSenderId);
+				C.log("google_api_key = " + 				config.google_api_key);
+				C.log("google_app_id = " + 					config.google_app_id);
+				C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
+				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
+				C.log("project_id = " + 					config.project_id);
 				
 				initDynamicLinks();
 			}

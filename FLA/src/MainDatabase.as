@@ -7,7 +7,7 @@ package
 	import com.doitflash.text.modules.MySprite;
 	
 	import com.luaye.console.C;
-	
+
 	import flash.desktop.NativeApplication;
 	import flash.desktop.SystemIdleMode;
 	import flash.display.Sprite;
@@ -28,7 +28,7 @@ package
 	
 	import com.myflashlab.air.extensions.firebase.core.*;
 	import com.myflashlab.air.extensions.firebase.db.*;
-	
+	import com.myflashlab.air.extensions.dependency.OverrideAir;
 	
 	/**
 	 * ...
@@ -140,9 +140,16 @@ package
 			}
 		}
 		
+		private function myDebuggerDelegate($ane:String, $class:String, $msg:String):void
+		{
+			trace($ane + "(" + $class + ")" + " " + $msg);
+		}
 		
 		private function init():void
 		{
+			// remove this line in production build or pass null as the delegate
+			OverrideAir.enableDebugger(myDebuggerDelegate);
+			
 			var isConfigFound:Boolean = Firebase.init();
 			
 			if (isConfigFound)
@@ -155,6 +162,7 @@ package
 				C.log("google_app_id = " + 					config.google_app_id);
 				C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
 				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
+				C.log("project_id = " + 					config.project_id);
 				
 				initDatabase();
 			}
@@ -166,17 +174,6 @@ package
 		
 		private function initDatabase():void
 		{
-			/*
-				How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
-				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
-				All you have to do is to pass the Class name of the target ANE to the check method.
-			*/
-			/*if (!Inspector.check(DB, true, true))
-			{
-				trace("Inspector.lastError = " + Inspector.lastError);
-				return;
-			}*/
-			
 			DB.init();
 			
 			var refDisconnect:DBReference;

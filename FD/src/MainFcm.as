@@ -5,8 +5,6 @@ package
 	import com.doitflash.mobileProject.commonCpuSrc.DeviceInfo;
 	import com.doitflash.starling.utils.list.List;
 	import com.doitflash.text.modules.MySprite;
-	import flash.filesystem.File;
-	import flash.utils.setTimeout;
 	
 	import com.luaye.console.C;
 	
@@ -164,7 +162,6 @@ package
 			// remove this line in production build or pass null as the delegate
 			OverrideAir.enableDebugger(myDebuggerDelegate);
 			
-			
 			var isConfigFound:Boolean = Firebase.init();
 			
 			if (isConfigFound)
@@ -177,6 +174,7 @@ package
 				C.log("google_app_id = " + 					config.google_app_id);
 				C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
 				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
+				C.log("project_id = " + 					config.project_id);
 				
 				// FCM needs Google Services so, before using FCM, we need to check that first.
 				// https://firebase.google.com/docs/cloud-messaging/android/client#sample-play

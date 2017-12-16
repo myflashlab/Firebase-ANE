@@ -5,6 +5,129 @@ Every release of Firebase ANEs will work with specific versions of Dependency AN
 **Note3**: Firebase ANEs will not run on simulators. make sure you are building on a real device.  
 **Note4**: When updating the .framework files, always delete the old ones and then copy the new ones. Never overwrite them.  
 
+# V6.x.x #
+Find the Android dependencies on [this branch](https://github.com/myflashlab/common-dependencies-ANE/tree/f43d0e760a79efcf36ed6846df50bce93dfee0b4). *The master branch may have newer versions of these files but if you are building for the specified version number, you will need this specific branch.* And download the iOS frameworks [from here](https://dl.google.com/firebase/sdk/ios/4_6_0/Firebase-4.6.0.zip).
+
+**firebaseCore.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+androidSupport.ane V26.0.2 | overrideAir.ane V5.1.0
+overrideAir.ane V5.1.0 | FirebaseAnalytics.framework
+firebase_common.ane V11.6.0 | FirebaseCore.framework
+firebase_iid.ane V11.6.0 | FirebaseCoreDiagnostics.framework
+googlePlayServices_base.ane V11.6.0 | FirebaseNanoPB.framework
+googlePlayServices_basement.ane V11.6.0 | FirebaseInstanceID.framework
+googlePlayServices_tasks.ane V11.6.0 | GoogleToolboxForMac.framework
+googlePlayServices_appinvite.ane V11.6.0 | nanopb.framework
+
+**firebaseAuth.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane V6.x.x | firebaseCore.ane V6.x.x
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
+firebase_auth.ane V11.6.0 | FirebaseAuth.framework
+. | GTMSessionFetcher.framework
+
+**firebaseDatabase.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane 6.x.x | firebaseCore.ane 6.x.x
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
+firebase_database.ane V11.6.0 | FirebaseDatabase.framework
+firebase_databaseConnection.ane V11.6.0 | leveldb-library.framework
+
+**firebaseFirestore.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane 6.x.x | firebaseCore.ane 6.x.x
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
+firebase_firestore.ane V11.6.0 | BoringSSL.framework
+. | FirebaseAuth.framework
+. | FirebaseFirestore.framework
+. | GTMSessionFetcher.framework
+. | Protobuf.framework
+. | gRPC.framework
+. | gRPC-Core.framework
+. | gRPC-ProtoRPC.framework
+. | gRPC-RxLibrary.framework
+. | leveldb-library.framework
+. | **Resources:**  gRPCCertificates.bundle
+
+**firebaseRemoteConfig.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane 6.x.x | firebaseCore.ane 6.x.x
++other ANEs required by the Core | +other frameworks/ANEs required for by Core
+firebase_config.ane V11.6.0 | FirebaseRemoteConfig.framework
+. | Protobuf.framework
+. | FirebaseABTesting.framework
+
+**firebaseStorage.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane 6.x.x | firebaseCore.ane 6.x.x
++other ANEs required for by Core | +other frameworks/ANEs required by the Core
+firebase_storage.ane V11.6.0 | FirebaseStorage.framework
+firebase_storageCommon.ane V11.6.0 | GTMSessionFetcher.framework
+
+**firebaseCrash.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane 6.x.x | firebaseCore.ane 6.x.x
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
+firebase_crash.ane V11.6.0 | FirebaseCrash.framework
+firebase_analyticsImpl.ane V11.6.0 | Protobuf.framework
+
+**firebaseMessaging.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane 6.x.x | firebaseCore.ane 6.x.x
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
+firebase_messaging.ane V11.6.0 | FirebaseMessaging.framework
+. | Protobuf.framework
+
+**firebaseAnalytics.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane 6.x.x | firebaseCore.ane 6.x.x
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
+firebase_analyticsImpl.ane V11.6.0 | 
+firebase-analytics.ane V11.6.0 | 
+
+**firebaseDynamicLinks.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane 6.x.x | firebaseCore.ane 6.x.x
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
+firebase_dynamicLinks.ane V11.6.0 | FirebaseDynamicLinks.framework
+ 
+ **firebaseInvites.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane 6.x.x | firebaseCore.ane 6.x.x
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
+firebaseDynamicLinks.ane V6.x.x | firebaseDynamicLinks.ane V6.x.x
++other ANEs required by the DynamicLinks | +other frameworks/ANEs required by the DynamicLinks
+. | FirebaseInvites.framework
+. | GTMOAuth2.framework
+. | GTMSessionFetcher.framework
+. | GoogleAPIClientForREST.framework
+. | GoogleSignIn.framework
+. | Protobuf.framework
+. | **Resources:**  GINInviteResources.bundle, GoogleSignIn.bundle, GPPACLPickerResources.bundle
+
+
 # V5.x.x #
 Find the Android dependencies on [this branch](https://github.com/myflashlab/common-dependencies-ANE/tree/236eb77a96c17865de10f0eba0fed3db6e0909ed). *The master branch may have newer versions of these files but if you are building for the specified version number, you will need this specific branch.* And download the iOS frameworks [from here](https://dl.google.com/firebase/sdk/ios/4_0_3/Firebase-4.0.3.zip).
 

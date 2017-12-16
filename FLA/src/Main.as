@@ -5,10 +5,6 @@ package
 	import com.doitflash.mobileProject.commonCpuSrc.DeviceInfo;
 	import com.doitflash.starling.utils.list.List;
 	import com.doitflash.text.modules.MySprite;
-	import com.myflashlab.air.extensions.dependency.OverrideAir;
-
-	import flash.filesystem.File;
-	import flash.utils.setTimeout;
 	
 	import com.luaye.console.C;
 	
@@ -29,9 +25,9 @@ package
 	import flash.ui.Keyboard;
 	import flash.ui.Multitouch;
 	import flash.ui.MultitouchInputMode;
-	
+
+	import com.myflashlab.air.extensions.dependency.OverrideAir;
 	import com.myflashlab.air.extensions.firebase.core.*;
-//	import com.myflashlab.air.extensions.inspector.Inspector;
 	
 	
 	/**
@@ -158,17 +154,6 @@ package
 			var isConfigFound:Boolean = Firebase.init();
 			Firebase.setLoggerLevel(FirebaseConfig.LOGGER_LEVEL_MAX);
 			
-			/*
-			 	How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
-				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
-				All you have to do is to pass the Class name of the target ANE to the check method.
-			*/
-			/*if (!Inspector.check(Firebase, true, true))
-			{
-				trace("Inspector.lastError = " + Inspector.lastError);
-				return;
-			}*/
-			
 			if (isConfigFound)
 			{
 				var config:FirebaseConfig = Firebase.getConfig();
@@ -179,6 +164,7 @@ package
 				C.log("google_app_id = " + 					config.google_app_id);
 				C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
 				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
+				C.log("project_id = " + 					config.project_id);
 				
 				// You must initialize any of the other Firebase children after a successful initialization
 				// of the Core ANE.

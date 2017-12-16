@@ -1,15 +1,24 @@
 Firebase Air Native Extension
 
-*Sep 03, 2017 - V5.1.1*
+*Dec 15, 2017 - V6.0.0*
+* Updated to Firebase SDK 11.6.0 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v6xx)
+* Updated to Firebase SDK 4.6.3 for iOS. Make sure you are updating the [frameworks and resources](https://dl.google.com/firebase/sdk/ios/4_6_0/Firebase-4.6.0.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v6xx)
+* (Core) You need to regenerate the core ANE using the ane generator software V6.0.0 and you need to update all the other Firebase children that you are using in your project.
+* (Core) Remove the following receiver from your manifest: ```<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" android:exported="false"/>```
+* (Core) The ```projectID``` property from the ```FirebaseConfig``` class is now deprecated and you no longer can set it manually. This property will be set automatically from now on and you can see its value with the following getter: ```project_id```.
+* (Analytics) Added new method ```resetAnalyticsData()``` which works on the Android side only.
+* (Auth) Added ```FirebaseUser.metadata```.
+* (Auth) Added ```ActionCodeSettings``` to [sendPasswordResetEmail](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/Auth.html#sendPasswordResetEmail()) and [sendEmailVerification](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/FirebaseUser.html#sendEmailVerification())
+* (Dynamic-Links) You no longer have to set ```Firebase.getConfig().projectID```. This will happen automatically from now on. However, you still need to set ```Firebase.getConfig().webApiKey``` manually.
+* Firestore is now added and you can start using it. Start by reading the [wiki on how to initialize Firestore](https://github.com/myflashlab/Firebase-ANE/wiki/K.-Firestore).
 
+*Sep 03, 2017 - V5.1.1*
 * (Core) Fixed [issue 148](https://github.com/myflashlab/Firebase-ANE/issues/148). The core ANE must be regenerated with the new ane generator V5.1.1.
 
 *Aug 21, 2017 - V5.1.0*
-
 * (Core) the core ANE must be regenerated with the new ane generator V5.1.0.
 * (Core) Added API for managing FirebaseInstanceId. You can now manualy delete and regenerate new iid ID and tokens.
 * (Core) You need to add the following service to your manifest right after the ```<provider ....``` tag.
-
 ```xml
 <service
     android:name="com.myflashlab.firebase.core.MyFirebaseInstanceIdService"
@@ -21,14 +30,12 @@ Firebase Air Native Extension
 ```
 
 *Jul 19, 2017 - V5.0.0*
-
 * Updated to Firebase SDK 11.0.2 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v500)
 * Updated to Firebase SDK 4.0.3 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/4_0_3/Firebase-4.0.3.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v500)
 * From now on, sample files are in IntelliJ IDE.
 * (Core) You need to regenerate the core ANE using the ane generator software V5.0.0 and you need to update all the other Firebase children that you are using in your project.
 * (Core) Remove the following from your manifest: ```<action android:name="com.google.android.c2dm.intent.REGISTRATION" />```
 * (Analytics) The following service must be added to the manifest:
-
 ```xml
 <service
 	android:name="com.google.android.gms.measurement.AppMeasurementJobService"
@@ -44,9 +51,7 @@ Firebase Air Native Extension
 * (Crash) ```Crash.crashCollectionEnabled``` introduced
 * (DynamicLinks) You need to add the follwoing dependency to your manifest: ```<extensionID>com.myflashlab.air.extensions.dependency.firebase.dynamicLinks</extensionID>```
 
-
 *Mar 07, 2017 - V4.0.0*
-
 * Updated to Firebase SDK 10.2.0 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v400)
 * Updated to Firebase SDK 3.13.0 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/3_13_0/Firebase-3.13.0.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v400)
 * firebaseInvites.ane has been added to the collection and it is highly dependent on on DynamicLinks ANE. In simple terms, if you wish to use the Firebase Invites SDK, you need to first add Firebase DynamicLinks to your app.
@@ -71,7 +76,6 @@ Firebase Air Native Extension
 * With upgrading to the latest Firebase SDK, a lot of native bugs are also fixed. You can learn about them by checking the official native Firebase [release notes](https://firebase.google.com/support/releases).
 
 *Jan 14, 2017 - V3.0.0*
-
 * Firebase Core ANE needs the ```appinvite``` dependency also from now on.
 * You will need AIR SDK 24 or higher to compile Firebase ANEs. Older SDKs are just too old to support Firebase from mow on.
 * firebaseDynamicLinks.ane has been added and works on both Android and iOS. To make sure it works correctly, you need to initialize dynamicLinks as soon as possible in your app, right after you initialized the Core Firebase ANE. ```Firebase.init(true);```
@@ -81,7 +85,6 @@ Firebase Air Native Extension
 * If you are going to add DynamicLinks to your project, read the Wiki and make sure you are generating new provision files for iOS. Your old provisions will not work with DynamicLinks.
 
 *Nov 27, 2016 - V2.0.0*
-
 * Updated to Firebase SDK 10.0.0 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v200)
 * Updated to Firebase SDK 3.10.0 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/3_10_0/Firebase-3.10.0.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v200)
 * All Firebase ANEs are now optimized for AIR 24
@@ -94,19 +97,15 @@ Firebase Air Native Extension
 * With upgrading to the latest Firebase SDK, a lot of native bugs are also fixed. You can learn about them by checking the official native Firebase [release notes](https://firebase.google.com/support/releases).
 
 *Oct 19, 2016*
-
 * Added FCM
 
 *Oct 05, 2016*
-
 * Added Analytics
 
 *Oct 04, 2016*
-
 * Added FCM beta
 
 *Sep 25, 2016 - V1.2.0*
-
 * Updated to Firebase SDK 9.6.1 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) also.
 * Updated to Firebase SDK 3.6.0 for iOS. Make sure you are updating the [frameworks](https://dl.google.com/firebase/sdk/ios/3_6_0/Firebase.zip) too.
 * (DB) Added Child and single events requested on [issue #15](https://github.com/myflashlab/Firebase-ANE/issues/15)
@@ -116,27 +115,21 @@ Firebase Air Native Extension
 * The ```checkDependencies``` method is now deprecated in all Firebase ANEs. instead, you should use the [Inspector ANE](https://github.com/myflashlab/ANE-Inspector-Tool/) if you wish to check the availablity of dependencies.
 
 *Sep 13, 2016*
-
 * Added Crash
 
 *Sep 06, 2016*
-
 * Added Storage
 
 *Aug 10, 2016 - V1.1.0*
-
 * Updated to Firebase SDK 9.4.0 for Android. Make sure to update all your dependency files also.
 * Updated to Firebase SDK 3.4.0 for iOS. Make sure you are updating the Frameworks also.
 * minor bug fixes
 
 *Jul 25, 2016*
-
 * Added Remote config and Authentication
 
 *Jul 21, 2016*
-
 * Realtime database and the core are ready for beta testing
 
 *Jul 05, 2016 - V1.0.0*
-
 * beginning of the journey!
