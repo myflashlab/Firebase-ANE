@@ -2,7 +2,7 @@ Firebase Air Native Extension
 
 *Dec 15, 2017 - V6.0.0*
 * Updated to Firebase SDK 11.6.0 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v6xx)
-* Updated to Firebase SDK 4.6.3 for iOS. Make sure you are updating the [frameworks and resources](https://dl.google.com/firebase/sdk/ios/4_6_0/Firebase-4.6.0.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v6xx)
+* Updated to Firebase SDK 4.6.0 for iOS. Make sure you are updating the [frameworks and resources](https://dl.google.com/firebase/sdk/ios/4_6_0/Firebase-4.6.0.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v6xx)
 * (Core) You need to regenerate the core ANE using the ane generator software V6.0.0 and you need to update all the other Firebase children that you are using in your project.
 * (Core) Remove the following receiver from your manifest: ```<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" android:exported="false"/>```
 * (Core) The ```projectID``` property from the ```FirebaseConfig``` class is now deprecated and you no longer can set it manually. This property will be set automatically from now on and you can see its value with the following getter: ```project_id```.
