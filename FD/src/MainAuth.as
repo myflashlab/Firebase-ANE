@@ -414,7 +414,7 @@ package
 			
 			function fetchSignInMethods(e:MouseEvent):void
 			{
-				Auth.fetchSignInMethodsForEmail("tahadaf@gmail.com", function ($methods:Array, $error:Error):void
+				Auth.fetchSignInMethodsForEmail("email@site.com", function ($methods:Array, $error:Error):void
 				{
 					if($error)
 					{
