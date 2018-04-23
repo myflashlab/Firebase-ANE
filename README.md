@@ -1,4 +1,4 @@
-# Firebase Air Native Extension V6.0.0 Android+iOS
+# Firebase Air Native Extension V6.5.0 Android+iOS
 Firebase ANE gives you access to the [Google Firebase project](https://firebase.google.com/docs/) in your AdobeAir projects supported on both Android and iOS with 100% identical ActionScript API. 
 
 If you decide to use Firebase in your next AdobeAir project, you should consider the following structure: Firebase Air Native Extension is consist of a *Core* ANE plus some other individual ANEs which are all dependent on the *Core*. i.e, If you wish to use [Firebase Cloud Messaging (FCM)](http://www.myflashlabs.com/product/fcm-firebase-air-native-extension/), you need to embed the Core ANE first and then use the required ANE(s) for the FCM. This structure will make sure that you are not compiling unused native code in your AdobeAir project. In result, your app file size will be as small as possible and faster to debug/compile. [The Wiki pages](https://github.com/myflashlab/Firebase-ANE/wiki) will provide you detailed information about how you can embed each ANE based on the Firebase feature you wish to use in your app.
@@ -15,8 +15,6 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 * [Notifications](https://firebase.google.com/docs/notifications/) Engage with users at the right moment 
 * [Dynamic Links](https://firebase.google.com/docs/dynamic-links/) Send users to the right place inside your app 
 * [Invites](https://firebase.google.com/docs/invites/) Empower your users to share your app 
-* [AdWords](https://firebase.google.com/docs/adwords/) Acquire users with the reach of Google 
-* [Admob](https://firebase.google.com/docs/admob/) Monetize through engaging ads 
 
 # asdoc
 [find the latest asdoc for this ANE here.](http://myflashlab.github.io/asdoc/)  
@@ -102,7 +100,7 @@ Firebase ANEs are dependent on some other ANEs and frameworks. Complete informat
 # Requirements 
 1. Android API 15+
 2. iOS SDK 8.0+
-3. Air SDK 27+
+3. Air SDK 29+
 4. Every Firebase ANE might need some dependency Frameworks/ANEs which is [explained in details here](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md).
 
 # Commercial Version
@@ -135,6 +133,41 @@ Firebase ANEs are dependent on some other ANEs and frameworks. Complete informat
 [How to use Firebase Invites?](https://github.com/myflashlab/Firebase-ANE/wiki/J.-Invites#get-started-with-firebase-invites-in-adobe-air)  
 
 # Changelog #
+*Apr 22, 2018 - V6.5.0*
+* Updated to Firebase SDK 12.0.1 for Android. update all the depenency ANEs.
+* Updated to Firebase SDK 4.11.0 for iOS. update all the .framework and resources. https://dl.google.com/firebase/sdk/ios/4_11_0/Firebase-4.11.0.zip
+* (Core) You need to regenerate the core ANE using the ane generator software V6.5.0 and you need to update all the other Firebase children that you are using in your project.
+* (Core) multidex attribute added to the main android application tag in the manifest: ```android:name="android.support.multidex.MultiDexApplication"```
+* (Firestore) Removed the following framework dependencies:
+    * FirebaseAuth
+    * GTMSessionFetcher
+* (Firestore) batch.commit now takes a param ```$listenForCallback```. if set to false, FirestoreEvents.BATCH_SUCCESS or FirestoreEvents.BATCH_FAILURE won’t be dispatched.
+* (Firestore) Added methods: disableNetwork/enableNetwork
+* (Analytics) introduced new analytics events and params. Check asdoc for more details.
+* (Analytics) Setting the ID to null removes the user ID.
+* (Auth) new Activity tag should be added to the manifest as follow:
+```xml
+<activity
+    android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+    android:excludeFromRecents="true"
+    android:exported="true"
+    android:launchMode="singleInstance"
+    android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+    android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+```
+* (Auth) Added ```AdditionalUserInfo``` class, ```e.additionalUserInfo``` getter for events:
+    * AuthEvents.CREATE_NEW_USER_RESULT
+    * AuthEvents.SIGN_IN_RESULT
+    * FirebaseUserEvents.LINK_WITH_RESULT
+* (Auth) Added Email Link Authentication feature. ```Auth.sendSignInLinkToEmail```, ```Auth.isSignInWithEmailLink```.
+* (Auth) Deprecated ```fetchProvidersForEmail```. use new method ```fetchSignInMethodsForEmail``` instead.
+* (Auth) Renamed ```signInWithEmail``` method to ```signInWithEmailPass``` and also added new method: ```signInWithEmailLink```.
+* (Auth) Deprecated ```AuthProvider.EMAIL```. use new const ```AuthProvider.EMAIL_PASS``` instead and also added new const ```AuthProvider.EMAIL_LINK```.
+* (Auth) Deprecated ```setEmailAuthProvider```. use new method ```setEmailPassAuthProvider``` instead and also added new method ```setEmailLinkAuthProvider```.
+* (Auth) ON ANDROID, Added the ability to use Google Play Games as a sign-in provider in your Firebase Project ```setPlayGamesAuthProvider```.
+* (FCM) Added ```autoInitEnabled``` property.
+* (Storage) Added **md5Hash** property to StorageMetadata.
+
 *Dec 15, 2017 - V6.0.0*
 * Updated to Firebase SDK 11.6.0 for Android. Make sure to update all your [dependency files](https://github.com/myflashlab/common-dependencies-ANE) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v6xx)
 * Updated to Firebase SDK 4.6.0 for iOS. Make sure you are updating the [frameworks and resources](https://dl.google.com/firebase/sdk/ios/4_6_0/Firebase-4.6.0.zip) based on [this information](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md#v6xx)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<application xmlns="http://ns.adobe.com/air/application/27.0">
+<application xmlns="http://ns.adobe.com/air/application/29.0">
     <id>com.doitflash.firebaseCore</id>
-    <versionNumber>6.0.0</versionNumber>
+    <versionNumber>6.5.0</versionNumber>
     <supportedProfiles>mobileDevice</supportedProfiles>
     <filename>exFirebaseCore</filename>
     <name>Firebase Core</name>
@@ -20,7 +20,7 @@
             <permission android:name="air.com.doitflash.firebaseCore.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
             <uses-permission android:name="air.com.doitflash.firebaseCore.permission.C2D_MESSAGE"/>
             
-            <application>
+            <application android:name="android.support.multidex.MultiDexApplication">
             
                 <activity>
                     <intent-filter>
@@ -111,6 +111,14 @@
                     </intent-filter>
                 </activity>-->
 
+                <!-- Required by firebase_auth.ane -->
+                <!-- <activity
+                    android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+                    android:excludeFromRecents="true"
+                    android:exported="true"
+                    android:launchMode="singleInstance"
+                    android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+                    android:theme="@android:style/Theme.Translucent.NoTitleBar" /> -->
 
                 <!-- Required by firebase_analyticsImpl.ane and firebase-analytics.ane -->
                 <!-- <receiver
@@ -298,6 +306,6 @@
 		which other ANEs/dependencies must be included to your project. 
 		https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md
 	-->
-    
+
 </extensions>
 </application>

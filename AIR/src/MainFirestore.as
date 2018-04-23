@@ -208,6 +208,32 @@ package
 				trace("onSnapshotListenerFailure: "+e.msg);
 			}
 			
+			var btn00:MySprite = createBtn("Enable Network");
+			btn00.addEventListener(MouseEvent.CLICK, enableNetwork);
+			_list.add(btn00);
+			
+			function enableNetwork(e:MouseEvent):void
+			{
+				Firestore.enableNetwork(function ($err:Error):void
+				{
+					if($err) C.log("Firestore.enableNetwork: " + $err.message);
+					else C.log("Firestore.enableNetwork done");
+				})
+			}
+			
+			var btn000:MySprite = createBtn("Disable Network");
+			btn000.addEventListener(MouseEvent.CLICK, disableNetwork);
+			_list.add(btn000);
+			
+			function disableNetwork(e:MouseEvent):void
+			{
+				Firestore.disableNetwork(function ($err:Error):void
+				{
+					if($err) C.log("Firestore.disableNetwork: " + $err.message);
+					else C.log("Firestore.disableNetwork done");
+				})
+			}
+			
 			
 			
 			var btn01:MySprite = createBtn("1) Add Data");
@@ -531,7 +557,7 @@ package
 				var bjRef:DocumentReference = Firestore.collection("cities").document("BJ");
 				batch.omit(bjRef);
 				
-				batch.commit();
+				batch.commit(true); // pass true so the completion listeners will be dispatched
 			}
 			
 			function onBatchSuccess(e:FirestoreEvents):void

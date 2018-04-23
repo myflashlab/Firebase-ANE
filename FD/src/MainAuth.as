@@ -183,6 +183,7 @@ package
 			Auth.listener.addEventListener(AuthEvents.CREATE_NEW_USER_RESULT, 			onCreateNewUserResult);
 			Auth.listener.addEventListener(AuthEvents.SIGN_IN_RESULT, 					onSignInResult);
 			Auth.listener.addEventListener(AuthEvents.SEND_PASSWORD_RESET_EMAIL_RESULT, onPassResetResult);
+			Auth.listener.addEventListener(AuthEvents.SEND_SIGNIN_LINK_RESULT, 			onSignInLinkResult);
 			
 			// -----------------------------------------------------------
 			var btn01:MySprite = createBtn("isLoggin?");
@@ -240,7 +241,7 @@ package
 				var authProvider:AuthProvider = new AuthProvider();
 				
 				// decide what kind of credential this authProvider instance will hold
-				authProvider.setEmailAuthProvider(email, "123456");
+				authProvider.setEmailPassAuthProvider(email, "123456");
 				
 				// and finally feed the Auth.signIn method with the parsed credential info from the authProvider instance.
 				Auth.signIn(authProvider.getCredential());
@@ -273,6 +274,32 @@ package
 				settings.handleCodeInApp = true;*/
 				
 				Auth.sendPasswordResetEmail(email/*, settings*/);
+			}
+			
+			// -----------------------------------------------------------
+			
+			var btn005:MySprite = createBtn("send signin link to email");
+			btn005.addEventListener(MouseEvent.CLICK, sendSigninLink);
+			_list.add(btn005);
+			
+			function sendSigninLink(e:MouseEvent):void
+			{
+				/*
+				
+					To use ActionCodeSettings, your app must have Firebase Dynamic Links enabled and ready:
+					https://github.com/myflashlab/Firebase-ANE/wiki/I.1-Add-Dynamic-links
+				
+				*/
+				
+				// make sure you have whitelisted your domain in your firebase console/Authentication section, before trying this.
+				var settings:ActionCodeSettings = new ActionCodeSettings("https://example.com/");
+				settings.handleCodeInApp = true; // The sign-in operation has to always be completed in the app.
+				settings.iOSBundleID = NativeApplication.nativeApplication.applicationID;
+				settings.androidPackageName = "air." + NativeApplication.nativeApplication.applicationID;
+				settings.androidInstallIfNotAvailable = false;
+				settings.androidMinVersion = "12";
+				
+				Auth.sendSignInLinkToEmail(email, settings);
 			}
 			
 			// -----------------------------------------------------------
@@ -378,6 +405,27 @@ package
 				Auth.signIn(authProvider.getCredential());
 			}
 			*/
+			
+			// -----------------------------------------------------------
+			
+			var btn12:MySprite = createBtn("fetch SignIn Methods");
+			btn12.addEventListener(MouseEvent.CLICK, fetchSignInMethods);
+			_list.add(btn12);
+			
+			function fetchSignInMethods(e:MouseEvent):void
+			{
+				Auth.fetchSignInMethodsForEmail("tahadaf@gmail.com", function ($methods:Array, $error:Error):void
+				{
+					if($error)
+					{
+						trace("fetchSignInMethods: " + $error.message);
+					}
+					else
+					{
+						trace("fetchSignInMethods: " + $methods);
+					}
+				});
+			}
 		}
 		
 		private function onPhoneVerificationResult(e:AuthEvents):void
@@ -439,6 +487,16 @@ package
 			{
 				trace("new user created successfully");
 				
+				if(e.additionalUserInfo)
+				{
+					trace("-------------- additionalUserInfo ------------");
+					trace("providerId: " + e.additionalUserInfo.providerId);
+					trace("username: " + e.additionalUserInfo.username);
+					trace("isNewUser: " + e.additionalUserInfo.isNewUser);
+					trace("profile: " + JSON.stringify(e.additionalUserInfo.profile));
+					trace("----------------------------------------------");
+				}
+				
 				/*
 					When a new user is created, it will automatically sign in. That means the
 					AUTH_STATE_CHANGED event will be dispatched which you can use to read user's
@@ -457,6 +515,16 @@ package
 			{
 				trace("signed in successfully");
 				
+				if(e.additionalUserInfo)
+				{
+					trace("-------------- additionalUserInfo ------------");
+					trace("providerId: " + e.additionalUserInfo.providerId);
+					trace("username: " + e.additionalUserInfo.username);
+					trace("isNewUser: " + e.additionalUserInfo.isNewUser);
+					trace("profile: " + JSON.stringify(e.additionalUserInfo.profile));
+					trace("----------------------------------------------");
+				}
+				
 				/*
 					When sign in is successful, the AUTH_STATE_CHANGED event will be dispatched which
 					you can use to read user's information.
@@ -465,6 +533,18 @@ package
 			else
 			{
 				trace("onSignInResult: " + e.msg);
+			}
+		}
+		
+		private function onSignInLinkResult(e:AuthEvents):void
+		{
+			if(e.result == Auth.RESULT_SUCCESS)
+			{
+				trace("onSignInLinkResult successfully");
+			}
+			else
+			{
+				trace("onSignInLinkResult: " + e.msg);
 			}
 		}
 		
@@ -548,6 +628,16 @@ package
 		private function onLink(e:FirebaseUserEvents):void
 		{
 			C.log("onLink result=" + e.result, "     msg=" + e.msg);
+			
+			if(e.additionalUserInfo)
+			{
+				trace("-------------- additionalUserInfo ------------");
+				trace("providerId: " + e.additionalUserInfo.providerId);
+				trace("username: " + e.additionalUserInfo.username);
+				trace("isNewUser: " + e.additionalUserInfo.isNewUser);
+				trace("profile: " + JSON.stringify(e.additionalUserInfo.profile));
+				trace("----------------------------------------------");
+			}
 		}
 		
 		private function onProfileUpdate(e:FirebaseUserEvents):void
@@ -576,7 +666,7 @@ package
 				var authProvider:AuthProvider = new AuthProvider();
 				
 				// decide what kind of credential this authProvider instance will hold
-				authProvider.setEmailAuthProvider(email, "123456");
+				authProvider.setEmailPassAuthProvider(email, "123456");
 				
 				// and finally feed FirebaseUser.reauthenticate with the parsed credential info from the authProvider instance.
 				FirebaseUser.reauthenticate(authProvider.getCredential());
@@ -600,7 +690,7 @@ package
 				var authProvider:AuthProvider = new AuthProvider();
 				
 				// decide what kind of credential this authProvider instance will hold
-				authProvider.setEmailAuthProvider(email, "123456");
+				authProvider.setEmailPassAuthProvider(email, "123456");
 				
 				// and finally feed FirebaseUser.reauthenticate with the parsed credential info from the authProvider instance.
 				FirebaseUser.reauthenticate(authProvider.getCredential());
