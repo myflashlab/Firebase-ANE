@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<application xmlns="http://ns.adobe.com/air/application/27.0">
+<application xmlns="http://ns.adobe.com/air/application/29.0">
     <id>com.doitflash.firebaseCore</id>
-    <versionNumber>6.0.0</versionNumber>
+    <versionNumber>6.5.0</versionNumber>
     <supportedProfiles>mobileDevice</supportedProfiles>
     <filename>exFirebaseCore</filename>
     <name>Firebase Core</name>
@@ -59,6 +59,10 @@
         <!-- Required by firebaseDynamicLinks.ane -->
 		<!-- <key>com.myflashlabs.firebase.deepLinkURLScheme</key>
         <string>dlscheme</string> -->
+
+        <!-- Required by firebaseCrashlytics.ane -->
+		<!-- <key>firebase_crashlytics_collection_enabled</key>
+		<false/> -->
 
                 ]]></InfoAdditions>
     

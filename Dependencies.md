@@ -4,9 +4,10 @@ Every release of Firebase ANEs will work with specific versions of Dependency AN
 **Note2**: Always try to use the latest AdobeAir SDK. Doing this will automatically solve a lot of weird error messages.  
 **Note3**: Firebase ANEs will not run on simulators. make sure you are building on a real device.  
 **Note4**: When updating the .framework files, always delete the old ones and then copy the new ones. Never overwrite them.  
+**Note5**: Consider useing the [ANELAB](https://github.com/myflashlab/ANE-LAB/) software. It will automatically take care of ANEs installation.  
 
 # V6.x.x #
-Find the Android dependencies V12.0.1 on [this branch](https://github.com/myflashlab/common-dependencies-ANE/tree/a9ac3e9fa2e9c002d99751246b1255e243fba1d5). *The master branch may have newer versions of these files but if you are building for the specified version number, you will need this specific branch.* And download the iOS frameworks V4.11.0 [from here](https://dl.google.com/firebase/sdk/ios/4_11_0/Firebase-4.11.0.zip).
+Find the Android dependencies V12.0.1 on [this branch](https://github.com/myflashlab/common-dependencies-ANE/tree/a9ac3e9fa2e9c002d99751246b1255e243fba1d5). *The master branch may have newer versions of these files but if you are building for the specified version number, you will need this specific branch.* And download the iOS frameworks V4.11.0 [from here](https://dl.google.com/firebase/sdk/ios/4_11_0/Firebase-4.11.0.zip). And finally, if you want to use Crashlytics, you should download the frameworks V3.10.1 [from here](https://storage.googleapis.com/firebase-preview-drop/ios/crashlytics/com.crashlytics.ios-manual.zip).
 
 **firebaseCore.ane**
 
@@ -74,7 +75,7 @@ firebaseCore.ane 6.x.x | firebaseCore.ane 6.x.x
 firebase_storage.ane V12.0.1 | FirebaseStorage.framework
 firebase_storageCommon.ane V12.0.1 | GTMSessionFetcher.framework
 
-**firebaseCrash.ane**
+**firebaseCrash.ane** *Deprecated, use Crashlytics instead.
 
 On the Android side | On the iOS side
 ------------ | -------------
@@ -82,6 +83,15 @@ firebaseCore.ane 6.x.x | firebaseCore.ane 6.x.x
 +other ANEs required by the Core | +other frameworks/ANEs required by the Core
 firebase_crash.ane V12.0.1 | FirebaseCrash.framework
 firebase_analyticsImpl.ane V12.0.1 | Protobuf.framework
+
+**firebaseCrashlytics.ane**
+
+On the Android side | On the iOS side
+------------ | -------------
+firebaseCore.ane 6.x.x | firebaseCore.ane 6.x.x
++other ANEs required by the Core | +other frameworks/ANEs required by the Core
+firebase_analyticsImpl.ane V12.0.1 | [Crashlytics.framework V3.10.1](https://storage.googleapis.com/firebase-preview-drop/ios/crashlytics/com.crashlytics.ios-manual.zip)
+. | [Fabric.framework V3.10.1](https://storage.googleapis.com/firebase-preview-drop/ios/crashlytics/com.crashlytics.ios-manual.zip)
 
 **firebaseMessaging.ane**
 

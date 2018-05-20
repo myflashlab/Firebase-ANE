@@ -1,5 +1,9 @@
 Firebase Air Native Extension
 
+*May 20, 2018 - V6.5.0*
+* Added support for Firebase Crashlytics V6.5.0
+* Use iOS frameworks [V3.10.1 for Crashlytics](https://storage.googleapis.com/firebase-preview-drop/ios/crashlytics/com.crashlytics.ios-manual.zip).
+
 *Apr 22, 2018 - V6.5.0*
 * Updated to Firebase SDK 12.0.1 for Android. update all the depenency ANEs.
 * Updated to Firebase SDK 4.11.0 for iOS. update all the .framework and resources. https://dl.google.com/firebase/sdk/ios/4_11_0/Firebase-4.11.0.zip

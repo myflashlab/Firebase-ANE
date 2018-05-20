@@ -11,7 +11,8 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 * [Firestore](https://firebase.google.com/docs/firestore/) Store and sync app data at global scale
 * [Storage](https://firebase.google.com/docs/storage/) Store files with ease 
 * [Remote Config](https://firebase.google.com/docs/remote-config/) Customize your app on the fly 
-* [Crash Reporting](https://firebase.google.com/docs/crash/) Keep your app stable 
+* [Crash Reporting](https://firebase.google.com/docs/crash/) Deprecated, use Crashlytics instead.
+* [Crashlytics](https://firebase.google.com/docs/crashlytics/) Get clear, actionable insight into app issues 
 * [Notifications](https://firebase.google.com/docs/notifications/) Engage with users at the right moment 
 * [Dynamic Links](https://firebase.google.com/docs/dynamic-links/) Send users to the right place inside your app 
 * [Invites](https://firebase.google.com/docs/invites/) Empower your users to share your app 
@@ -21,17 +22,18 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 [How to get started? **read here**](https://github.com/myflashlab/Firebase-ANE/wiki)
 
 # Sample AS3 codes
-* [Firebase Core](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/Main.as)
-* [Firebase Realtime Database](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainDatabase.as)
-* [Firebase Firestore](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainFirestore.as)
-* [Firebase Remote Config](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainRemoteConfig.as)
-* [Firebase Authentication](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainAuth.as)
-* [Firebase Dynamic Links](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainDynamicLinks.as)
-* [Firebase Invites](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainInvites.as)
-* [Firebase Storage](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainStorage.as)
-* [Firebase Analytics](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainAnalytics.as)
-* [Firebase Crash Report](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainCrash.as)
-* [Firebase FCM](https://github.com/myflashlab/Firebase-ANE/blob/master/FD/src/MainFcm.as)
+* [Firebase Core](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/Main.as)
+* [Firebase Realtime Database](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainDatabase.as)
+* [Firebase Firestore](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainFirestore.as)
+* [Firebase Remote Config](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainRemoteConfig.as)
+* [Firebase Authentication](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainAuth.as)
+* [Firebase Dynamic Links](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainDynamicLinks.as)
+* [Firebase Invites](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainInvites.as)
+* [Firebase Storage](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainStorage.as)
+* [Firebase Analytics](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainAnalytics.as)
+* [Firebase Crash *Deprecated](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainCrash.as)
+* [Firebase Crashlytics](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainCrashlytics.as)
+* [Firebase FCM](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainFcm.as)
 
 # Air Usage
 ```actionscript
@@ -113,7 +115,8 @@ Firebase ANEs are dependent on some other ANEs and frameworks. Complete informat
 * [firebaseInvites.ane](http://www.myflashlabs.com/product/invites-firebase-air-native-extension)
 * [firebaseStorage.ane](http://www.myflashlabs.com/product/storage-firebase-air-native-extension/)
 * [firebaseAnalytics.ane](http://www.myflashlabs.com/product/analytics-firebase-air-native-extension/)
-* [firebaseCrash.ane](http://www.myflashlabs.com/product/crash-firebase-air-native-extension/)
+* [firebaseCrash.ane](http://www.myflashlabs.com/product/crash-firebase-air-native-extension/) *Deprecated
+* [firebaseCrashlytics.ane](http://www.myflashlabs.com/product/crashlytics-firebase-air-native-extension)
 * [firebaseMessaging.ane](http://www.myflashlabs.com/product/fcm-firebase-air-native-extension/)
 
 ![Firebase ANE](https://www.myflashlabs.com/wp-content/uploads/2017/12/product_adobe-air-ane-extension-firebase_all-595x738.jpg)
@@ -126,13 +129,18 @@ Firebase ANEs are dependent on some other ANEs and frameworks. Complete informat
 [How to use Firebase Remote Config?](https://github.com/myflashlab/Firebase-ANE/wiki/C.-Remote-Config#get-started-with-firebase-remote-config-in-adobe-air)  
 [How to use Firebase Authentication?](https://github.com/myflashlab/Firebase-ANE/wiki/D.-Authentication#get-started-with-firebase-authentication-in-adobe-air)  
 [How to use Firebase Storage?](https://github.com/myflashlab/Firebase-ANE/wiki/E.-Storage#get-started-with-firebase-storage-in-adobe-air)  
-[How to use Firebase Crash?](https://github.com/myflashlab/Firebase-ANE/wiki/F.-Crash#get-started-with-firebase-crash-in-adobe-air)  
+[How to use Firebase Crash?](https://github.com/myflashlab/Firebase-ANE/wiki/F.-Crash#get-started-with-firebase-crash-in-adobe-air) *Deprecated  
+[How to use Crashlytics?](https://github.com/myflashlab/Firebase-ANE/wiki/L.-Crashlytics#get-started-with-firebase-crashlytics-in-adobe-air)  
 [How to use Firebase FCM?](https://github.com/myflashlab/Firebase-ANE/wiki/G.-FCM#get-started-with-firebase-fcm-in-adobe-air)  
 [How to use Firebase Analytics?](https://github.com/myflashlab/Firebase-ANE/wiki/H.-Analytics#get-started-with-firebase-analytics-in-adobe-air)  
 [How to use Firebase Dynamic Links?](https://github.com/myflashlab/Firebase-ANE/wiki/I.-Dynamic-Links#get-started-with-firebase-dynamic-links-in-adobe-air)  
 [How to use Firebase Invites?](https://github.com/myflashlab/Firebase-ANE/wiki/J.-Invites#get-started-with-firebase-invites-in-adobe-air)  
 
 # Changelog #
+*May 20, 2018 - V6.5.0*
+* Added support for Firebase Crashlytics V6.5.0
+* Use iOS frameworks [V3.10.1 for Crashlytics](https://storage.googleapis.com/firebase-preview-drop/ios/crashlytics/com.crashlytics.ios-manual.zip).
+
 *Apr 22, 2018 - V6.5.0*
 * Updated to Firebase SDK 12.0.1 for Android. update all the depenency ANEs.
 * Updated to Firebase SDK 4.11.0 for iOS. update all the .framework and resources. https://dl.google.com/firebase/sdk/ios/4_11_0/Firebase-4.11.0.zip
