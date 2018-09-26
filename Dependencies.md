@@ -1,13 +1,164 @@
-Every release of Firebase ANEs will work with specific versions of Dependency ANEs and Frameworks. This document will tell you what dependencies and frameworks should be used in your project if you are building your project using different versions of Firebase ANEs.
+Every release of Firebase ANEs will work with specific versions of Dependency ANEs and Frameworks. This document will tell you what dependencies and frameworks should be used in your project.
 
 **Note1**: Always try to use the latest releases because we won't be able to provide support on older versions.  
-**Note2**: Always try to use the latest AdobeAir SDK. Doing this will automatically solve a lot of weird error messages.  
+**Note2**: Always try to use the latest AdobeAIR SDK. Doing this will automatically solve a lot of weird error messages.  
 **Note3**: Firebase ANEs will not run on simulators. make sure you are building on a real device.  
 **Note4**: When updating the .framework files, always delete the old ones and then copy the new ones. Never overwrite them.  
-**Note5**: Consider useing the [ANELAB](https://github.com/myflashlab/ANE-LAB/) software. It will automatically take care of ANEs installation.  
+**Note5**: Consider useing the [ANELAB](https://github.com/myflashlab/ANE-LAB/) software. It will automatically take care of ANEs installation and manifest setup.  
+
+# V7.x.x #
+Find the latest Android dependencies [here](https://github.com/myflashlab/common-dependencies-ANE). And download the iOS frameworks V5.4.1 [from here](https://dl.google.com/firebase/sdk/ios/5_4_1/Firebase-5.4.1.zip). And finally, if you want to use Crashlytics, you should download the frameworks V3.10.7 [from here](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.7/com.crashlytics.ios-manual.zip).
+
+**firebaseCore.ane**
+
+Android | iOS
+------------ | -------------
+overrideAir.ane V5.1.3 | overrideAir.ane V5.1.3
+androidSupport-arch.ane V1.1.1 | FirebaseAnalytics.framework
+androidSupport-core.ane V27.1.1 | FirebaseCore.framework
+androidSupport-v4.ane V27.1.1 | FirebaseCoreDiagnostics.framework
+firebase-analytics.ane V16.0.1 | FirebaseNanoPB.framework
+firebase_analyticsImpl.ane V16.1.1 | FirebaseInstanceID.framework
+firebase_common.ane V16.0.0 | GoogleToolboxForMac.framework
+firebase_iid.ane V16.2.0 | nanopb.framework
+firebase_measurementConnector.ane V16.0.0 | -
+firebase_measurementConnectorImpl.ane V16.0.1 | -
+googlePlayServices_ads.ane V15.0.1 | -
+googlePlayServices_base.ane V15.0.1 | -
+googlePlayServices_basement.ane V15.0.1 | -
+googlePlayServices_measurementBase.ane V16.0.0 | -
+googlePlayServices_stats.ane V15.0.1 | -
+googlePlayServices_tasks.ane V15.0.1 | -
+
+**firebaseAnalytics.ane**
+
+Android | iOS
+------------ | -------------
+firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+
+**firebaseDynamicLinks.ane**
+
+Android | iOS
+------------ | -------------
+firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+firebase_dynamicLinks.ane V16.0.1 | FirebaseDynamicLinks.framework
+googlePlayServices_appinvite.ane V16.0.1 | -
+ 
+**firebaseInvites.ane**
+
+Android | iOS
+------------ | -------------
+firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
+firebaseDynamicLinks.ane V7.x.x | firebaseDynamicLinks.ane V7.x.x
++other ANEs required by the 'Core' and 'DynamicLinks' | +other frameworks/ANEs required by the 'Core' and 'DynamicLinks'
+. | FirebaseInvites.framework
+. | GTMOAuth2.framework
+. | GTMSessionFetcher.framework
+. | GoogleAPIClientForREST.framework
+. | GoogleSignIn.framework
+. | Protobuf.framework
+. | **Resources:**  GINInviteResources.bundle, GoogleSignIn.bundle, GPPACLPickerResources.bundle
+
+**firebaseAuth.ane**
+
+Android | iOS
+------------ | -------------
+firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
+firebaseInvites.ane V7.x.x | firebaseInvites.ane V7.x.x
++other ANEs required by the 'Core' and 'Invites'. **NOTE: Invites is also dependent on DynamicLinks** | +other frameworks/ANEs required by the 'Core' and 'Invites'. **NOTE: Invites is also dependent on DynamicLinks**
+firebase_auth.ane V16.0.2 | FirebaseAuth.framework
+. | GTMSessionFetcher.framework
+
+**firebaseDatabase.ane**
+
+Android | iOS
+------------ | -------------
+firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+firebase_database.ane V16.0.1 | FirebaseDatabase.framework
+firebase_databaseCollection.ane V15.0.1 | leveldb-library.framework
+
+**firebaseFirestore.ane**
+
+Android | iOS
+------------ | -------------
+firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+firebase_firestore.ane V17.0.4 | BoringSSL.framework
+firebase_databaseCollection.ane V15.0.1 | FirebaseFirestore.framework
+firebase-addons.ane V1.0.0 | Protobuf.framework
+- | gRPC.framework
+- | gRPC-Core.framework
+- | gRPC-ProtoRPC.framework
+- | gRPC-RxLibrary.framework
+- | leveldb-library.framework
+- | **Resources:**  gRPCCertificates.bundle
+
+**firebaseRemoteConfig.ane**
+
+Android | iOS
+------------ | -------------
+firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
++other ANEs required by the 'Core' | +other frameworks/ANEs required for by 'Core'
+firebase_config.ane V16.0.0 | FirebaseRemoteConfig.framework
+- | Protobuf.framework
+- | FirebaseABTesting.framework
+
+**firebaseStorage.ane**
+
+Android | iOS
+------------ | -------------
+firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
++other ANEs required for by 'Core' | +other frameworks/ANEs required by the 'Core'
+firebase_storage.ane V16.0.1 | FirebaseStorage.framework
+- | GTMSessionFetcher.framework
+
+**firebaseCrashlytics.ane**
+
+Android | iOS
+------------ | -------------
+firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+- | [Crashlytics.framework V3.10.7](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.7/com.crashlytics.ios-manual.zip)
+- | [Fabric.framework V3.10.7](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.7/com.crashlytics.ios-manual.zip)
+
+**firebaseMessaging.ane**
+
+Android | iOS
+------------ | -------------
+firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+firebase_messaging.ane V17.1.0 | FirebaseMessaging.framework
+. | Protobuf.framework
+
+**firebaseMlkit.ane**
+
+Android | iOS
+------------ | -------------
+firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+firebase-ml.ane V16.0.0 | BarcodeDetector.framework
+tensorflow.ane V0.1.7 | FaceDetector.framework
+googlePlayServices_vision.ane V15.0.2 | FirebaseMLCommon.framework
+googlePlayServices_clearcut.ane V15.0.1 | FirebaseMLModelInterpreter.framework
+googlePlayServices_phenotype.ane V15.0.1 | FirebaseMLVision.framework
+googlePlayServices_flags.ane V15.0.1 | FirebaseMLVisionBarcodeModel.framework
+- | FirebaseMLVisionFaceModel.framework
+- | FirebaseMLVisionLabelModel.framework
+- | FirebaseMLVisionTextModel.framework
+- | GoogleAPIClientForREST.framework
+- | GoogleMobileVision.framework
+- | GTMSessionFetcher.framework
+- | LabelDetector.framework
+- | Protobuf.framework
+- | tensorflow_lite.framework
+- | TextDetector.framework
+. | **Resources:**  GoogleMVFaceDetectorResources.bundle, GoogleMVTextDetectorResources.bundle
 
 # V6.x.x #
-Find the Android dependencies V12.0.1 on [this branch](https://github.com/myflashlab/common-dependencies-ANE/tree/a9ac3e9fa2e9c002d99751246b1255e243fba1d5). *The master branch may have newer versions of these files but if you are building for the specified version number, you will need this specific branch.* And download the iOS frameworks V4.11.0 [from here](https://dl.google.com/firebase/sdk/ios/4_11_0/Firebase-4.11.0.zip). And finally, if you want to use Crashlytics, you should download the frameworks V3.10.1 [from here](https://storage.googleapis.com/firebase-preview-drop/ios/crashlytics/com.crashlytics.ios-manual.zip).
+Find the Android dependencies V12.0.1 on [this branch](https://github.com/myflashlab/common-dependencies-ANE/tree/a9ac3e9fa2e9c002d99751246b1255e243fba1d5). *The master branch may have newer versions of these files but if you are building for the specified version number, you will need this specific branch.* And download the iOS frameworks V4.11.0 [from here](https://dl.google.com/firebase/sdk/ios/4_11_0/Firebase-4.11.0.zip). And finally, if you want to use Crashlytics, you should download the frameworks V3.10.1 [from here](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.1/com.crashlytics.ios-manual.zip).
 
 **firebaseCore.ane**
 
@@ -90,8 +241,8 @@ On the Android side | On the iOS side
 ------------ | -------------
 firebaseCore.ane 6.x.x | firebaseCore.ane 6.x.x
 +other ANEs required by the Core | +other frameworks/ANEs required by the Core
-firebase_analyticsImpl.ane V12.0.1 | [Crashlytics.framework V3.10.1](https://storage.googleapis.com/firebase-preview-drop/ios/crashlytics/com.crashlytics.ios-manual.zip)
-. | [Fabric.framework V3.10.1](https://storage.googleapis.com/firebase-preview-drop/ios/crashlytics/com.crashlytics.ios-manual.zip)
+firebase_analyticsImpl.ane V12.0.1 | [Crashlytics.framework V3.10.1](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.1/com.crashlytics.ios-manual.zip)
+. | [Fabric.framework V3.10.1](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.1/com.crashlytics.ios-manual.zip)
 
 **firebaseMessaging.ane**
 

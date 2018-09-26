@@ -180,7 +180,7 @@ package
 			
 			
 			
-			// You can add snapshot listeners to any document, collection or query to watch for their vlue changes.
+			// You can add snapshot listeners to any document, collection or query to watch for their value changes.
 			
 			// read samples and more information here:
 				// http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/firestore/package-detail.html

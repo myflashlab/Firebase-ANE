@@ -231,7 +231,7 @@ package
 		
 		private function initFCM():void
 		{
-			FCM.init();
+			FCM.init(); 
 			FCM.listener.addEventListener(FcmEvents.TOKEN_REFRESH, onTokenRefresh);
 			FCM.listener.addEventListener(FcmEvents.MESSAGE, onMessage);
 			
@@ -241,8 +241,22 @@ package
 			
 			function getToken(e:MouseEvent):void
 			{
-				C.log("token = " + FCM.getToken());
-				trace("token = " + FCM.getToken());
+				FCM.getInstanceId(onTokenReceived);
+			}
+			
+			function onTokenReceived($token:String, $error:String):void
+			{
+				if($error)
+				{
+					trace("onTokenReceived error: " + $error);
+					C.log("onTokenReceived error: " + $error);
+				}
+				
+				if($token)
+				{
+					trace("token: " + $token);
+					C.log("token: " + $token);
+				}
 			}
 			
 			var btn2:MySprite = createBtn("subscribe to 'news'");
@@ -251,6 +265,10 @@ package
 			
 			function subscribe(e:MouseEvent):void
 			{
+				// optionally you can listen to FcmEvents.ON_SUBSCRIBE to know the result
+				if(!FCM.listener.hasEventListener(FcmEvents.ON_SUBSCRIBE))
+					FCM.listener.addEventListener(FcmEvents.ON_SUBSCRIBE, onSubscribeResult);
+				
 				// It will take 24 hours before you can see this topic on the Firebase console
 				FCM.subscribeToTopic("news");
 			}
@@ -261,8 +279,24 @@ package
 			
 			function unsubscribe(e:MouseEvent):void
 			{
+				// optionally you can listen to FcmEvents.ON_UNSUBSCRIBE to know the result
+				if(!FCM.listener.hasEventListener(FcmEvents.ON_UNSUBSCRIBE))
+					FCM.listener.addEventListener(FcmEvents.ON_UNSUBSCRIBE, onUnsubscribeResult);
+				
 				FCM.unsubscribeFromTopic("news");
 			}
+		}
+		
+		private function onSubscribeResult(e:FcmEvents):void
+		{
+			trace("subscribe to topic " + e.topic + ": " + e.isSuccessful);
+			C.log("subscribe to topic " + e.topic + ": " + e.isSuccessful);
+		}
+		
+		private function onUnsubscribeResult(e:FcmEvents):void
+		{
+			trace("unsubscribe to topic " + e.topic + ": " + e.isSuccessful);
+			C.log("unsubscribe to topic " + e.topic + ": " + e.isSuccessful);
 		}
 		
 		private function onTokenRefresh(e:FcmEvents):void
@@ -273,7 +307,7 @@ package
 		
 		private function onMessage(e:FcmEvents):void
 		{
-			trace(e.msg)
+			trace(e.msg);
 			var payload:Object = FCM.parsePayloadFromString(e.msg);
 			
 			if (payload)

@@ -2,5 +2,5 @@
 
 And you can read a step by step Wiki to know how you can start using Firebase: https://github.com/myflashlab/Firebase-ANE/wiki/
 
-Enjoy building Air apps and games :)
+Enjoy building AIR apps and games :)
 MyFlashLabs Team

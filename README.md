@@ -1,7 +1,7 @@
-# Firebase Air Native Extension V6.5.0 Android+iOS
-Firebase ANE gives you access to the [Google Firebase project](https://firebase.google.com/docs/) in your AdobeAir projects supported on both Android and iOS with 100% identical ActionScript API. 
+# Firebase AIR Native Extension V7.0.0
+Firebase ANE gives you access to the [Google Firebase project](https://firebase.google.com/docs/) in your AdobeAIR projects supported on both Android and iOS with 100% identical ActionScript API. 
 
-If you decide to use Firebase in your next AdobeAir project, you should consider the following structure: Firebase Air Native Extension is consist of a *Core* ANE plus some other individual ANEs which are all dependent on the *Core*. i.e, If you wish to use [Firebase Cloud Messaging (FCM)](http://www.myflashlabs.com/product/fcm-firebase-air-native-extension/), you need to embed the Core ANE first and then use the required ANE(s) for the FCM. This structure will make sure that you are not compiling unused native code in your AdobeAir project. In result, your app file size will be as small as possible and faster to debug/compile. [The Wiki pages](https://github.com/myflashlab/Firebase-ANE/wiki) will provide you detailed information about how you can embed each ANE based on the Firebase feature you wish to use in your app.
+If you decide to use Firebase in your next AdobeAIR project, you should consider the following structure: Firebase AIR Native Extension is consist of a *Core* ANE plus some other individual ANEs which are all dependent on the *Core*. i.e, If you wish to use [Firebase Cloud Messaging (FCM)](http://www.myflashlabs.com/product/fcm-firebase-air-native-extension/), you need to embed the Core ANE first and then use the required ANE(s) for the FCM. This structure will make sure that you are not compiling unused native code in your AdobeAIR project. In result, your app file size will be as small as possible and faster to debug/compile. [The Wiki pages](https://github.com/myflashlab/Firebase-ANE/wiki) will provide you detailed information about how you can embed each ANE based on the Firebase feature you wish to use in your app.
 
 **Main Features:**
 * [Analytics](https://firebase.google.com/docs/analytics/) Reimagine analytics for mobile 
@@ -16,6 +16,7 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 * [Notifications](https://firebase.google.com/docs/notifications/) Engage with users at the right moment 
 * [Dynamic Links](https://firebase.google.com/docs/dynamic-links/) Send users to the right place inside your app 
 * [Invites](https://firebase.google.com/docs/invites/) Empower your users to share your app 
+* [MLKit](https://firebase.google.com/docs/ml-kit/) Use machine learning in your apps to solve real-world problems
 
 # asdoc
 [find the latest asdoc for this ANE here.](http://myflashlab.github.io/asdoc/)  
@@ -34,6 +35,7 @@ If you decide to use Firebase in your next AdobeAir project, you should consider
 * [Firebase Crash *Deprecated](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainCrash.as)
 * [Firebase Crashlytics](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainCrashlytics.as)
 * [Firebase FCM](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainFcm.as)
+* [Firebase Mlkit](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainMlkit.as)
 
 # Air Usage
 ```actionscript
@@ -64,7 +66,7 @@ Firebase.setLoggerLevel(FirebaseConfig.LOGGER_LEVEL_MAX);
 	you do that, your Firebase console will give you a config file. it will be a .plist 
 	for iOS "GoogleService-Info.plist" and a .json file "google-services.json" for the 
 	Android side. The content of these two config files are similar to these: 
-	https://github.com/myflashlab/Firebase-ANE/tree/master/FD/bin
+	https://github.com/myflashlab/Firebase-ANE/tree/master/AIR/bin
 	
 	You need to make sure that these two config files are being embedded in your project 
 	by putting them in the bin folder of your project. (Next to the main .swf file of 
@@ -102,7 +104,7 @@ Firebase ANEs are dependent on some other ANEs and frameworks. Complete informat
 # Requirements 
 1. Android API 15+
 2. iOS SDK 8.0+
-3. Air SDK 29+
+3. Air SDK 30+
 4. Every Firebase ANE might need some dependency Frameworks/ANEs which is [explained in details here](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md).
 
 # Commercial Version
@@ -115,31 +117,162 @@ Firebase ANEs are dependent on some other ANEs and frameworks. Complete informat
 * [firebaseInvites.ane](http://www.myflashlabs.com/product/invites-firebase-air-native-extension)
 * [firebaseStorage.ane](http://www.myflashlabs.com/product/storage-firebase-air-native-extension/)
 * [firebaseAnalytics.ane](http://www.myflashlabs.com/product/analytics-firebase-air-native-extension/)
-* [firebaseCrash.ane](http://www.myflashlabs.com/product/crash-firebase-air-native-extension/) *Deprecated
 * [firebaseCrashlytics.ane](http://www.myflashlabs.com/product/crashlytics-firebase-air-native-extension)
 * [firebaseMessaging.ane](http://www.myflashlabs.com/product/fcm-firebase-air-native-extension/)
+* [firebaseMlkit.ane](http://www.myflashlabs.com/product/mlkit-firebase-air-native-extension/)
 
 ![Firebase ANE](https://www.myflashlabs.com/wp-content/uploads/2017/12/product_adobe-air-ane-extension-firebase_all-595x738.jpg)
 
 # Tutorials
 [How to embed ANEs into **FlashBuilder**, **FlashCC** and **FlashDevelop**](https://www.youtube.com/watch?v=Oubsb_3F3ec&list=PL_mmSjScdnxnSDTMYb1iDX4LemhIJrt1O)  
 [How to support Firebase in my Air app?](https://github.com/myflashlab/Firebase-ANE/wiki/A.-Get-Started)  
-[How to use Firebase Realtime database?](https://github.com/myflashlab/Firebase-ANE/wiki/B.-Realtime-Database#get-started-with-firebase-realtime-database-in-adobe-air)  
-[How to use Firebase Firestore?](https://github.com/myflashlab/Firebase-ANE/wiki/K.-Firestore#get-started-with-firestore-in-adobe-air)  
-[How to use Firebase Remote Config?](https://github.com/myflashlab/Firebase-ANE/wiki/C.-Remote-Config#get-started-with-firebase-remote-config-in-adobe-air)  
-[How to use Firebase Authentication?](https://github.com/myflashlab/Firebase-ANE/wiki/D.-Authentication#get-started-with-firebase-authentication-in-adobe-air)  
-[How to use Firebase Storage?](https://github.com/myflashlab/Firebase-ANE/wiki/E.-Storage#get-started-with-firebase-storage-in-adobe-air)  
-[How to use Firebase Crash?](https://github.com/myflashlab/Firebase-ANE/wiki/F.-Crash#get-started-with-firebase-crash-in-adobe-air) *Deprecated  
-[How to use Crashlytics?](https://github.com/myflashlab/Firebase-ANE/wiki/L.-Crashlytics#get-started-with-firebase-crashlytics-in-adobe-air)  
-[How to use Firebase FCM?](https://github.com/myflashlab/Firebase-ANE/wiki/G.-FCM#get-started-with-firebase-fcm-in-adobe-air)  
-[How to use Firebase Analytics?](https://github.com/myflashlab/Firebase-ANE/wiki/H.-Analytics#get-started-with-firebase-analytics-in-adobe-air)  
-[How to use Firebase Dynamic Links?](https://github.com/myflashlab/Firebase-ANE/wiki/I.-Dynamic-Links#get-started-with-firebase-dynamic-links-in-adobe-air)  
-[How to use Firebase Invites?](https://github.com/myflashlab/Firebase-ANE/wiki/J.-Invites#get-started-with-firebase-invites-in-adobe-air)  
+[How to use Firebase Realtime database?](https://github.com/myflashlab/Firebase-ANE/wiki/B.-Realtime-Database#get-started-with-firebase-realtime-database-in-adobeair)  
+[How to use Firebase Firestore?](https://github.com/myflashlab/Firebase-ANE/wiki/K.-Firestore#get-started-with-firestore-in-adobeair)  
+[How to use Firebase Remote Config?](https://github.com/myflashlab/Firebase-ANE/wiki/C.-Remote-Config#get-started-with-firebase-remote-config-in-adobeair)  
+[How to use Firebase Authentication?](https://github.com/myflashlab/Firebase-ANE/wiki/D.-Authentication#get-started-with-firebase-authentication-in-adobeair)  
+[How to use Firebase Storage?](https://github.com/myflashlab/Firebase-ANE/wiki/E.-Storage#get-started-with-firebase-storage-in-adobeair)  
+[How to use Crashlytics?](https://github.com/myflashlab/Firebase-ANE/wiki/L.-Crashlytics#get-started-with-firebase-crashlytics-in-adobeair)  
+[How to use Firebase FCM?](https://github.com/myflashlab/Firebase-ANE/wiki/G.-FCM#get-started-with-firebase-fcm-in-adobeair)  
+[How to use Firebase Analytics?](https://github.com/myflashlab/Firebase-ANE/wiki/H.-Analytics#get-started-with-firebase-analytics-in-adobeair)  
+[How to use Firebase Dynamic Links?](https://github.com/myflashlab/Firebase-ANE/wiki/I.-Dynamic-Links#get-started-with-firebase-dynamic-links-in-adobeair)  
+[How to use Firebase Invites?](https://github.com/myflashlab/Firebase-ANE/wiki/J.-Invites#get-started-with-firebase-invites-in-adobeair)  
+[How to use Firebase MLKit?](https://github.com/myflashlab/Firebase-ANE/wiki/M.-MLKit#get-started-with-firebase-mlkit-in-adobeair)  
 
 # Changelog #
+*Sep 20, 2018 - V7.0.0*
+* Updated Android dependencies. Google has recently decided to update GooglePlayService and Firebase dependencies separately. Because of this decision, we have also updated our dependency ANEs. checkout [this page](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md) to know the version of ANEs which should be added to your project to make this version of Firebase ANEs work correctly.
+* Updated to Firebase SDK 5.4.1 for iOS. update all the older .framework and resources. https://dl.google.com/firebase/sdk/ios/5_4_1/Firebase-5.4.1.zip
+* Updated Crashlytics iOS SDK to V3.10.7. You should copy the new .framework files to your AIR SDK. [Download from here](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.7/com.crashlytics.ios-manual.zip).
+* Added support for Firebase MLKIT. This ANE is still in beta phase.
+* (Core) Calling ```Firebase.iid.getToken``` would be valid only when passing ```$authorizedEntity``` and ```$scope```.
+* (Core) Instead of method ```getToken```, use the new method```Firebase.iid.getInstanceId();```.
+* (Core) Removed event ```FirebaseEvents.IID_TOKEN_REFRESH```. You must use ```FCM.listener.addEventListener(FcmEvents.TOKEN_REFRESH, onTokenRefresh);``` from now on.
+* (Core) Removed:
+```xml
+<service android:name="com.myflashlab.firebase.core.MyFirebaseInstanceIdService" android:exported="true">
+    <intent-filter>
+        <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+    </intent-filter>
+</service>
+```
+* (Core) Added: ```<uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>```
+* (Core) Added:
+```xml
+<service android:name="com.google.firebase.components.ComponentDiscoveryService">
+
+    <!-- Required by firebase_iid.ane -->
+    <meta-data
+        android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+        android:value="com.google.firebase.components.ComponentRegistrar"/>
+
+    <!-- Required by firebase_measurementConnectorImpl.ane -->
+    <meta-data
+        android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+        android:value="com.google.firebase.components.ComponentRegistrar"/>
+
+    <!--
+        FirebaseAuth and Crashlytics has their own meta-data tag also. And if you are using them in your app, you must add them
+        under this <service> tag. Follow the changelog list below and you'll learn more about this.
+    -->
+
+</service>
+```
+* (FCM) Added Events: ```FcmEvents.ON_SUBSCRIBE``` and ```FcmEvents.ON_UNSUBSCRIBE``` to know when topic un/subscription is completed.
+* (FCM) Removed ```getToken``` and added ```getInstanceId``` method:
+```actionscript
+FCM.getInstanceId(onTokenReceived);
+function onTokenReceived($token:String, $error:String):void
+{
+	if($error)
+	{
+		trace("onTokenReceived error: " + $error);
+	}
+				
+	if($token)
+    {
+		trace("token: " + $token);
+    }
+}
+```
+* (FCM) Removed: 
+```xml
+<service android:name="com.myflashlab.firebase.fcm.MyFirebaseInstanceIDService">
+	<intent-filter>
+		<action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+	</intent-filter>
+</service>
+```
+* (Analytics) Added attribute *exported="true"* to ```com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver``` and moreover, moved all manifest setup from analytics to FirebaseCore.
+* (Analytics) Added new public method ```resetAnalyticsData``` to clear all Analytics data as well as reset App Instance ID.
+* (Auth) Removed deprecated method ```Firebaseuser.getToken```. Use ```getIdToken``` instead.
+* (Auth) Added class ```TokenResult```. is accessible from “FirebaseUserEvents.GET_USER_TOKEN” event. access token using ```e.tokenResult```
+```actionscript
+FirebaseUser.listener.addEventListener(FirebaseUserEvents.GET_USER_TOKEN, onGetUserToken);
+private function onGetUserToken(e:FirebaseUserEvents):void
+{			
+	if(e.result == Auth.RESULT_SUCCESS)
+	{
+		trace("onGetUserToken result == Auth.RESULT_SUCCESS");
+		trace("e.tokenResult.token: " + e.tokenResult.token);
+		trace("e.tokenResult.claims: " + JSON.stringify(e.tokenResult.claims));
+		trace("e.tokenResult.authTimestamp: " + new Date(e.tokenResult.authTimestamp).toLocaleString());
+		trace("e.tokenResult.expirationTimestamp: " + new Date(e.tokenResult.expirationTimestamp).toLocaleString());
+		trace("e.tokenResult.issuedAtTimestamp: " + new Date(e.tokenResult.issuedAtTimestamp).toLocaleString());
+		trace("e.tokenResult.signInProvider: " + e.tokenResult.signInProvider);
+	}
+	else
+	{
+		trace("onGetUserToken result != Auth.RESULT_SUCCESS");
+	}
+}
+```
+* (Auth) Added new ```meta-data``` tag as follow. make sure you are adding this to the currently existing ```<service>``` tag.
+```xml
+<service android:name="com.google.firebase.components.ComponentDiscoveryService" >
+    <meta-data
+        android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+        android:value="com.google.firebase.components.ComponentRegistrar" />
+</service>
+```
+* (Auth) There's a known bug in AIR SDK [explained here](https://tracker.adobe.com/#/view/AIR-4198557). If you are seeing this problem when compiling the iOS side of your app, [check out this video](https://www.youtube.com/watch?v=m4bwZRCvs2c) for the fix.
+* (Auth) Features like ```Auth.sendSignInLinkToEmail``` need DynamicLink And Invites to be implemented in the project already.
+* (Auth) FirebaseAuth has too many APIs based on Firebase Invites and Dynamic Links. So, we have made it dependent on FirebaseInvite when using the [ANELAB software](https://github.com/myflashlab/ANE-LAB). FirebaseInvite is also dependent on FirebaseDynamicLinks. It is strongly recommended to implement DynamicLinks and invites prior to implementing Auth to your app.
+* (Firestore) Removed ```QueryListenOptions``` class and added [MetadataChanges](https://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/firestore/MetadataChanges.html) class to be used with ```addSnapshotListener``` method. You don't need to initialize the new class, simply pass ```MetadataChanges.INCLUDE``` or ```MetadataChanges.EXCLUDE``` as the last parameter of ```addSnapshotListener``` method.
+* (Firestore) Query and collection ```read``` methods now optionally takes a MetadataChanges value. Notice that by default, metadata-only document changes are suppressed in the ```read()``` method, even when listening to a query with MetadataChanges.INCLUDE.
+* (Firestore) Added the ability to control whether ```read``` method for documents and queries should fetch from server only, cache only, or attempt server and fall back to the cache. By default, both methods still attempt server and fall back to the cache. check the new class [Source](https://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/firestore/Source.html).
+* (Firestore) Added a ```Firestore.setServerTimestampBehavior``` to control how DocumentSnapshots return unresolved server timestamps.
+    * DocumentSnapshot.ServerTimestampBehavior_NONE
+    * DocumentSnapshot.ServerTimestampBehavior_ESTIMATE
+    * DocumentSnapshot.ServerTimestampBehavior_PREVIOUS
+* (Firestore) Added new ```meta-data``` tag as follow. make sure you are adding this to the currently existing ```<service>``` tag.
+```xml
+<service android:name="com.google.firebase.components.ComponentDiscoveryService" >
+    <meta-data
+        android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+        android:value="com.google.firebase.components.ComponentRegistrar" />
+</service>
+```
+* (Firestore) mergeFields is now available on the iOS side also. Prior to this version, it was supported on the Android side only.
+* (Storage) Removed ```downloadUrl``` and ```downloadUrls``` from StorageMetadata class and added ```ref``` property which returns a reference to the ```StorageReference``` object of the current StorageMetadata. You may use the ```getDownloadUrl``` method of this object instead of the removed ones.
+* (Storage) Added support for ```StorageEvents.TASK_COMPLETE``` on instances of UploadTask and FileDownloadTask:
+```actionscript
+fileDownloadTask.addEventListener(StorageEvents.TASK_COMPLETE, onDownloadFileComplete);
+function onDownloadFileComplete(e:StorageEvents):void
+{
+    if(e.error)
+	{
+		trace("onDownloadFileComplete: " + e.error.message);
+	}
+	else
+	{
+		trace("onDownloadFileComplete");
+	}
+}
+```
+
 *May 20, 2018 - V6.5.0*
 * Added support for Firebase Crashlytics V6.5.0
-* Use iOS frameworks [V3.10.1 for Crashlytics](https://storage.googleapis.com/firebase-preview-drop/ios/crashlytics/com.crashlytics.ios-manual.zip).
+* Use iOS frameworks [V3.10.1 for Crashlytics](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.1/com.crashlytics.ios-manual.zip).
 
 *Apr 22, 2018 - V6.5.0*
 * Updated to Firebase SDK 12.0.1 for Android. update all the depenency ANEs.

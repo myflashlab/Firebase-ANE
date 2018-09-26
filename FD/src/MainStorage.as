@@ -181,17 +181,6 @@ package
 		
 		private function initStorage():void
 		{
-			/*
-				How to use the inspector ANE: https://github.com/myflashlab/ANE-Inspector-Tool
-				You can use the same trick for all the other Child ANEs and other MyFlashLabs ANEs.
-				All you have to do is to pass the Class name of the target ANE to the check method.
-			*/
-			/*if (!Inspector.check(Storage, true, true))
-			{
-				trace("Inspector.lastError = " + Inspector.lastError);
-				return;
-			}*/
-			
 			// initialize the Storage first
 			Storage.init();
 			
@@ -211,7 +200,7 @@ package
 			var fileUploadRef:StorageReference;
 			var fileDownloadRef:StorageReference;
 			
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------
 			
 			var btn0:MySprite = createBtn("getBytes");
 			btn0.addEventListener(MouseEvent.CLICK, getBytes);
@@ -258,11 +247,9 @@ package
 				C.log("contentEncoding = " + 		e.metadata.contentEncoding);
 				C.log("contentLanguage = " + 		e.metadata.contentLanguage);
 				C.log("contentType = " + 			e.metadata.contentType);
-				C.log("creationTimeMillis = " + 	e.metadata.creationTimeMillis);
-				C.log("updatedTimeMillis = " + 		e.metadata.updatedTimeMillis);
-				C.log("customMetadata = " + 		e.metadata.customMetadata);
-				C.log("downloadUrl = " + 			e.metadata.downloadUrl);
-				C.log("downloadUrls = " + 			e.metadata.downloadUrls);
+				C.log("creationTimeMillis = " + 	new Date(e.metadata.creationTimeMillis).toLocaleString());
+				C.log("updatedTimeMillis = " + 		new Date(e.metadata.updatedTimeMillis).toLocaleString());
+				C.log("customMetadata = " + 		JSON.stringify(e.metadata.customMetadata));
 				C.log("generation = " + 			e.metadata.generation);
 				C.log("metadataGeneration = " + 	e.metadata.metadataGeneration);
 				C.log("name = " + 					e.metadata.name);
@@ -271,7 +258,7 @@ package
 				C.log("------------------------------------------------------");
 			}
 			
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------
 			
 			var btn1:MySprite = createBtn("putBytes");
 			btn1.addEventListener(MouseEvent.CLICK, putBytes);
@@ -293,46 +280,34 @@ package
 				task.addEventListener(StorageEvents.TASK_FAILED, onUploadBytesFailed);
 				task.addEventListener(StorageEvents.TASK_PROGRESS, onUploadBytesProgress);
 				task.addEventListener(StorageEvents.TASK_SUCCESS, onUploadBytesSuccess);
+				task.addEventListener(StorageEvents.TASK_COMPLETE, onUploadBytesComplete);
 			}
 			
 			function onUploadBytesFailed(e:StorageEvents):void
 			{
-				var task:UploadTask = e.currentTarget as UploadTask;
-				task.removeEventListener(StorageEvents.TASK_FAILED, onUploadBytesFailed);
-				task.removeEventListener(StorageEvents.TASK_PROGRESS, onUploadBytesProgress);
-				task.removeEventListener(StorageEvents.TASK_SUCCESS, onUploadBytesSuccess);
-				
 				C.log("onUploadBytesFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
 			}
 			
 			function onUploadBytesProgress(e:StorageEvents):void
 			{
 				var task:UploadTask = e.currentTarget as UploadTask;
-				
 				var percent:Number = task.bytesTransferred / task.bytesTotal * 100;
-				
 				C.log("onUploadBytesProgress = " + Math.floor(percent) + "%");
 			}
 			
 			function onUploadBytesSuccess(e:StorageEvents):void
 			{
 				var task:UploadTask = e.currentTarget as UploadTask;
-				task.removeEventListener(StorageEvents.TASK_FAILED, onUploadBytesFailed);
-				task.removeEventListener(StorageEvents.TASK_PROGRESS, onUploadBytesProgress);
-				task.removeEventListener(StorageEvents.TASK_SUCCESS, onUploadBytesSuccess);
 				
-				C.log("onUploadBytesSuccess. task.downloadUrl = " + 					task.downloadUrl);
 				C.log("onUploadBytesSuccess. task.metadata.bucket = " + 				task.metadata.bucket);
 				C.log("onUploadBytesSuccess. task.metadata.cacheControl = " + 			task.metadata.cacheControl);
 				C.log("onUploadBytesSuccess. task.metadata.contentDisposition = " + 	task.metadata.contentDisposition);
 				C.log("onUploadBytesSuccess. task.metadata.contentEncoding = " + 		task.metadata.contentEncoding);
 				C.log("onUploadBytesSuccess. task.metadata.contentLanguage = " + 		task.metadata.contentLanguage);
 				C.log("onUploadBytesSuccess. task.metadata.contentType = " + 			task.metadata.contentType);
-				C.log("onUploadBytesSuccess. task.metadata.creationTimeMillis = " + 	task.metadata.creationTimeMillis);
-				C.log("onUploadBytesSuccess. task.metadata.updatedTimeMillis = " + 		task.metadata.updatedTimeMillis);
-				C.log("onUploadBytesSuccess. task.metadata.customMetadata = " + 		task.metadata.customMetadata);
-				C.log("onUploadBytesSuccess. task.metadata.downloadUrl = " + 			task.metadata.downloadUrl);
-				C.log("onUploadBytesSuccess. task.metadata.downloadUrls = " + 			task.metadata.downloadUrls);
+				C.log("onUploadBytesSuccess. task.metadata.creationTimeMillis = " + 	new Date(task.metadata.creationTimeMillis).toLocaleString());
+				C.log("onUploadBytesSuccess. task.metadata.updatedTimeMillis = " + 		new Date(task.metadata.updatedTimeMillis).toLocaleString());
+				C.log("onUploadBytesSuccess. task.metadata.customMetadata = " + 		JSON.stringify(task.metadata.customMetadata));
 				C.log("onUploadBytesSuccess. task.metadata.generation = " + 			task.metadata.generation);
 				C.log("onUploadBytesSuccess. task.metadata.metadataGeneration = " + 	task.metadata.metadataGeneration);
 				C.log("onUploadBytesSuccess. task.metadata.name = " + 					task.metadata.name);
@@ -341,7 +316,39 @@ package
 				C.log("------------------------------------------------------");
 			}
 			
-// ----------------------------------------------------------------------------------------------------------------------------------
+			function onUploadBytesComplete(e:StorageEvents):void
+			{
+				var task:UploadTask = e.currentTarget as UploadTask;
+				task.removeEventListener(StorageEvents.TASK_FAILED, onUploadBytesFailed);
+				task.removeEventListener(StorageEvents.TASK_PROGRESS, onUploadBytesProgress);
+				task.removeEventListener(StorageEvents.TASK_SUCCESS, onUploadBytesSuccess);
+				task.removeEventListener(StorageEvents.TASK_COMPLETE, onUploadBytesComplete);
+				
+				if(e.error)
+				{
+					C.log("onUploadBytesComplete: " + e.error.message);
+				}
+				else
+				{
+					C.log("onUploadBytesComplete. task.metadata.bucket = " + 				task.metadata.bucket);
+					C.log("onUploadBytesComplete. task.metadata.cacheControl = " + 			task.metadata.cacheControl);
+					C.log("onUploadBytesComplete. task.metadata.contentDisposition = " + 	task.metadata.contentDisposition);
+					C.log("onUploadBytesComplete. task.metadata.contentEncoding = " + 		task.metadata.contentEncoding);
+					C.log("onUploadBytesComplete. task.metadata.contentLanguage = " + 		task.metadata.contentLanguage);
+					C.log("onUploadBytesComplete. task.metadata.contentType = " + 			task.metadata.contentType);
+					C.log("onUploadBytesComplete. task.metadata.creationTimeMillis = " + 	new Date(task.metadata.creationTimeMillis).toLocaleString());
+					C.log("onUploadBytesComplete. task.metadata.updatedTimeMillis = " + 	new Date(task.metadata.updatedTimeMillis).toLocaleString());
+					C.log("onUploadBytesComplete. task.metadata.customMetadata = " + 		JSON.stringify(task.metadata.customMetadata));
+					C.log("onUploadBytesComplete. task.metadata.generation = " + 			task.metadata.generation);
+					C.log("onUploadBytesComplete. task.metadata.metadataGeneration = " + 	task.metadata.metadataGeneration);
+					C.log("onUploadBytesComplete. task.metadata.name = " + 					task.metadata.name);
+					C.log("onUploadBytesComplete. task.metadata.path = " + 					task.metadata.path);
+					C.log("onUploadBytesComplete. task.metadata.sizeBytes = " + 			task.metadata.sizeBytes);
+					C.log("------------------------------------------------------");
+				}
+			}
+			
+// ---------------------------------------------------------------------------------------------------------------
 
 			var btn2:MySprite = createBtn("delete reference");
 			btn2.addEventListener(MouseEvent.CLICK, deleteReference);
@@ -362,7 +369,7 @@ package
 				C.log("onDeleteSuccess");
 			}
 		
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------
 
 			var btn3:MySprite = createBtn("putFile");
 			btn3.addEventListener(MouseEvent.CLICK, putFile);
@@ -410,18 +417,11 @@ package
 				fileUploadTask.addEventListener(StorageEvents.TASK_PAUSED, onUploadFilePaused);
 				fileUploadTask.addEventListener(StorageEvents.TASK_PROGRESS, onUploadFileProgress);
 				fileUploadTask.addEventListener(StorageEvents.TASK_SUCCESS, onUploadFileSuccess);
+				fileUploadTask.addEventListener(StorageEvents.TASK_COMPLETE, onUploadFileComplete);
 			}
 			
 			function onUploadFileFailed(e:StorageEvents):void
 			{
-				removeEncryptedLocalStore("uploadSessionTest2");
-				
-				// make sure you are removing the listeners or you will experience unexpected behavior.
-				fileUploadTask.removeEventListener(StorageEvents.TASK_FAILED, onUploadFileFailed);
-				fileUploadTask.removeEventListener(StorageEvents.TASK_PAUSED, onUploadFilePaused);
-				fileUploadTask.removeEventListener(StorageEvents.TASK_PROGRESS, onUploadFileProgress);
-				fileUploadTask.removeEventListener(StorageEvents.TASK_SUCCESS, onUploadFileSuccess);
-				
 				C.log("onUploadFileFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
 			}
 			
@@ -439,26 +439,15 @@ package
 			
 			function onUploadFileSuccess(e:StorageEvents):void
 			{
-				removeEncryptedLocalStore("uploadSessionTest2");
-				
-				// make sure you are removing the listeners or you will experience unexpected behavior.
-				fileUploadTask.removeEventListener(StorageEvents.TASK_FAILED, onUploadFileFailed);
-				fileUploadTask.removeEventListener(StorageEvents.TASK_PAUSED, onUploadFilePaused);
-				fileUploadTask.removeEventListener(StorageEvents.TASK_PROGRESS, onUploadFileProgress);
-				fileUploadTask.removeEventListener(StorageEvents.TASK_SUCCESS, onUploadFileSuccess);
-				
-				C.log("onUploadFileSuccess. fileUploadTask.downloadUrl = " + 					fileUploadTask.downloadUrl);
 				C.log("onUploadFileSuccess. fileUploadTask.metadata.bucket = " + 				fileUploadTask.metadata.bucket);
 				C.log("onUploadFileSuccess. fileUploadTask.metadata.cacheControl = " + 			fileUploadTask.metadata.cacheControl);
 				C.log("onUploadFileSuccess. fileUploadTask.metadata.contentDisposition = " + 	fileUploadTask.metadata.contentDisposition);
 				C.log("onUploadFileSuccess. fileUploadTask.metadata.contentEncoding = " + 		fileUploadTask.metadata.contentEncoding);
 				C.log("onUploadFileSuccess. fileUploadTask.metadata.contentLanguage = " + 		fileUploadTask.metadata.contentLanguage);
 				C.log("onUploadFileSuccess. fileUploadTask.metadata.contentType = " + 			fileUploadTask.metadata.contentType);
-				C.log("onUploadFileSuccess. fileUploadTask.metadata.creationTimeMillis = " + 	fileUploadTask.metadata.creationTimeMillis);
-				C.log("onUploadFileSuccess. fileUploadTask.metadata.updatedTimeMillis = " + 	fileUploadTask.metadata.updatedTimeMillis);
-				C.log("onUploadFileSuccess. fileUploadTask.metadata.customMetadata = " + 		fileUploadTask.metadata.customMetadata);
-				C.log("onUploadFileSuccess. fileUploadTask.metadata.downloadUrl = " + 			fileUploadTask.metadata.downloadUrl);
-				C.log("onUploadFileSuccess. fileUploadTask.metadata.downloadUrls = " + 			fileUploadTask.metadata.downloadUrls);
+				C.log("onUploadFileSuccess. fileUploadTask.metadata.creationTimeMillis = " + 	new Date(fileUploadTask.metadata.creationTimeMillis).toLocaleString());
+				C.log("onUploadFileSuccess. fileUploadTask.metadata.updatedTimeMillis = " + 	new Date(fileUploadTask.metadata.updatedTimeMillis).toLocaleString());
+				C.log("onUploadFileSuccess. fileUploadTask.metadata.customMetadata = " + 		JSON.stringify(fileUploadTask.metadata.customMetadata));
 				C.log("onUploadFileSuccess. fileUploadTask.metadata.generation = " + 			fileUploadTask.metadata.generation);
 				C.log("onUploadFileSuccess. fileUploadTask.metadata.metadataGeneration = " + 	fileUploadTask.metadata.metadataGeneration);
 				C.log("onUploadFileSuccess. fileUploadTask.metadata.name = " + 					fileUploadTask.metadata.name);
@@ -466,8 +455,43 @@ package
 				C.log("onUploadFileSuccess. fileUploadTask.metadata.sizeBytes = " + 			fileUploadTask.metadata.sizeBytes);
 				C.log("------------------------------------------------------");
 			}
+			
+			function onUploadFileComplete(e:StorageEvents):void
+			{
+				removeEncryptedLocalStore("uploadSessionTest2");
+				
+				// make sure you are removing the listeners or you will experience unexpected behavior.
+				fileUploadTask.removeEventListener(StorageEvents.TASK_FAILED, onUploadFileFailed);
+				fileUploadTask.removeEventListener(StorageEvents.TASK_PAUSED, onUploadFilePaused);
+				fileUploadTask.removeEventListener(StorageEvents.TASK_PROGRESS, onUploadFileProgress);
+				fileUploadTask.removeEventListener(StorageEvents.TASK_SUCCESS, onUploadFileSuccess);
+				fileUploadTask.removeEventListener(StorageEvents.TASK_COMPLETE, onUploadFileComplete);
+				
+				if(e.error)
+				{
+					C.log("onUploadFileComplete: " + e.error.message);
+				}
+				else
+				{
+					C.log("onUploadFileComplete. fileUploadTask.metadata.bucket = " + 				fileUploadTask.metadata.bucket);
+					C.log("onUploadFileComplete. fileUploadTask.metadata.cacheControl = " + 		fileUploadTask.metadata.cacheControl);
+					C.log("onUploadFileComplete. fileUploadTask.metadata.contentDisposition = " + 	fileUploadTask.metadata.contentDisposition);
+					C.log("onUploadFileComplete. fileUploadTask.metadata.contentEncoding = " + 		fileUploadTask.metadata.contentEncoding);
+					C.log("onUploadFileComplete. fileUploadTask.metadata.contentLanguage = " + 		fileUploadTask.metadata.contentLanguage);
+					C.log("onUploadFileComplete. fileUploadTask.metadata.contentType = " + 			fileUploadTask.metadata.contentType);
+					C.log("onUploadFileComplete. fileUploadTask.metadata.creationTimeMillis = " + 	new Date(fileUploadTask.metadata.creationTimeMillis).toLocaleString());
+					C.log("onUploadFileComplete. fileUploadTask.metadata.updatedTimeMillis = " + 	new Date(fileUploadTask.metadata.updatedTimeMillis).toLocaleString());
+					C.log("onUploadFileComplete. fileUploadTask.metadata.customMetadata = " + 		JSON.stringify(fileUploadTask.metadata.customMetadata));
+					C.log("onUploadFileComplete. fileUploadTask.metadata.generation = " + 			fileUploadTask.metadata.generation);
+					C.log("onUploadFileComplete. fileUploadTask.metadata.metadataGeneration = " + 	fileUploadTask.metadata.metadataGeneration);
+					C.log("onUploadFileComplete. fileUploadTask.metadata.name = " + 				fileUploadTask.metadata.name);
+					C.log("onUploadFileComplete. fileUploadTask.metadata.path = " + 				fileUploadTask.metadata.path);
+					C.log("onUploadFileComplete. fileUploadTask.metadata.sizeBytes = " + 			fileUploadTask.metadata.sizeBytes);
+					C.log("------------------------------------------------------");
+				}
+			}
 
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------
 
 			var btn4:MySprite = createBtn("pause upload");
 			btn4.addEventListener(MouseEvent.CLICK, pauseUpload);
@@ -479,7 +503,7 @@ package
 				C.log("pauseUpload");
 			}
 
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------
 
 			var btn5:MySprite = createBtn("resume upload");
 			btn5.addEventListener(MouseEvent.CLICK, resumeUpload);
@@ -491,7 +515,7 @@ package
 				C.log("resumeUpload");	
 			}
 
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 
 			var btn6:MySprite = createBtn("cancel upload");
 			btn6.addEventListener(MouseEvent.CLICK, cancelUpload);
@@ -499,11 +523,10 @@ package
 			
 			function cancelUpload(e:MouseEvent):void
 			{
-				fileUploadTask.cancel();
-				C.log("cancelUpload");	
+				if(fileUploadTask) fileUploadTask.cancel();
 			}
 
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 
 			var btn7:MySprite = createBtn("update metadata");
 			btn7.addEventListener(MouseEvent.CLICK, updateMetadata);
@@ -511,7 +534,7 @@ package
 			
 			function updateMetadata(e:MouseEvent):void
 			{
-				var metadata:StorageMetadata = new StorageMetadata([{var1:"Value1"}, {var2:"Value2"}, {var3:3}, {var4:4}]);
+				var metadata:StorageMetadata = new StorageMetadata([{var1:"Value01"}, {var2:"Value02"}, {var3:30}, {var4:40}]);
 				imgRef.updateMetadata(metadata, onMetadataUpdateSuccess, onMetadataUpdateFailed);
 			}
 			
@@ -525,7 +548,7 @@ package
 				C.log("onMetadataUpdateSuccess");
 			}
 
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 
 			var btn8:MySprite = createBtn("getDownloadUrl");
 			btn8.addEventListener(MouseEvent.CLICK, getDownloadUrl);
@@ -546,7 +569,7 @@ package
 				C.log("onGetDownloadUrlSuccess url = " + e.url);
 			}
 
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 
 			var btn9:MySprite = createBtn("getFile");
 			btn9.addEventListener(MouseEvent.CLICK, getFile);
@@ -568,16 +591,11 @@ package
 				fileDownloadTask.addEventListener(StorageEvents.TASK_PAUSED, onDownloadFilePaused);
 				fileDownloadTask.addEventListener(StorageEvents.TASK_PROGRESS, onDownloadFileProgress);
 				fileDownloadTask.addEventListener(StorageEvents.TASK_SUCCESS, onDownloadFileSuccess);
+				fileDownloadTask.addEventListener(StorageEvents.TASK_COMPLETE, onDownloadFileComplete);
 			}
 			
 			function onDownloadFileFailed(e:StorageEvents):void
 			{
-				// make sure you are removing the listeners or you will experience unexpected behavior.
-				fileDownloadTask.removeEventListener(StorageEvents.TASK_FAILED, onDownloadFileFailed);
-				fileDownloadTask.removeEventListener(StorageEvents.TASK_PAUSED, onDownloadFilePaused);
-				fileDownloadTask.removeEventListener(StorageEvents.TASK_PROGRESS, onDownloadFileProgress);
-				fileDownloadTask.removeEventListener(StorageEvents.TASK_SUCCESS, onDownloadFileSuccess);
-				
 				C.log("onDownloadFileFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
 			}
 			
@@ -595,16 +613,29 @@ package
 			
 			function onDownloadFileSuccess(e:StorageEvents):void
 			{
+				C.log("onDownloadFileSuccess");
+			}
+			
+			function onDownloadFileComplete(e:StorageEvents):void
+			{
 				// make sure you are removing the listeners or you will experience unexpected behavior.
 				fileDownloadTask.removeEventListener(StorageEvents.TASK_FAILED, onDownloadFileFailed);
 				fileDownloadTask.removeEventListener(StorageEvents.TASK_PAUSED, onDownloadFilePaused);
 				fileDownloadTask.removeEventListener(StorageEvents.TASK_PROGRESS, onDownloadFileProgress);
 				fileDownloadTask.removeEventListener(StorageEvents.TASK_SUCCESS, onDownloadFileSuccess);
+				fileDownloadTask.removeEventListener(StorageEvents.TASK_COMPLETE, onDownloadFileComplete);
 				
-				C.log("onDownloadFileSuccess");
+				if(e.error)
+				{
+					C.log("onDownloadFileComplete: " + e.error.message);
+				}
+				else
+				{
+					C.log("onDownloadFileComplete");
+				}
 			}
 
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 
 			var btn10:MySprite = createBtn("pause download");
 			btn10.addEventListener(MouseEvent.CLICK, pauseDownload);
@@ -616,7 +647,7 @@ package
 				C.log("pauseUpload");	
 			}
 
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 
 			var btn11:MySprite = createBtn("resume download");
 			btn11.addEventListener(MouseEvent.CLICK, resumeDownload);
@@ -628,7 +659,7 @@ package
 				C.log("resumeUpload");	
 			}
 
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 
 			var btn12:MySprite = createBtn("cancel download");
 			btn12.addEventListener(MouseEvent.CLICK, cancelDownload);
@@ -637,10 +668,10 @@ package
 			function cancelDownload(e:MouseEvent):void
 			{
 				fileDownloadTask.cancel();
-				C.log("cancelUpload");	
+				C.log("cancelDownload");
 			}
 
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 
 			var btn13:MySprite = createBtn("activeDownloadTasks");
 			btn13.addEventListener(MouseEvent.CLICK, activeDownloadTasks);
@@ -655,7 +686,7 @@ package
 				}
 			}
 
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
 
 			var btn14:MySprite = createBtn("activeUploadTasks");
 			btn14.addEventListener(MouseEvent.CLICK, activeUploadTasks);
@@ -675,7 +706,9 @@ package
 				}
 			}
 
-// ----------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
+		
+		
 		}
 		
 		
@@ -713,7 +746,7 @@ package
 		
 		
 		
-		public function setEncryptedLocalStore($key:String, $value:String):void
+		private static function setEncryptedLocalStore($key:String, $value:String):void
 		{
 			var bytes:ByteArray = new ByteArray();
 			bytes.writeUTFBytes($value);
@@ -721,7 +754,7 @@ package
 			EncryptedLocalStore.setItem($key, bytes);
 		}
 		
-		public function getEncryptedLocalStore($key:String):String
+		private static  function getEncryptedLocalStore($key:String):String
 		{
 			var value:ByteArray = EncryptedLocalStore.getItem($key);
 			
@@ -730,15 +763,15 @@ package
 			return value.readUTFBytes(value.length);
 		}
 		
-		public function removeEncryptedLocalStore($key:String):void
+		private static  function removeEncryptedLocalStore($key:String):void
 		{
 			EncryptedLocalStore.removeItem($key);
 		}
 		
-		public function resetEncryptedLocalStore():void
+		/*private static function resetEncryptedLocalStore():void
 		{
 			EncryptedLocalStore.reset();
-		}
+		}*/
 		
 		private function createBtn($str:String):MySprite
 		{

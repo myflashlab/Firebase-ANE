@@ -1,42 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<application xmlns="http://ns.adobe.com/air/application/29.0">
+<application xmlns="http://ns.adobe.com/air/application/30.0">
     <id>com.doitflash.firebaseCore</id>
-    <versionNumber>6.5.0</versionNumber>
+    <versionNumber>7.0.0</versionNumber>
     <supportedProfiles>mobileDevice</supportedProfiles>
     <filename>exFirebaseCore</filename>
     <name>Firebase Core</name>
     <customUpdateUI>false</customUpdateUI>
     <allowBrowserInvocation>false</allowBrowserInvocation>
+    
     <iPhone>
-        <!--https://developer.apple.com/library/ios/documentation/general/reference/infoplistkeyreference/Articles/iPhoneOSKeys.html-->
-         <!--http://help.adobe.com/en_US/air/build/WSfffb011ac560372f7e64a7f12cd2dd1867-8000.html-->
-         
-         <InfoAdditions><![CDATA[
-         
-         <!--iOS 8.0 or higher can support this ANE-->
+        <InfoAdditions><![CDATA[
+
+        <!--iOS 8.0 or higher can support this ANE-->
         <key>MinimumOSVersion</key>
         <string>8.0</string>
-        
+
+        <!-- Required by firebaseCrashlytics.ane -->
+		<!-- avoid auto initialization when using the ANE; So YOU can decide when to start Crashlytics in your app -->
+		<!--<key>firebase_crashlytics_collection_enabled</key>
+		<false/>-->
+
         <key>UIPrerenderedIcon</key>
         <true/>
-        
+
         <key>UIStatusBarStyle</key>
         <string>UIStatusBarStyleBlackOpaque</string>
-        
+
         <key>UIRequiresPersistentWiFi</key>
         <string>NO</string>
-        
+
         <key>UIDeviceFamily</key>
         <array>
             <string>1</string>
             <string>2</string>
         </array>
-        
+
         <!-- 
 			Required by firebaseInvites.ane
 			Change google client id to your own. Find it in GoogleService-Info.plist
 		-->
-		<!-- <key>CFBundleURLTypes</key>
+		<!--<key>CFBundleURLTypes</key>
 		<array>
 			<dict>
 				<key>CFBundleTypeRole</key>
@@ -48,69 +51,65 @@
 					<string>com.googleusercontent.apps.163763113291-5j7w6ara6rgafjub3636in7h8q2lgbeb</string>
 				</array>
 			</dict>
-		</array> -->
-        
+		</array>-->
+
         <!-- Required by firebase_messaging.ane -->
-		<!-- <key>UIBackgroundModes</key>
-		<array>
-			<string>remote-notification</string>
-		</array> -->
+        <!--<key>UIBackgroundModes</key>
+        <array>
+            <string>remote-notification</string>
+        </array>-->
 
         <!-- Required by firebaseDynamicLinks.ane -->
-		<!-- <key>com.myflashlabs.firebase.deepLinkURLScheme</key>
-        <string>dlscheme</string> -->
+		<!--<key>com.myflashlabs.firebase.deepLinkURLScheme</key>
+        <string>dlscheme</string>-->
 
-        <!-- Required by firebaseCrashlytics.ane -->
-		<!-- <key>firebase_crashlytics_collection_enabled</key>
-		<false/> -->
+        ]]></InfoAdditions>
 
-                ]]></InfoAdditions>
-    
-    <requestedDisplayResolution>high</requestedDisplayResolution>
-    
-    <!-- Required by firebase_messaging.ane or firebaseDynamicLinks.ane -->
-	<!-- <Entitlements>
-	<![CDATA[
-	
-		-- Required by firebase_messaging.ane --
-			<key>keychain-access-groups</key>
-			<array>
-				<string>57AX1RU6SZ.*</string>		
-			</array>
-			
-			-- set to 'true' when debugging your app and set to 'false' when building for adhoc or distribution --
-			<key>get-task-allow</key>
-			<true/>
-			
-			<key>application-identifier</key>
-			<string>57AX1RU6SZ.com.doitflash.firebaseCore</string>
-			<key>com.apple.developer.team-identifier</key>
-			<string>57AX1RU6SZ</string>
-			
-			-- set to 'development' when debugging your app and set to 'production' when building for adhoc or distribution --
-			<key>aps-environment</key>
-			<string>development</string>
-			
-			-- Apple has silently added this key which is required ONLY when you are trying to upload your binary to itunesconnect --
-			--<key>beta-reports-active</key>
-			<false/>--
-		
-		
-		-- 
-			Required by firebaseDynamicLinks.ane 
-			
-			To know what is your own app_code value, go to the "Dynamic Links" section
-            in your Firebase Console and there you will see a URL like: https://e73ko.app.goo.gl/
-            then, your app_code will be "e73ko"
-		--
-			<key>com.apple.developer.associated-domains</key>
-			<array>
-				<string>applinks:e73ko.app.goo.gl</string>
-			</array>
-		
-	]]></Entitlements> -->
-    
-</iPhone>
+        <requestedDisplayResolution>high</requestedDisplayResolution>
+
+        <!-- Required by firebase_messaging.ane or firebaseDynamicLinks.ane -->
+        <!-- <Entitlements>
+        <![CDATA[
+        
+            >> Required by firebase_messaging.ane <<
+                <key>keychain-access-groups</key>
+                <array>
+                    <string>57AX1RU6SZ.*</string>		
+                </array>
+                
+                >> set to 'true' when debugging your app and set to 'false' when building for adhoc or distribution <<
+                <key>get-task-allow</key>
+                <true/>
+                
+                <key>application-identifier</key>
+                <string>57AX1RU6SZ.com.doitflash.firebaseCore</string>
+                <key>com.apple.developer.team-identifier</key>
+                <string>57AX1RU6SZ</string>
+                
+                >> set to 'development' when debugging your app and set to 'production' when building for adhoc or distribution <<
+                <key>aps-environment</key>
+                <string>development</string>
+                
+                >> Apple has silently added this key which is required ONLY when you are trying to upload your binary to itunesconnect <<
+                >><key>beta-reports-active</key>
+                <false/><<
+            
+            
+            >> 
+                Required by firebaseDynamicLinks.ane 
+                
+                To know what is your own app_code value, go to the "Dynamic Links" section
+                in your Firebase Console and there you will see a URL like: https://e73ko.app.goo.gl/
+                then, your app_code will be "e73ko"
+            <<
+                <key>com.apple.developer.associated-domains</key>
+                <array>
+                    <string>applinks:e73ko.app.goo.gl</string>
+                </array>
+            
+        ]]></Entitlements> -->
+
+    </iPhone>
 
 
 <initialWindow>

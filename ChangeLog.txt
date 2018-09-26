@@ -1,8 +1,139 @@
 Firebase Air Native Extension
 
+*Sep 20, 2018 - V7.0.0*
+* Updated Android dependencies. Google has recently decided to update GooglePlayService and Firebase dependencies separately. Because of this decision, we have also updated our dependency ANEs. checkout [this page](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md) to know the version of ANEs which should be added to your project to make this version of Firebase ANEs work correctly.
+* Updated to Firebase SDK 5.4.1 for iOS. update all the older .framework and resources. https://dl.google.com/firebase/sdk/ios/5_4_1/Firebase-5.4.1.zip
+* Updated Crashlytics iOS SDK to V3.10.7. You should copy the new .framework files to your AIR SDK. [Download from here](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.7/com.crashlytics.ios-manual.zip).
+* Added support for Firebase MLKIT. This ANE is still in beta phase.
+* (Core) Calling ```Firebase.iid.getToken``` would be valid only when passing ```$authorizedEntity``` and ```$scope```.
+* (Core) Instead of method ```getToken```, use the new method```Firebase.iid.getInstanceId();```.
+* (Core) Removed event ```FirebaseEvents.IID_TOKEN_REFRESH```. You must use ```FCM.listener.addEventListener(FcmEvents.TOKEN_REFRESH, onTokenRefresh);``` from now on.
+* (Core) Removed:
+```xml
+<service android:name="com.myflashlab.firebase.core.MyFirebaseInstanceIdService" android:exported="true">
+    <intent-filter>
+        <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+    </intent-filter>
+</service>
+```
+* (Core) Added: ```<uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>```
+* (Core) Added:
+```xml
+<service android:name="com.google.firebase.components.ComponentDiscoveryService">
+
+    <!-- Required by firebase_iid.ane -->
+    <meta-data
+        android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+        android:value="com.google.firebase.components.ComponentRegistrar"/>
+
+    <!-- Required by firebase_measurementConnectorImpl.ane -->
+    <meta-data
+        android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+        android:value="com.google.firebase.components.ComponentRegistrar"/>
+
+    <!--
+        FirebaseAuth and Crashlytics has their own meta-data tag also. And if you are using them in your app, you must add them
+        under this <service> tag. Follow the changelog list below and you'll learn more about this.
+    -->
+
+</service>
+```
+* (FCM) Added Events: ```FcmEvents.ON_SUBSCRIBE``` and ```FcmEvents.ON_UNSUBSCRIBE``` to know when topic un/subscription is completed.
+* (FCM) Removed ```getToken``` and added ```getInstanceId``` method:
+```actionscript
+FCM.getInstanceId(onTokenReceived);
+function onTokenReceived($token:String, $error:String):void
+{
+	if($error)
+	{
+		trace("onTokenReceived error: " + $error);
+	}
+				
+	if($token)
+    {
+		trace("token: " + $token);
+    }
+}
+```
+* (FCM) Removed: 
+```xml
+<service android:name="com.myflashlab.firebase.fcm.MyFirebaseInstanceIDService">
+	<intent-filter>
+		<action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+	</intent-filter>
+</service>
+```
+* (Analytics) Added attribute *exported="true"* to ```com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver``` and moreover, moved all manifest setup from analytics to FirebaseCore.
+* (Analytics) Added new public method ```resetAnalyticsData``` to clear all Analytics data as well as reset App Instance ID.
+* (Auth) Removed deprecated method ```Firebaseuser.getToken```. Use ```getIdToken``` instead.
+* (Auth) Added class ```TokenResult```. is accessible from “FirebaseUserEvents.GET_USER_TOKEN” event. access token using ```e.tokenResult```
+```actionscript
+FirebaseUser.listener.addEventListener(FirebaseUserEvents.GET_USER_TOKEN, onGetUserToken);
+private function onGetUserToken(e:FirebaseUserEvents):void
+{			
+	if(e.result == Auth.RESULT_SUCCESS)
+	{
+		trace("onGetUserToken result == Auth.RESULT_SUCCESS");
+		trace("e.tokenResult.token: " + e.tokenResult.token);
+		trace("e.tokenResult.claims: " + JSON.stringify(e.tokenResult.claims));
+		trace("e.tokenResult.authTimestamp: " + new Date(e.tokenResult.authTimestamp).toLocaleString());
+		trace("e.tokenResult.expirationTimestamp: " + new Date(e.tokenResult.expirationTimestamp).toLocaleString());
+		trace("e.tokenResult.issuedAtTimestamp: " + new Date(e.tokenResult.issuedAtTimestamp).toLocaleString());
+		trace("e.tokenResult.signInProvider: " + e.tokenResult.signInProvider);
+	}
+	else
+	{
+		trace("onGetUserToken result != Auth.RESULT_SUCCESS");
+	}
+}
+```
+* (Auth) Added new ```meta-data``` tag as follow. make sure you are adding this to the currently existing ```<service>``` tag.
+```xml
+<service android:name="com.google.firebase.components.ComponentDiscoveryService" >
+    <meta-data
+        android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+        android:value="com.google.firebase.components.ComponentRegistrar" />
+</service>
+```
+* (Auth) There's a known bug in AIR SDK [explained here](https://tracker.adobe.com/#/view/AIR-4198557). If you are seeing this problem when compiling the iOS side of your app, [check out this video](https://www.youtube.com/watch?v=m4bwZRCvs2c) for the fix.
+* (Auth) Features like ```Auth.sendSignInLinkToEmail``` need DynamicLink And Invites to be implemented in the project already.
+* (Auth) FirebaseAuth has too many APIs based on Firebase Invites and Dynamic Links. So, we have made it dependent on FirebaseInvite when using the [ANELAB software](https://github.com/myflashlab/ANE-LAB). FirebaseInvite is also dependent on FirebaseDynamicLinks. It is strongly recommended to implement DynamicLinks and invites prior to implementing Auth to your app.
+* (Firestore) Removed ```QueryListenOptions``` class and added [MetadataChanges](https://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/firestore/MetadataChanges.html) class to be used with ```addSnapshotListener``` method. You don't need to initialize the new class, simply pass ```MetadataChanges.INCLUDE``` or ```MetadataChanges.EXCLUDE``` as the last parameter of ```addSnapshotListener``` method.
+* (Firestore) Query and collection ```read``` methods now optionally takes a MetadataChanges value. Notice that by default, metadata-only document changes are suppressed in the ```read()``` method, even when listening to a query with MetadataChanges.INCLUDE.
+* (Firestore) Added the ability to control whether ```read``` method for documents and queries should fetch from server only, cache only, or attempt server and fall back to the cache. By default, both methods still attempt server and fall back to the cache. check the new class [Source](https://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/firestore/Source.html).
+* (Firestore) Added a ```Firestore.setServerTimestampBehavior``` to control how DocumentSnapshots return unresolved server timestamps.
+    * DocumentSnapshot.ServerTimestampBehavior_NONE
+    * DocumentSnapshot.ServerTimestampBehavior_ESTIMATE
+    * DocumentSnapshot.ServerTimestampBehavior_PREVIOUS
+* (Firestore) Added new ```meta-data``` tag as follow. make sure you are adding this to the currently existing ```<service>``` tag.
+```xml
+<service android:name="com.google.firebase.components.ComponentDiscoveryService" >
+    <meta-data
+        android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+        android:value="com.google.firebase.components.ComponentRegistrar" />
+</service>
+```
+* (Firestore) mergeFields is now available on the iOS side also. Prior to this version, it was supported on the Android side only.
+* (Storage) Removed ```downloadUrl``` and ```downloadUrls``` from StorageMetadata class and added ```ref``` property which returns a reference to the ```StorageReference``` object of the current StorageMetadata. You may use the ```getDownloadUrl``` method of this object instead of the removed ones.
+* (Storage) Added support for ```StorageEvents.TASK_COMPLETE``` on instances of UploadTask and FileDownloadTask:
+```actionscript
+fileDownloadTask.addEventListener(StorageEvents.TASK_COMPLETE, onDownloadFileComplete);
+function onDownloadFileComplete(e:StorageEvents):void
+{
+    if(e.error)
+	{
+		trace("onDownloadFileComplete: " + e.error.message);
+	}
+	else
+	{
+		trace("onDownloadFileComplete");
+	}
+}
+```
+
 *May 20, 2018 - V6.5.0*
 * Added support for Firebase Crashlytics V6.5.0
-* Use iOS frameworks [V3.10.1 for Crashlytics](https://storage.googleapis.com/firebase-preview-drop/ios/crashlytics/com.crashlytics.ios-manual.zip).
+* Use iOS frameworks [V3.10.1 for Crashlytics](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.1/com.crashlytics.ios-manual.zip).
 
 *Apr 22, 2018 - V6.5.0*
 * Updated to Firebase SDK 12.0.1 for Android. update all the depenency ANEs.
@@ -47,7 +178,7 @@ Firebase Air Native Extension
 * (Core) The ```projectID``` property from the ```FirebaseConfig``` class is now deprecated and you no longer can set it manually. This property will be set automatically from now on and you can see its value with the following getter: ```project_id```.
 * (Analytics) Added new method ```resetAnalyticsData()``` which works on the Android side only.
 * (Auth) Added ```FirebaseUser.metadata```.
-* (Auth) Added ```ActionCodeSettings``` to [sendPasswordResetEmail](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/Auth.html#sendPasswordResetEmail()) and [sendEmailVerification](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/FirebaseUser.html#sendEmailVerification())
+* (Auth) Added ```ActionCodeSettings``` to [sendPasswordResetEmail](https://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/Auth.html#sendPasswordResetEmail()) and [sendEmailVerification](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/auth/FirebaseUser.html#sendEmailVerification())
 * (Dynamic-Links) You no longer have to set ```Firebase.getConfig().projectID```. This will happen automatically from now on. However, you still need to set ```Firebase.getConfig().webApiKey``` manually.
 * Firestore is now added and you can start using it. Start by reading the [wiki on how to initialize Firestore](https://github.com/myflashlab/Firebase-ANE/wiki/K.-Firestore).
 

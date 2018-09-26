@@ -28,6 +28,7 @@ package
 	
 	import com.myflashlab.air.extensions.firebase.core.*;
 	import com.myflashlab.air.extensions.firebase.auth.*;
+	import com.myflashlab.air.extensions.firebase.dynamicLinks.*;
 	import com.myflashlab.air.extensions.dependency.OverrideAir;
 
 	/**
@@ -152,7 +153,8 @@ package
 			// remove this line in production build or pass null as the delegate
 			OverrideAir.enableDebugger(myDebuggerDelegate);
 			
-			var isConfigFound:Boolean = Firebase.init();
+			// pass "true" for the init method so the ANE can prepare itself for accepting dynamic links.
+			var isConfigFound:Boolean = Firebase.init(true);
 			
 			if (isConfigFound)
 			{
@@ -167,6 +169,7 @@ package
 				C.log("project_id = " + 						config.project_id);
 				
 				initFirebaseAuth();
+				initDynamicLinks();
 			}
 			else
 			{
@@ -292,12 +295,12 @@ package
 				*/
 				
 				// make sure you have whitelisted your domain in your firebase console/Authentication section, before trying this.
-				var settings:ActionCodeSettings = new ActionCodeSettings("https://example.com/");
+				var settings:ActionCodeSettings = new ActionCodeSettings("https://www.myflashlabs.com/");
 				settings.handleCodeInApp = true; // The sign-in operation has to always be completed in the app.
 				settings.iOSBundleID = NativeApplication.nativeApplication.applicationID;
 				settings.androidPackageName = "air." + NativeApplication.nativeApplication.applicationID;
 				settings.androidInstallIfNotAvailable = false;
-				settings.androidMinVersion = "12";
+				settings.androidMinVersion = "1";
 				
 				Auth.sendSignInLinkToEmail(email, settings);
 			}
@@ -414,7 +417,7 @@ package
 			
 			function fetchSignInMethods(e:MouseEvent):void
 			{
-				Auth.fetchSignInMethodsForEmail("email@site.com", function ($methods:Array, $error:Error):void
+				Auth.fetchSignInMethodsForEmail(email, function ($methods:Array, $error:Error):void
 				{
 					if($error)
 					{
@@ -425,6 +428,26 @@ package
 						trace("fetchSignInMethods: " + $methods);
 					}
 				});
+			}
+		}
+		
+		private function initDynamicLinks():void
+		{
+			// DynamicLinks class must be initialized right after Firebase.init(true); and as soon as possible.
+			DynamicLinks.init();
+			
+			// You should immediately listen for possible DynamicLinksEvents.INVOKE event
+			DynamicLinks.listener.addEventListener(DynamicLinksEvents.INVOKE, onDynamicLinksInvoke);
+		}
+		
+		private function onDynamicLinksInvoke(e:DynamicLinksEvents):void
+		{
+			if(Auth.isSignInWithEmailLink(e.link))
+			{
+				// listen to SIGN_IN_RESULT like how you did for other signin methods
+				Auth.listener.addEventListener(AuthEvents.SIGN_IN_RESULT, onSignInResult);
+				
+				Auth.signInWithEmailLink(email, e.link);
 			}
 		}
 		
@@ -462,8 +485,8 @@ package
 			C.log("isEmailVerified = " +	FirebaseUser.isEmailVerified);
 			if(FirebaseUser.metadata)
 			{
-				C.log("creatinTime = " + 	FirebaseUser.metadata.creationTime);
-				C.log("lastSignInTime = " + FirebaseUser.metadata.lastSignInTime);
+				C.log("creatinTime = " + 	new Date(FirebaseUser.metadata.creationTime).toLocaleString());
+				C.log("lastSignInTime = " + new Date(FirebaseUser.metadata.lastSignInTime).toLocaleString());
 			}
 			
 			var userInfoOnProviders:UserInfo;
@@ -540,7 +563,7 @@ package
 		{
 			if(e.result == Auth.RESULT_SUCCESS)
 			{
-				trace("onSignInLinkResult successfully");
+				trace("onSignInLinkResult email sent");
 			}
 			else
 			{
@@ -617,7 +640,22 @@ package
 		
 		private function onGetUserToken(e:FirebaseUserEvents):void
 		{
-			C.log("onGetUserToken result=" + e.result, "     token=" + e.token);
+//			C.log("onGetUserToken result=" + e.result, "     token=" + e.token);
+			
+			if(e.result == Auth.RESULT_SUCCESS)
+			{
+				C.log("onGetUserToken result == Auth.RESULT_SUCCESS");
+				C.log("e.tokenResult.token: " + e.tokenResult.token);
+				C.log("e.tokenResult.claims: " + JSON.stringify(e.tokenResult.claims));
+				C.log("e.tokenResult.authTimestamp: " + new Date(e.tokenResult.authTimestamp).toLocaleString());
+				C.log("e.tokenResult.expirationTimestamp: " + new Date(e.tokenResult.expirationTimestamp).toLocaleString());
+				C.log("e.tokenResult.issuedAtTimestamp: " + new Date(e.tokenResult.issuedAtTimestamp).toLocaleString());
+				C.log("e.tokenResult.signInProvider: " + e.tokenResult.signInProvider);
+			}
+			else
+			{
+				C.log("onGetUserToken result != Auth.RESULT_SUCCESS");
+			}
 		}
 		
 		private function onUnlink(e:FirebaseUserEvents):void

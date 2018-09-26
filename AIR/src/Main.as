@@ -34,6 +34,7 @@ package
 	 * ...
 	 * @author Hadi Tavakoli - 5/28/2016 10:36 AM
 	 * 						 - 1/4/2017 7:39 PM
+	 * 						 - 9/10/2018 3:15 PM
 	 */
 	public class Main extends Sprite 
 	{
@@ -153,7 +154,7 @@ package
 			
 			var isConfigFound:Boolean = Firebase.init();
 			Firebase.setLoggerLevel(FirebaseConfig.LOGGER_LEVEL_MAX);
-			
+
 			if (isConfigFound)
 			{
 				var config:FirebaseConfig = Firebase.getConfig();
@@ -180,15 +181,15 @@ package
 		{
 			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN, onIdTokenReceived);
 			Firebase.iid.addEventListener(FirebaseEvents.IID_ID, onIdReceived);
-			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN_REFRESH, onIdTokenRefresh);
 			
-			var btn1:MySprite = createBtn("get iid Token");
-			btn1.addEventListener(MouseEvent.CLICK, getToken);
+			var btn1:MySprite = createBtn("get iid instanceId");
+			btn1.addEventListener(MouseEvent.CLICK, getInstanceId);
 			_list.add(btn1);
 			
-			function getToken(e:MouseEvent):void
+			function getInstanceId(e:MouseEvent):void
 			{
-				Firebase.iid.getToken();
+				// you must be listening to FirebaseEvents.IID_TOKEN
+				Firebase.iid.getInstanceId();
 			}
 			
 			var btn2:MySprite = createBtn("get iid id");
@@ -220,12 +221,6 @@ package
 		private function onIdReceived(e:FirebaseEvents):void
 		{
 			C.log("iid id = "+e.iidID);
-		}
-		
-		private function onIdTokenRefresh(e:FirebaseEvents):void
-		{
-			C.log(">>>>> onIdTokenRefresh");
-			Firebase.iid.getToken();
 		}
 		
 		

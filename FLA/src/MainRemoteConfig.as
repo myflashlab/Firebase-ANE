@@ -7,9 +7,9 @@ package
 	import com.doitflash.text.modules.MySprite;
 	
 	import com.luaye.console.C;
-	import com.myflashlab.air.extensions.dependency.OverrideAir;
+import com.myflashlab.air.extensions.dependency.OverrideAir;
 
-	import flash.desktop.NativeApplication;
+import flash.desktop.NativeApplication;
 	import flash.desktop.SystemIdleMode;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
