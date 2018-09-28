@@ -21,14 +21,14 @@ firebase-analytics.ane V16.0.1 | FirebaseNanoPB.framework
 firebase_analyticsImpl.ane V16.1.1 | FirebaseInstanceID.framework
 firebase_common.ane V16.0.0 | GoogleToolboxForMac.framework
 firebase_iid.ane V16.2.0 | nanopb.framework
-firebase_measurementConnector.ane V16.0.0 | -
-firebase_measurementConnectorImpl.ane V16.0.1 | -
-googlePlayServices_ads.ane V15.0.1 | -
-googlePlayServices_base.ane V15.0.1 | -
-googlePlayServices_basement.ane V15.0.1 | -
-googlePlayServices_measurementBase.ane V16.0.0 | -
-googlePlayServices_stats.ane V15.0.1 | -
-googlePlayServices_tasks.ane V15.0.1 | -
+firebase_measurementConnector.ane V16.0.0 | .
+firebase_measurementConnectorImpl.ane V16.0.1 | .
+googlePlayServices_ads.ane V15.0.1 | .
+googlePlayServices_base.ane V15.0.1 | .
+googlePlayServices_basement.ane V15.0.1 | .
+googlePlayServices_measurementBase.ane V16.0.0 | .
+googlePlayServices_stats.ane V15.0.1 | .
+googlePlayServices_tasks.ane V15.0.1 | .
 
 **firebaseAnalytics.ane**
 
@@ -44,7 +44,7 @@ Android | iOS
 firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
 +other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
 firebase_dynamicLinks.ane V16.0.1 | FirebaseDynamicLinks.framework
-googlePlayServices_appinvite.ane V16.0.1 | -
+googlePlayServices_appinvite.ane V16.0.1 | .
  
 **firebaseInvites.ane**
 
@@ -89,12 +89,12 @@ firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
 firebase_firestore.ane V17.0.4 | BoringSSL.framework
 firebase_databaseCollection.ane V15.0.1 | FirebaseFirestore.framework
 firebase-addons.ane V1.0.0 | Protobuf.framework
-- | gRPC.framework
-- | gRPC-Core.framework
-- | gRPC-ProtoRPC.framework
-- | gRPC-RxLibrary.framework
-- | leveldb-library.framework
-- | **Resources:**  gRPCCertificates.bundle
+. | gRPC.framework
+. | gRPC-Core.framework
+. | gRPC-ProtoRPC.framework
+. | gRPC-RxLibrary.framework
+. | leveldb-library.framework
+. | **Resources:**  gRPCCertificates.bundle
 
 **firebaseRemoteConfig.ane**
 
@@ -103,8 +103,8 @@ Android | iOS
 firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
 +other ANEs required by the 'Core' | +other frameworks/ANEs required for by 'Core'
 firebase_config.ane V16.0.0 | FirebaseRemoteConfig.framework
-- | Protobuf.framework
-- | FirebaseABTesting.framework
+. | Protobuf.framework
+. | FirebaseABTesting.framework
 
 **firebaseStorage.ane**
 
@@ -113,7 +113,7 @@ Android | iOS
 firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
 +other ANEs required for by 'Core' | +other frameworks/ANEs required by the 'Core'
 firebase_storage.ane V16.0.1 | FirebaseStorage.framework
-- | GTMSessionFetcher.framework
+. | GTMSessionFetcher.framework
 
 **firebaseCrashlytics.ane**
 
@@ -121,8 +121,8 @@ Android | iOS
 ------------ | -------------
 firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
 +other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
-- | [Crashlytics.framework V3.10.7](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.7/com.crashlytics.ios-manual.zip)
-- | [Fabric.framework V3.10.7](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.7/com.crashlytics.ios-manual.zip)
+. | [Crashlytics.framework V3.10.7](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.7/com.crashlytics.ios-manual.zip)
+. | [Fabric.framework V3.10.7](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.7/com.crashlytics.ios-manual.zip)
 
 **firebaseMessaging.ane**
 
@@ -145,16 +145,16 @@ googlePlayServices_vision.ane V15.0.2 | FirebaseMLCommon.framework
 googlePlayServices_clearcut.ane V15.0.1 | FirebaseMLModelInterpreter.framework
 googlePlayServices_phenotype.ane V15.0.1 | FirebaseMLVision.framework
 googlePlayServices_flags.ane V15.0.1 | FirebaseMLVisionBarcodeModel.framework
-- | FirebaseMLVisionFaceModel.framework
-- | FirebaseMLVisionLabelModel.framework
-- | FirebaseMLVisionTextModel.framework
-- | GoogleAPIClientForREST.framework
-- | GoogleMobileVision.framework
-- | GTMSessionFetcher.framework
-- | LabelDetector.framework
-- | Protobuf.framework
-- | tensorflow_lite.framework
-- | TextDetector.framework
+. | FirebaseMLVisionFaceModel.framework
+. | FirebaseMLVisionLabelModel.framework
+. | FirebaseMLVisionTextModel.framework
+. | GoogleAPIClientForREST.framework
+. | GoogleMobileVision.framework
+. | GTMSessionFetcher.framework
+. | LabelDetector.framework
+. | Protobuf.framework
+. | tensorflow_lite.framework
+. | TextDetector.framework
 . | **Resources:**  GoogleMVFaceDetectorResources.bundle, GoogleMVTextDetectorResources.bundle
 
 # V6.x.x #
