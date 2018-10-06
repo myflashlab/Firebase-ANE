@@ -17,7 +17,7 @@ overrideAir.ane V5.1.3 | overrideAir.ane V5.1.3
 androidSupport-arch.ane V1.1.1 | FirebaseAnalytics.framework
 androidSupport-core.ane V27.1.1 | FirebaseCore.framework
 androidSupport-v4.ane V27.1.1 | FirebaseCoreDiagnostics.framework
-firebase-analytics.ane V16.0.1 | FirebaseNanoPB.framework
+firebase_analytics.ane V16.0.1 | FirebaseNanoPB.framework
 firebase_analyticsImpl.ane V16.1.1 | FirebaseInstanceID.framework
 firebase_common.ane V16.0.0 | GoogleToolboxForMac.framework
 firebase_iid.ane V16.2.0 | nanopb.framework
