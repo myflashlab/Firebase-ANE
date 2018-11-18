@@ -1,4 +1,4 @@
-# Firebase AIR Native Extension V7.0.0
+# Firebase AIR Native Extension V7.0.1
 Firebase ANE gives you access to the [Google Firebase project](https://firebase.google.com/docs/) in your AdobeAIR projects supported on both Android and iOS with 100% identical ActionScript API. 
 
 If you decide to use Firebase in your next AdobeAIR project, you should consider the following structure: Firebase AIR Native Extension is consist of a *Core* ANE plus some other individual ANEs which are all dependent on the *Core*. i.e, If you wish to use [Firebase Cloud Messaging (FCM)](http://www.myflashlabs.com/product/fcm-firebase-air-native-extension/), you need to embed the Core ANE first and then use the required ANE(s) for the FCM. This structure will make sure that you are not compiling unused native code in your AdobeAIR project. In result, your app file size will be as small as possible and faster to debug/compile. [The Wiki pages](https://github.com/myflashlab/Firebase-ANE/wiki) will provide you detailed information about how you can embed each ANE based on the Firebase feature you wish to use in your app.
@@ -139,6 +139,12 @@ Firebase ANEs are dependent on some other ANEs and frameworks. Complete informat
 [How to use Firebase MLKit?](https://github.com/myflashlab/Firebase-ANE/wiki/M.-MLKit#get-started-with-firebase-mlkit-in-adobeair)  
 
 # Changelog #
+*Nov 16, 2018 - V7.0.1*
+* Works with OverrideAir ANE V5.6.1 or higher
+* Works with ANELAB V1.1.26 or higher
+* (Auth) new dependency is required: ```com.myflashlab.air.extensions.dependency.gson```
+* (Firestore) new dependency is required: ```com.myflashlab.air.extensions.dependency.gson```
+
 *Sep 20, 2018 - V7.0.0*
 * Updated Android dependencies. Google has recently decided to update GooglePlayService and Firebase dependencies separately. Because of this decision, we have also updated our dependency ANEs. checkout [this page](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md) to know the version of ANEs which should be added to your project to make this version of Firebase ANEs work correctly.
 * Updated to Firebase SDK 5.4.1 for iOS. update all the older .framework and resources. https://dl.google.com/firebase/sdk/ios/5_4_1/Firebase-5.4.1.zip

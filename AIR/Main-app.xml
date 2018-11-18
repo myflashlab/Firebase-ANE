@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <application xmlns="http://ns.adobe.com/air/application/30.0">
     <id>com.doitflash.firebaseCore</id>
-    <versionNumber>7.0.0</versionNumber>
+    <versionNumber>7.0.1</versionNumber>
     <supportedProfiles>mobileDevice</supportedProfiles>
     <filename>exFirebaseCore</filename>
     <name>Firebase Core</name>

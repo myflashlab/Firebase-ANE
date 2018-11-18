@@ -13,7 +13,7 @@ Find the latest Android dependencies [here](https://github.com/myflashlab/common
 
 Android | iOS
 ------------ | -------------
-overrideAir.ane V5.1.3 | overrideAir.ane V5.1.3
+overrideAir.ane V5.6.1 | overrideAir.ane V5.6.1
 androidSupport-arch.ane V1.1.1 | FirebaseAnalytics.framework
 androidSupport-core.ane V27.1.1 | FirebaseCore.framework
 androidSupport-v4.ane V27.1.1 | FirebaseCoreDiagnostics.framework
@@ -69,7 +69,7 @@ firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
 firebaseInvites.ane V7.x.x | firebaseInvites.ane V7.x.x
 +other ANEs required by the 'Core' and 'Invites'. **NOTE: Invites is also dependent on DynamicLinks** | +other frameworks/ANEs required by the 'Core' and 'Invites'. **NOTE: Invites is also dependent on DynamicLinks**
 firebase_auth.ane V16.0.2 | FirebaseAuth.framework
-. | GTMSessionFetcher.framework
+gson.ane V2.8.2 | GTMSessionFetcher.framework
 
 **firebaseDatabase.ane**
 
@@ -89,7 +89,7 @@ firebaseCore.ane V7.x.x | firebaseCore.ane V7.x.x
 firebase_firestore.ane V17.0.4 | BoringSSL.framework
 firebase_databaseCollection.ane V15.0.1 | FirebaseFirestore.framework
 firebase-addons.ane V1.0.0 | Protobuf.framework
-. | gRPC.framework
+gson.ane V2.8.2 | gRPC.framework
 . | gRPC-Core.framework
 . | gRPC-ProtoRPC.framework
 . | gRPC-RxLibrary.framework
