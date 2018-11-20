@@ -70,6 +70,7 @@ firebaseInvites.ane V7.x.x | firebaseInvites.ane V7.x.x
 +other ANEs required by the 'Core' and 'Invites'. **NOTE: Invites is also dependent on DynamicLinks** | +other frameworks/ANEs required by the 'Core' and 'Invites'. **NOTE: Invites is also dependent on DynamicLinks**
 firebase_auth.ane V16.0.2 | FirebaseAuth.framework
 gson.ane V2.8.2 | GTMSessionFetcher.framework
+googlePlayServices_flags.ane V15.0.1 | .
 
 **firebaseDatabase.ane**
 

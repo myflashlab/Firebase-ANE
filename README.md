@@ -142,8 +142,15 @@ Firebase ANEs are dependent on some other ANEs and frameworks. Complete informat
 *Nov 16, 2018 - V7.0.1*
 * Works with OverrideAir ANE V5.6.1 or higher
 * Works with ANELAB V1.1.26 or higher
-* (Auth) new dependency is required: ```com.myflashlab.air.extensions.dependency.gson```
-* (Firestore) new dependency is required: ```com.myflashlab.air.extensions.dependency.gson```
+* (Auth) new dependency is required: 
+```xml
+<extensionID>com.myflashlab.air.extensions.dependency.gson</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.flags</extensionID>
+```
+* (Firestore) new dependency is required: 
+```xml
+<extensionID>com.myflashlab.air.extensions.dependency.gson</extensionID>
+```
 
 *Sep 20, 2018 - V7.0.0*
 * Updated Android dependencies. Google has recently decided to update GooglePlayService and Firebase dependencies separately. Because of this decision, we have also updated our dependency ANEs. checkout [this page](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md) to know the version of ANEs which should be added to your project to make this version of Firebase ANEs work correctly.
