@@ -152,15 +152,13 @@ package
 			}
 		}
 		
-		private function myDebuggerDelegate($ane:String, $class:String, $msg:String):void
-		{
-			trace($ane + "(" + $class + ")" + " " + $msg);
-		}
-		
 		private function init():void
 		{
-			// remove this line in production build or pass null as the delegate
-			OverrideAir.enableDebugger(myDebuggerDelegate);
+			// Remove OverrideAir debugger in production builds
+			OverrideAir.enableDebugger(function ($ane:String, $class:String, $msg:String):void
+			{
+				trace($ane+" ("+$class+") "+$msg);
+			});
 			
 			var isConfigFound:Boolean = Firebase.init();
 			
@@ -178,7 +176,7 @@ package
 				
 				// FCM needs Google Services so, before using FCM, we need to check that first.
 				// https://firebase.google.com/docs/cloud-messaging/android/client#sample-play
-				if (Firebase.os == Firebase.ANDROID) Firebase.checkGoogleAvailability(onCheckResult);
+				if (OverrideAir.os == OverrideAir.ANDROID) Firebase.checkGoogleAvailability(onCheckResult);
 				else onCheckResult(Firebase.SUCCESS);
 			}
 			else
@@ -234,6 +232,7 @@ package
 			FCM.init(); 
 			FCM.listener.addEventListener(FcmEvents.TOKEN_REFRESH, onTokenRefresh);
 			FCM.listener.addEventListener(FcmEvents.MESSAGE, onMessage);
+			FCM.listener.addEventListener(FcmEvents.DELETED_MESSAGES, onDeletedMessages);
 			
 			var btn1:MySprite = createBtn("getToken");
 			btn1.addEventListener(MouseEvent.CLICK, getToken);
@@ -303,6 +302,11 @@ package
 		{
 			trace("onTokenRefresh = " + e.token);
 			C.log("onTokenRefresh = " + e.token);
+		}
+		
+		private function onDeletedMessages(e:FcmEvents):void
+		{
+			C.log("FcmEvents.DELETED_MESSAGES happened!");
 		}
 		
 		private function onMessage(e:FcmEvents):void

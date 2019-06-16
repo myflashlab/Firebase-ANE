@@ -141,15 +141,13 @@ import flash.desktop.NativeApplication;
 			}
 		}
 		
-		private function myDebuggerDelegate($ane:String, $class:String, $msg:String):void
-		{
-			trace($ane + "(" + $class + ")" + " " + $msg);
-		}
-		
 		private function init():void
 		{
-			// remove this line in production build or pass null as the delegate
-			OverrideAir.enableDebugger(myDebuggerDelegate);
+			// Remove OverrideAir debugger in production builds
+			OverrideAir.enableDebugger(function ($ane:String, $class:String, $msg:String):void
+			{
+				trace($ane+" ("+$class+") "+$msg);
+			});
 			
 			var isConfigFound:Boolean = Firebase.init();
 			
@@ -179,9 +177,6 @@ import flash.desktop.NativeApplication;
 			// initialize RemoteConfig only once in your app
 			RemoteConfig.init();
 			
-			// start listening to the fetch results
-			RemoteConfig.listener.addEventListener(RemoteConfigEvents.FETCH_RESULT, onFetched);
-			
 			// when developing, set this to true so the developer mode will be on
 			RemoteConfig.setConfigSettings(true);
 			
@@ -199,7 +194,7 @@ import flash.desktop.NativeApplication;
 			
 			function fetch(e:MouseEvent):void
 			{
-				var cacheExpiration:Number = 3600; // 1 hour in seconds.
+				var cacheExpiration:Number = 3600; // 3600 seconds means 1 hour
 				
 				C.log("isDeveloperModeEnabled = " + RemoteConfig.isDeveloperModeEnabled);
 				
@@ -209,8 +204,20 @@ import flash.desktop.NativeApplication;
 					cacheExpiration = 0;
 				}
 				
-				// when you call fetch, make sure you are listening to the RemoteConfigEvents.FETCH_RESULT event to know the fetch result
-				RemoteConfig.fetch(cacheExpiration);
+				RemoteConfig.fetch(cacheExpiration, function ($error:Error):void
+				{
+					if($error)
+					{
+						C.log($error.message);
+					}
+					else
+					{
+						C.log("Fetch was successful, Now, let's call RemoteConfig.activateFetched() to activate the new data");
+						
+						// When you fetch the new information from server, you can activate them anytime you think is appropriate in your app
+						RemoteConfig.activateFetched();
+					}
+				});
 			}
 			
 			var btn2:MySprite = createBtn("get source");
@@ -246,21 +253,6 @@ import flash.desktop.NativeApplication;
 				var value:String = RemoteConfig.getValue("first_key", RemoteConfig.AS_STRING) as String;
 				
 				C.log("value = " + value);
-			}
-		}
-		
-		private function onFetched(e:RemoteConfigEvents):void
-		{
-			if (e.result == 1)
-			{
-				C.log("onFetched was successfull, Now, let's call RemoteConfig.activateFetched() to activate the new data");
-				
-				// When you fetch the new information from server, you can activate them anytime you think is appropriate in your app
-				RemoteConfig.activateFetched();
-			}
-			else
-			{
-				C.log("onFetched was NOT successfull");
 			}
 		}
 		

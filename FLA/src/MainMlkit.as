@@ -10,6 +10,8 @@ import com.luaye.console.C;
 
 import flash.desktop.NativeApplication;
 import flash.desktop.SystemIdleMode;
+import flash.display.Bitmap;
+import flash.display.Loader;
 import flash.display.Sprite;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
@@ -18,6 +20,10 @@ import flash.events.InvokeEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.filesystem.File;
+import flash.filesystem.FileMode;
+import flash.filesystem.FileStream;
+import flash.net.URLRequest;
+import flash.system.LoaderContext;
 import flash.text.AntiAliasType;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
@@ -30,6 +36,8 @@ import flash.ui.MultitouchInputMode;
 import com.myflashlab.air.extensions.dependency.OverrideAir;
 import com.myflashlab.air.extensions.firebase.core.*;
 import com.myflashlab.air.extensions.firebase.mlkit.*;
+
+import flash.utils.ByteArray;
 
 
 /**
@@ -143,15 +151,13 @@ public class MainMlkit extends Sprite
 		}
 	}
 	
-	private function myDebuggerDelegate($ane:String, $class:String, $msg:String):void
-	{
-		trace($ane + "(" + $class + ")" + " " + $msg);
-	}
-	
 	private function init():void
 	{
-		// remove this line in production build or pass null as the delegate
-		OverrideAir.enableDebugger(myDebuggerDelegate);
+		// Remove OverrideAir debugger in production builds
+		OverrideAir.enableDebugger(function ($ane:String, $class:String, $msg:String):void
+		{
+			trace($ane+" ("+$class+") "+$msg);
+		});
 		
 		var isConfigFound:Boolean = Firebase.init();
 		Firebase.setLoggerLevel(FirebaseConfig.LOGGER_LEVEL_MAX);
@@ -181,51 +187,290 @@ public class MainMlkit extends Sprite
 	{
 		Mlkit.init();
 		
-		var src:File = File.applicationDirectory.resolvePath("do-not-feed-birds.jpg");
-		var dis:File = File.applicationStorageDirectory.resolvePath("do-not-feed-birds.jpg");
-		if(!dis.exists) src.copyTo(dis);
+		var file_scripts:File = File.applicationStorageDirectory.resolvePath("img-scripts.jpg");
+		if(!file_scripts.exists) File.applicationDirectory.resolvePath("img-scripts.jpg").copyTo(file_scripts);
 		
-		var visionImg:VisionImage = Mlkit.createVisionImageFromFile(dis);
+		var file_faces:File = File.applicationStorageDirectory.resolvePath("img-faces.jpg");
+		if(!file_faces.exists) File.applicationDirectory.resolvePath("img-faces.jpg").copyTo(file_faces);
 		
+		var file_barcode:File = File.applicationStorageDirectory.resolvePath("img-barcode.jpg");
+		if(!file_barcode.exists) File.applicationDirectory.resolvePath("img-barcode.jpg").copyTo(file_barcode);
+		
+		var file_label:File = File.applicationStorageDirectory.resolvePath("img-label.jpg");
+		if(!file_label.exists) File.applicationDirectory.resolvePath("img-label.jpg").copyTo(file_label);
+		
+		var file_landmark:File = File.applicationStorageDirectory.resolvePath("img-landmark.jpg");
+		if(!file_landmark.exists) File.applicationDirectory.resolvePath("img-landmark.jpg").copyTo(file_landmark);
+		
+		var visionImg_scripts:VisionImage;
+		var visionImg_faces:VisionImage;
+		var visionImg_barcode:VisionImage;
+		var visionImg_label:VisionImage;
+		var visionImg_landmark:VisionImage;
 		
 		// ----------------------------------------------------------------
-		/*var btn0:MySprite = createBtn("statsCollectionEnabled");
-		btn0.addEventListener(MouseEvent.CLICK, statsCollectionEnabled);
-		_list.add(btn0);
 		
-		function statsCollectionEnabled(e:MouseEvent):void
+		var btn00:MySprite = createBtn("Create vision imgs from BM");
+		btn00.addEventListener(MouseEvent.CLICK, createVisionImageFromBM);
+		_list.add(btn00);
+		
+		function createVisionImageFromBM(e:MouseEvent):void
 		{
-			// not supported on iOS yet!
-			trace("statsCollectionEnabled: " + Mlkit.statsCollectionEnabled);
-		}*/
-		
-		// ----------------------------------------------------------------
-		
-		var btn1:MySprite = createBtn("detect text");
-		btn1.addEventListener(MouseEvent.CLICK, detectTxt);
-		_list.add(btn1);
-		
-		function detectTxt(e:MouseEvent):void
-		{
-			Mlkit.textDetector.process(visionImg, function ($txt:VisionText, $error:Error):void
+			var loader_scripts:Loader = new Loader();
+			loader_scripts.load(new URLRequest(file_scripts.url));
+			loader_scripts.contentLoaderInfo.addEventListener(Event.COMPLETE, function loaderComplete(e:Event):void
 			{
-				if($error)
-				{
-					trace($error.message);
-				}
-				
-				if($txt)
-				{
-					trace($txt.toString());
-				}
-				
-				Mlkit.textDetector.close();
+				var bm:Bitmap = e.target.content as Bitmap;
+				visionImg_scripts = Mlkit.createVisionImageFromBitmapData(bm.bitmapData);
+				trace("visionImg_scripts.id = " + visionImg_scripts.id);
+			});
+			
+			var loader_faces:Loader = new Loader();
+			loader_faces.load(new URLRequest(file_faces.url));
+			loader_faces.contentLoaderInfo.addEventListener(Event.COMPLETE, function loaderComplete(e:Event):void
+			{
+				var bm:Bitmap = e.target.content as Bitmap;
+				visionImg_faces = Mlkit.createVisionImageFromBitmapData(bm.bitmapData);
+				trace("visionImg_faces.id = " + visionImg_faces.id);
+			});
+			
+			var loader_barcode:Loader = new Loader();
+			loader_barcode.load(new URLRequest(file_barcode.url));
+			loader_barcode.contentLoaderInfo.addEventListener(Event.COMPLETE, function loaderComplete(e:Event):void
+			{
+				var bm:Bitmap = e.target.content as Bitmap;
+				visionImg_barcode = Mlkit.createVisionImageFromBitmapData(bm.bitmapData);
+				trace("visionImg_barcode.id = " + visionImg_barcode.id);
+			});
+			
+			var loader_label:Loader = new Loader();
+			loader_label.load(new URLRequest(file_label.url));
+			loader_label.contentLoaderInfo.addEventListener(Event.COMPLETE, function loaderComplete(e:Event):void
+			{
+				var bm:Bitmap = e.target.content as Bitmap;
+				visionImg_label = Mlkit.createVisionImageFromBitmapData(bm.bitmapData);
+				trace("visionImg_label.id = " + visionImg_label.id);
+			});
+			
+			var loader_landmark:Loader = new Loader();
+			loader_landmark.load(new URLRequest(file_landmark.url));
+			loader_landmark.contentLoaderInfo.addEventListener(Event.COMPLETE, function loaderComplete(e:Event):void
+			{
+				var bm:Bitmap = e.target.content as Bitmap;
+				visionImg_landmark = Mlkit.createVisionImageFromBitmapData(bm.bitmapData);
+				trace("visionImg_landmark.id = " + visionImg_landmark.id);
 			});
 		}
+		
+		// ----------------------------------------------------------------
+		
+		var btn1:MySprite = createBtn("recognize text");
+		btn1.addEventListener(MouseEvent.CLICK, recognizeTxt);
+		_list.add(btn1);
+		
+		function recognizeTxt(e:MouseEvent):void
+		{
+			var detector:TextRecognizer = Mlkit.initTextRecognizer(Mlkit.ON_DEVICE, null);
+			detector.process(visionImg_scripts, function ($visionText:VisionText, $error:Error):void
+			{
+				if($error) trace($error.message);
+				
+				if($visionText) trace($visionText.toString());
+				
+				detector.close();
+			});
+		}
+		
+		// ----------------------------------------------------------------
+		
+		var btn2:MySprite = createBtn("detect face");
+		btn2.addEventListener(MouseEvent.CLICK, detectFace);
+		_list.add(btn2);
+		
+		function detectFace(e:MouseEvent):void
+		{
+			var detector:FaceDetector = Mlkit.initFaceDetector(null);
+			detector.process(visionImg_faces, null,function ($faces:Vector.<VisionFace>, $error:Error):void
+			{
+				if($error) trace($error.message);
+				
+				if($faces)
+				{
+					trace("--------- VisionFace ------");
+					for(var i:int=0; i < $faces.length; i++)
+					{
+						var face:VisionFace = $faces[i];
+						trace("\t" + face.toString());
+					}
+					trace("---------------------------");
+				}
+				
+				detector.close();
+			});
+		}
+		
+		// ----------------------------------------------------------------
+		
+		var btn3:MySprite = createBtn("detect barcode");
+		btn3.addEventListener(MouseEvent.CLICK, detectBarcode);
+		_list.add(btn3);
+		
+		function detectBarcode(e:MouseEvent):void
+		{
+			var detector:BarcodeDetector = Mlkit.initBarcodeDetector(null);
+			detector.process(visionImg_barcode,function ($barcodes:Vector.<VisionBarcode>, $error:Error):void
+			{
+				if($error) trace($error.message);
+				
+				if($barcodes)
+				{
+					trace("--------- VisionBarcode ------");
+					for(var i:int=0; i < $barcodes.length; i++)
+					{
+						var barcode:VisionBarcode = $barcodes[i];
+						trace("\t" + barcode.toString());
+					}
+					trace("------------------------------");
+				}
+				
+				detector.close();
+			});
+		}
+		
+		// ----------------------------------------------------------------
+		
+		var btn4:MySprite = createBtn("label image");
+		btn4.addEventListener(MouseEvent.CLICK, labelImage);
+		_list.add(btn4);
+		
+		function labelImage(e:MouseEvent):void
+		{
+			var detector:ImageLabeler = Mlkit.initImageLabeler(Mlkit.ON_DEVICE, null);
+			detector.process(visionImg_label,function ($images:Vector.<VisionImageLabel>, $error:Error):void
+			{
+				if($error) trace($error.message);
+				
+				if($images)
+				{
+					trace("--------- VisionImageLabel ------");
+					for(var i:int=0; i < $images.length; i++)
+					{
+						var img:VisionImageLabel = $images[i];
+						trace("\t" + img.toString());
+					}
+					trace("---------------------------------");
+				}
+				
+				detector.close();
+			});
+		}
+		
+		// ----------------------------------------------------------------
+		
+		var btn5:MySprite = createBtn("detect landmark");
+		btn5.addEventListener(MouseEvent.CLICK, detectLandmark);
+		_list.add(btn5);
+		
+		function detectLandmark(e:MouseEvent):void
+		{
+			var detector:LandmarkDetector = Mlkit.initLandmarkDetector(null);
+			detector.process(visionImg_landmark,function ($landmarks:Vector.<VisionLandmark>, $error:Error):void
+			{
+				if($error) trace($error.message);
+				
+				if($landmarks)
+				{
+					trace("--------- VisionLandmark ------");
+					for(var i:int=0; i < $landmarks.length; i++)
+					{
+						var landmark:VisionLandmark = $landmarks[i];
+						trace("\t" + landmark.toString());
+					}
+					trace("-------------------------------");
+				}
+				
+				detector.close();
+			});
+		}
+		
+		// ----------------------------------------------------------------
+		
+		var btn6:MySprite = createBtn("identify language");
+		btn6.addEventListener(MouseEvent.CLICK, identifyLanguage);
+		_list.add(btn6);
+		
+		function identifyLanguage(e:MouseEvent):void
+		{
+			var detector:LanguageIdentifier = Mlkit.initLanguageIdentifier(null);
+			detector.identifyLanguage("This is a script in English language.",function ($languages:Vector.<IdentifiedLanguage>, $languageCode:String, $error:Error):void
+			{
+				if($error) trace($error.message);
+				
+				// this may be available if you call the 'identifyLanguage' method
+				if($languageCode) trace("$languageCode: " + $languageCode);
+				
+				detector.close();
+			});
+		}
+		
+		// ----------------------------------------------------------------
+		
+		var btn7:MySprite = createBtn("identify possible languages");
+		btn7.addEventListener(MouseEvent.CLICK, identifyPossibleLanguage);
+		_list.add(btn7);
+		
+		function identifyPossibleLanguage(e:MouseEvent):void
+		{
+			var detector:LanguageIdentifier = Mlkit.initLanguageIdentifier(null);
+			detector.identifyPossibleLanguages("This is a script in English language.",function ($languages:Vector.<IdentifiedLanguage>, $languageCode:String, $error:Error):void
+			{
+				if($error) trace($error.message);
+				
+				// this may be available if you call the 'identifyPossibleLanguages' method
+				if($languages)
+				{
+					trace("--------- IdentifiedLanguage ------");
+					for(var i:int=0; i < $languages.length; i++)
+					{
+						var language:IdentifiedLanguage = $languages[i];
+						trace("\t" + language.toString());
+					}
+					trace("-----------------------------------");
+				}
+				
+				detector.close();
+			});
+		}
+		
 		// ----------------------------------------------------------------
 		
 		onResize();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	private function createBtn($str:String):MySprite

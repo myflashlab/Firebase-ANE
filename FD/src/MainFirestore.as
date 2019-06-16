@@ -141,15 +141,13 @@ package
 			}
 		}
 		
-		private function myDebuggerDelegate($ane:String, $class:String, $msg:String):void
-		{
-			trace($ane + "(" + $class + ")" + " " + $msg);
-		}
-		
 		private function init():void
 		{
-			// remove this line in production build or pass null as the delegate
-			OverrideAir.enableDebugger(myDebuggerDelegate);
+			// Remove OverrideAir debugger in production builds
+			OverrideAir.enableDebugger(function ($ane:String, $class:String, $msg:String):void
+			{
+				trace("\t" + $ane+" ("+$class+") "+$msg);
+			});
 			
 			var isConfigFound:Boolean = Firebase.init();
 			Firebase.setLoggerLevel(FirebaseConfig.LOGGER_LEVEL_MAX);
@@ -178,7 +176,11 @@ package
 		{
 			Firestore.init();
 			
-			
+			Firestore.firestoreSettings.cacheSizeBytes = -1; // set cacheSize to unlimited
+			trace("firestoreSettings.cacheSizeBytes: " + Firestore.firestoreSettings.cacheSizeBytes);
+			trace("firestoreSettings.isPersistenceEnabled: " + Firestore.firestoreSettings.isPersistenceEnabled);
+			trace("firestoreSettings.host: " + Firestore.firestoreSettings.host);
+			trace("firestoreSettings.isSslEnabled: " + Firestore.firestoreSettings.isSslEnabled);
 			
 			// You can add snapshot listeners to any document, collection or query to watch for their value changes.
 			
@@ -407,7 +409,7 @@ package
 					booleanExample: true,
 					numberExample: 3.14159265,
 					incrementNumber:1000,
-					serverTime:FieldValue.TIMESTAMP,
+					serverTime:FieldValue.TIMESTAMP(),
 					arrayExample:[
 						"Hello world!",
 						false,
@@ -621,7 +623,7 @@ package
 				document.addEventListener(FirestoreEvents.DOCUMENT_UPDATE_FAILURE, onFieldDeleteFailure);
 				
 				// Remove the 'stringExample' field from the document
-				document.update({stringExample: FieldValue.DELETE});
+				document.update({stringExample: FieldValue.DELETE()});
 			}
 			
 			function onFieldDeleteFailure(e:FirestoreEvents):void

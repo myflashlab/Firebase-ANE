@@ -146,15 +146,13 @@ package
 			}
 		}
 		
-		private function myDebuggerDelegate($ane:String, $class:String, $msg:String):void
-		{
-			trace($ane + "(" + $class + ")" + " " + $msg);
-		}
-		
 		private function init():void
 		{
-			// remove this line in production build or pass null as the delegate
-			OverrideAir.enableDebugger(myDebuggerDelegate);
+			// Remove OverrideAir debugger in production builds
+			OverrideAir.enableDebugger(function ($ane:String, $class:String, $msg:String):void
+			{
+				trace($ane+" ("+$class+") "+$msg);
+			});
 			
 			var isConfigFound:Boolean = Firebase.init();
 			
@@ -675,7 +673,7 @@ package
 
 			var btn13:MySprite = createBtn("activeDownloadTasks");
 			btn13.addEventListener(MouseEvent.CLICK, activeDownloadTasks);
-			_list.add(btn13);
+			if(OverrideAir.os == OverrideAir.ANDROID) _list.add(btn13);
 			
 			function activeDownloadTasks(e:MouseEvent):void
 			{
@@ -690,7 +688,7 @@ package
 
 			var btn14:MySprite = createBtn("activeUploadTasks");
 			btn14.addEventListener(MouseEvent.CLICK, activeUploadTasks);
-			_list.add(btn14);
+			if(OverrideAir.os == OverrideAir.ANDROID) _list.add(btn14);
 			
 			function activeUploadTasks(e:MouseEvent):void
 			{
@@ -701,7 +699,7 @@ package
 						// available on Android only
 						
 						var task:UploadTask = fileUploadRef.activeUploadTasks[0];
-						setEncryptedLocalStore("uploadSessionTest2", task.uploadSessionUri);
+						if(task)setEncryptedLocalStore("uploadSessionTest2", task.uploadSessionUri);
 					}
 				}
 			}

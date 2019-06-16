@@ -39,6 +39,7 @@ package
 	public class MainDynamicLinks extends Sprite 
 	{
 		private var _deepLink:String;
+		private var _deepLinkShort:String;
 		
 		private const BTN_WIDTH:Number = 150;
 		private const BTN_HEIGHT:Number = 60;
@@ -144,31 +145,20 @@ package
 			}
 		}
 		
-		private function myDebuggerDelegate($ane:String, $class:String, $msg:String):void
-		{
-			trace($ane + "(" + $class + ")" + " " + $msg);
-		}
-		
 		private function init():void
 		{
-			// remove this line in production build or pass null as the delegate
-			OverrideAir.enableDebugger(myDebuggerDelegate);
+			// Remove OverrideAir debugger in production builds
+			OverrideAir.enableDebugger(function ($ane:String, $class:String, $msg:String):void
+			{
+				trace($ane+" ("+$class+") "+$msg);
+			});
 			
 			// pass "true" for the init method so the ANE can prepare itself for accepting dynamic links.
 			var isConfigFound:Boolean = Firebase.init(true);
 			
-			// On Android side: When initializing the ANE with DynamicLinks enabled, ANE tries to connect to 
-			// GoogleApiClient. On the iOS side, these listeners won't be dispatched at all.
-			// NOTE: when your app goes to background GoogleApiClient will disconnect and will reconnect again
-			// after you bring the app to foreground.
-			Firebase.listener.addEventListener(FirebaseEvents.GOOGLE_API_CONNECTION_SUCCESS, onConnectionSuccess);
-			Firebase.listener.addEventListener(FirebaseEvents.GOOGLE_API_CONNECTION_FAILURE, onConnectionFailure);
-			Firebase.listener.addEventListener(FirebaseEvents.GOOGLE_API_CONNECTION_CANCELED, onConnectionCanceled);
-			
-			
 			if (isConfigFound)
 			{
-				// to be able to build dynamicLinks, you need to set the Web API Key manually
+				// to be able to build "short" dynamicLinks, you need to set the Web API Key manually
 				// copy this information from Firebase console: https://console.firebase.google.com/project/_/settings/general/
 				Firebase.getConfig().webApiKey = "AIzySaBvQto5SVR6pPl8FU6LHlFsrgnepNhzxhQ";
 				
@@ -191,26 +181,6 @@ package
 			}
 		}
 		
-		private function onConnectionSuccess(e:FirebaseEvents):void
-		{
-			// On Android: This method will be called every time you bring your app to foreground.
-			// On iOS: the ANE will NOT call these events at all.
-			//C.log("onConnectionSuccess");
-			//C.log("isConnectedToGoogleApiClient = " + Firebase.isConnectedToGoogleApiClient);
-		}
-		
-		private function onConnectionFailure(e:FirebaseEvents):void
-		{
-			//C.log("onConnectionFailure");
-			//C.log("isConnectedToGoogleApiClient = " + Firebase.isConnectedToGoogleApiClient);
-		}
-		
-		private function onConnectionCanceled(e:FirebaseEvents):void
-		{
-			//C.log("onConnectionCanceled");
-			//C.log("isConnectedToGoogleApiClient = " + Firebase.isConnectedToGoogleApiClient);
-		}
-		
 		private function initDynamicLinks():void
 		{
 			// DynamicLinks class must be initialized right after Firebase.init(true); and as soon as possible.
@@ -221,11 +191,11 @@ package
 			
 			
 			
-			var btn1:MySprite = createBtn("long deeplink");
-			btn1.addEventListener(MouseEvent.CLICK, buildDeepLinksLong);
+			var btn1:MySprite = createBtn("build a deeplink");
+			btn1.addEventListener(MouseEvent.CLICK, buildDeepLink);
 			_list.add(btn1);
 			
-			function buildDeepLinksLong(e:MouseEvent):void
+			function buildDeepLink(e:MouseEvent):void
 			{
 				var androidParams:AndroidParams = new AndroidParams();
 				androidParams.apn = "air." + NativeApplication.nativeApplication.applicationID;
@@ -239,50 +209,72 @@ package
 				socialMediaParams.st = "my Social Media title";
 				socialMediaParams.sd = "my Social Media description";
 				
+				// add optional Analytics params: http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/dynamicLinks/AnalyticsParams.html
 				var analyticsParams:AnalyticsParams = new AnalyticsParams();
 				
-				DynamicLinks.api.build("r23kf", "http://www.myflashlabs.com/deeplinks", false, androidParams, iosParams, socialMediaParams, analyticsParams, onDeeplinkBuiltDone);
+				// add optional otherPlatform params: http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/dynamicLinks/OtherPlatformParams.html
+				var otherPlatformParams:OtherPlatformParams = new OtherPlatformParams();
+				
+				// add optional navigation params: http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/dynamicLinks/NavigationParams.html
+				var navigationParams:NavigationParams = new NavigationParams();
+				
+				// first create your URL Prefix from your Firebase Console: https://console.firebase.google.com/project/_/durablelinks/links/
+				_deepLink = DynamicLinks.build(
+						"myflashlabs.page.link",
+						"https://www.myflashlabs.com/deeplinks",
+						androidParams,
+						iosParams,
+						socialMediaParams,
+						analyticsParams,
+						otherPlatformParams,
+						navigationParams,
+						"MY_INVITATION_ID");
+				
+				trace(_deepLink);
+				C.log(_deepLink);
 			}
 			
-			var btn2:MySprite = createBtn("short deeplink");
-			btn2.addEventListener(MouseEvent.CLICK, buildDeepLinksShort);
+			var btn2:MySprite = createBtn("make it short!");
+			btn2.addEventListener(MouseEvent.CLICK, makeItShort);
 			_list.add(btn2);
 			
-			function buildDeepLinksShort(e:MouseEvent):void
+			function makeItShort(e:MouseEvent):void
 			{
-				var androidParams:AndroidParams = new AndroidParams();
-				androidParams.apn = "air." + NativeApplication.nativeApplication.applicationID;
-				androidParams.amv = 3;
+				if(!_deepLink)
+				{
+					C.log("First create a deeplink!");
+					return;
+				}
 				
-				var iosParams:IosParams = new IosParams();
-				iosParams.ibi = NativeApplication.nativeApplication.applicationID;
-				iosParams.isi = "2293507574";
+				DynamicLinks.toMakeShort(_deepLink, function ($link:String, $raw:String):void
+				{
+					trace("$raw = " + $raw);
+					
+					if($link)
+					{
+						_deepLinkShort = $link;
+						C.log("$link = " + _deepLinkShort);
+						trace("$link = " + _deepLinkShort);
+					}
+				});
+			}
+			
+			var btn3:MySprite = createBtn("share deeplink");
+			btn3.addEventListener(MouseEvent.CLICK, shareDeeplink);
+			_list.add(btn3);
+			
+			function shareDeeplink(e:MouseEvent):void
+			{
+				if(!_deepLinkShort)
+				{
+					C.log("First create a _deepLinkShort!");
+					return;
+				}
 				
-				var socialMediaParams:SocialMediaParams = new SocialMediaParams();
-				socialMediaParams.st = "my Social Media title";
-				socialMediaParams.sd = "my Social Media description";
-				
-				var analyticsParams:AnalyticsParams = new AnalyticsParams();
-				
-				DynamicLinks.api.build("r23kf", "http://www.myflashlabs.com/deeplinks", true, androidParams, iosParams, socialMediaParams, analyticsParams, onDeeplinkBuiltDone);
+				DynamicLinks.share("Title", _deepLinkShort);
 			}
 			
 			onResize();
-		}
-		
-		private function onDeeplinkBuiltDone($deeplink:String, $raw:String):void
-		{
-			if ($raw)
-			{
-				trace("$raw = " + $raw);
-			}
-			
-			if($deeplink)
-			{
-				_deepLink = $deeplink;
-				C.log("_deepLink = " + _deepLink);
-				trace("_deepLink = " + _deepLink);
-			}
 		}
 		
 		private function onDynamicLinksInvoke(e:DynamicLinksEvents):void
@@ -290,10 +282,6 @@ package
 			C.log("e.link = " + e.link);
 			C.log("e.invitationId = " + e.invitationId);
 			
-			/*
-				NOTE: If the Invites ANE is added to your project, you will receive invitation IDs also
-				if not, DynamicLinks can only find the deeplink.
-			*/
 			trace("e.link = " + e.link);
 			trace("e.invitationId = " + e.invitationId);
 		}

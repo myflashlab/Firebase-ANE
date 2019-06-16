@@ -143,15 +143,13 @@ package
 			}
 		}
 		
-		private function myDebuggerDelegate($ane:String, $class:String, $msg:String):void
-		{
-			trace($ane + "(" + $class + ")" + " " + $msg);
-		}
-		
 		private function init():void
 		{
-			// remove this line in production build or pass null as the delegate
-			OverrideAir.enableDebugger(myDebuggerDelegate);
+			// Remove OverrideAir debugger in production builds
+			OverrideAir.enableDebugger(function ($ane:String, $class:String, $msg:String):void
+			{
+				trace($ane+" ("+$class+") "+$msg);
+			});
 			
 			// pass "true" for the init method so the ANE can prepare itself for accepting dynamic links.
 			var isConfigFound:Boolean = Firebase.init(true);
@@ -296,6 +294,7 @@ package
 				
 				// make sure you have whitelisted your domain in your firebase console/Authentication section, before trying this.
 				var settings:ActionCodeSettings = new ActionCodeSettings("https://www.myflashlabs.com/");
+				settings.dynamicLinkDomain = "myflashlabs.page.link";
 				settings.handleCodeInApp = true; // The sign-in operation has to always be completed in the app.
 				settings.iOSBundleID = NativeApplication.nativeApplication.applicationID;
 				settings.androidPackageName = "air." + NativeApplication.nativeApplication.applicationID;

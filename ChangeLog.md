@@ -1,5 +1,220 @@
 Firebase Air Native Extension
 
+*Jun 16, 2019 - V8.0.0*
+* Updated to Firebase SDK 16.0.8 for Android. update the dependencies based on [this list](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md)
+* Updated to [Firebase SDK 5.20.2](https://dl.google.com/firebase/sdk/ios/5_20_2/Firebase-5.20.2.zip) for iOS. update all the older .framework and resources. based on [this list](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md)
+* Minimum iOS version to support the Firebase ANEs will be iOS 10.0+ from now on
+* (Core) The current */Users/{username}/Documents/AIR_32.116/lib/android/bin/dx.jar* file in AIRSDK is too old! until Adobe updates that file, we may use the newer version copied from Android SDK build tools 28.0.3 */Users/{username}/Library/Android/sdk/build-tools/28.0.3/lib/dx.jar*
+* (Core) Because of [another bug in AIR SDK](https://tracker.adobe.com/#/view/AIR-4198557), you need to manually copy the file framework **lclang_rt** from **xcode 10.1** to your AIR SDK. This is explained in [this video](https://www.youtube.com/watch?v=m4bwZRCvs2c).
+* (Core) Added ```android:exported="false"``` to the **ComponentDiscoveryService** service:
+```xml
+<service android:name="com.google.firebase.components.ComponentDiscoveryService" android:exported="false">
+```
+* (Core) Removed the following tags:
+```xml
+<permission android:name="{package_name}.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+
+<uses-permission android:name="{package_name}.permission.C2D_MESSAGE"/>
+```
+* (Core) Removed the ```<category android:name="{package_name}"/>``` tag from the following service:
+```xml
+<receiver
+    android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+    android:exported="true"
+    android:permission="com.google.android.c2dm.permission.SEND">
+    <intent-filter>
+        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+    </intent-filter>
+</receiver>
+```
+* (Core) Removed the dependency: 
+```xml
+<extensionID>com.myflashlab.air.extensions.dependency.firebase.measurement.connector.impl</extensionID>
+```
+* (Core) Removed deprecated setter ```Firebase.getConfig().projectID```. it will be read automatically.
+* (Core) You need to copy the **libclang_rt.ios.a** file from xcode 10 to your AIRSDK. [This video tutorial shows you how](https://www.youtube.com/watch?v=m4bwZRCvs2c).
+* (Core) Removed the following frameworks from iOS requirements:
+  * FirebaseNanoPB.framework
+  * GoogleToolboxForMac.framework
+
+* (Core) Added the following frameworks to iOS requirements:
+  * FIRAnalyticsConnector.framework
+  * GoogleAppMeasurement.framework
+  * GoogleUtilities.framework
+
+* (Core) Added global property ```Firebase.dataCollectionDefaultEnabled```. default value is true.
+* (Core) Added new method ```Firebase.makeGooglePlayServicesAvailable```.
+
+* (Core) Google deprecated the FirebaseInvites and we removed that ANE. Instead, all its features are now implemented into the DynamicLinks ANE. Because of this change, the property ```Firebase.listener``` is removed along with the following events:
+
+```actionscript
+FirebaseEvents.GOOGLE_API_CONNECTION_SUCCESS
+FirebaseEvents.GOOGLE_API_CONNECTION_FAILURE
+FirebaseEvents.GOOGLE_API_CONNECTION_CANCELED
+```
+
+* (Analytics) setter ```minimumSessionDuration``` is deprecated and won't do anything. From now on, sessions start as soon as app comes to foreground. more info [here](https://firebase.googleblog.com/2018/12/new-changes-sessions-user-engagement.html).
+* (Analytics) Removed deprecated const **AnalyticsParam.SIGN_UP_METHOD**
+
+* (Firestore) Added dependency firebase_auth.ane (*com.myflashlab.air.extensions.dependency.firebase.auth*)
+
+* (Firestore) iOS depends on the following frameworks:
+  * BoringSSL-GRPC.framework
+  * FirebaseFirestore.framework
+  * gRPC-C++.framework
+  * gRPC-Core.framework
+  * leveldb-library.framework
+  * Protobuf.framework
+
+* (Firestore) The constent **FieldValue.TIMESTAMP** is removed. instead used the method ```FieldValue.TIMESTAMP();```
+* (Firestore) The constent **FieldValue.DELETE** is removed. instead used the method ```FieldValue.DELETE();```
+
+* (Firestore) Added new FieldValue methods:
+  * ```FieldValue.INCREMENT(value:Number);```
+  * ```FieldValue.ARRAY_UNION(value:Vector.<String>);```
+  * ```FieldValue.ARRAY_REMOVE(value:Vector.<String>);```
+
+* (Firestore) Added new property ```cacheSizeBytes``` to class **FirestoreSettings**.
+
+* (RemoteConfig) Added new meta-data tags under ```<service android:name="com.google.firebase.components.ComponentDiscoveryService" android:exported="false">``` service:
+
+```xml
+<meta-data
+    android:name="com.google.firebase.components:com.google.firebase.remoteconfig.RemoteConfigRegistrar"
+    android:value="com.google.firebase.components.ComponentRegistrar"/>
+
+<meta-data
+    android:name="com.google.firebase.components:com.google.firebase.abt.component.AbtRegistrar"
+    android:value="com.google.firebase.components.ComponentRegistrar"/>
+```
+* (RemoteConfig) Android now has a new dependency: ```<extensionID>com.myflashlab.air.extensions.dependency.firebase.abt</extensionID>```
+* (RemoteConfig) Deprecated the listener ```RemoteConfig.listener.addEventListener(RemoteConfigEvents.FETCH_RESULT, onFetched);``` and will be removed in future versions. instead, you must use the callback function from the ```RemoteConfig.fetch``` method to know when the fetch operation is completed:
+
+```actionscript
+RemoteConfig.fetch(cacheExpiration, function ($error:Error):void
+{
+	if($error)
+	{
+		trace($error.message);
+	}
+	else
+	{
+		trace("Fetch was successful, Now, let's call RemoteConfig.activateFetched() to activate the new data");
+		
+		// When you fetch the new information from server, you can activate them anytime you think is appropriate in your app
+		RemoteConfig.activateFetched();
+	}
+});
+```
+
+* (DB) Added new meta-data tag under ```<service android:name="com.google.firebase.components.ComponentDiscoveryService``` service:
+
+```xml
+<meta-data
+    android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
+    android:value="com.google.firebase.components.ComponentRegistrar"/>
+```
+
+* (Storage) Added new meta-data tag under ```<service android:name="com.google.firebase.components.ComponentDiscoveryService``` service:
+
+```xml
+<meta-data
+    android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
+    android:value="com.google.firebase.components.ComponentRegistrar"/>
+```
+
+* (FCM) Added ```android:exported="false"``` to ```<service android:name="com.myflashlab.firebase.fcm.MyFirebaseMessagingService">```
+* (FCM) Added new event ```FcmEvents.DELETED_MESSAGES```.
+* (DynamicLinks) Removed dependency ```<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.appinvite</extensionID>```
+* (DynamicLinks) Added new meta-data tag under ```<service android:name="com.google.firebase.components.ComponentDiscoveryService``` service:
+
+```xml
+<meta-data
+    android:name="com.google.firebase.components:com.google.firebase.dynamiclinks.internal.FirebaseDynamicLinkRegistrar"
+    android:value="com.google.firebase.components.ComponentRegistrar"/>
+```
+* (DynamicLinks) property ```SocialMediaParams.su``` is deprecated and not used anymore. instead you should use ```SocialMediaParams.si```.
+* (DynamicLinks) property ```DynamicLinks.api``` is no longer available. to build dynamiclinks, you must use the new methods:
+
+```actionscript
+var myLink:String = DynamicLinks.build(
+						"myflashlabs.page.link", // You must have created this URL Prefix from your Firebase Console
+						"https://www.myflashlabs.com/deeplinks",
+						androidParams, // optional
+						iosParams, // optional
+						socialMediaParams, // optional
+						analyticsParams, // optional
+						otherPlatformParams, // optional
+						navigationParams, // optional
+						"MY_INVITATION_ID"); // optional
+
+// then use the method to create the short link version of your dynamiclink
+DynamicLinks.toMakeShort(myLink, function ($link:String, $raw:String):void
+{
+	trace("$raw = " + $raw);
+					
+	if($link)
+	{
+		trace("$link = " + $link);
+	}
+});
+```
+* (DynamicLinks) for your convenient, a new method is introduced: ```DynamicLinks.share```.
+* (Invites) Firebase invites is deprecated and removed by Google. From now on, you can create dynamiclinks with your own custom invitation id using ```DynamicLinks.build``` method. Then, in your app you must be listening to ```DynamicLinksEvents.INVOKE``` event and check if the invitationId is available or not.
+
+```actionscript
+DynamicLinks.listener.addEventListener(DynamicLinksEvents.INVOKE, onDynamicLinksInvoke);
+
+private function onDynamicLinksInvoke(e:DynamicLinksEvents):void
+{
+	trace("e.link = " + e.link);
+	trace("e.invitationId = " + e.invitationId);
+}
+```
+* (Auth) Auth ANE is no longer dependent on Firebase Invites. (Invites is removed and its functionality is moved into DynamicLinks)
+* (Auth) changed activity params for ```com.google.firebase.auth.internal.FederatedSignInActivity``` to:
+```xml
+<activity
+    android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+    android:excludeFromRecents="true"
+    android:exported="true"
+    android:launchMode="singleTask"
+    android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+    android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+```
+* (Auth) Added property ```dynamicLinkDomain``` to class ```ActionCodeSettings```. that is used in out-of-band email action flows.
+
+
+* (MLKIT) MLKIT is still in beta version (by Google) and when new versions are released, they might not be backword compatible. till the alpha version is released things can change drastically. Follow the new instruction and new usage sample code on our GitHub repository.
+* (MLKIT) iOS depends on the following frameworks:
+  * FirebaseMLCommon.framework
+  * FirebaseMLModelInterpreter.framework
+  * GTMSessionFetcher.framework
+  * tensorflow_lite.framework
+  * FirebaseMLNaturalLanguage.framework
+  * FirebaseMLNLLanguageID.framework
+  * FirebaseABTesting.framework
+  * FirebaseMLNLSmartReply.framework
+  * FirebaseRemoteConfig.framework
+  * Protobuf.framework
+  * FirebaseMLVision.framework
+  * GoogleAPIClientForREST.framework
+  * GoogleMobileVision.framework
+  * GoogleToolboxForMac.framework
+  * BarcodeDetector.framework
+  * FirebaseMLVisionBarcodeModel.framework
+  * FaceDetector.framework
+  * FirebaseMLVisionFaceModel.framework
+  * FirebaseMLVisionLabelModel.framework
+  * LabelDetector.framework
+  * FirebaseMLVisionTextModel.framework
+  * TextDetector.framework
+
+* (MLKIT) iOS depends on the following resources:
+  * GoogleMVFaceDetectorResources.bundle
+  * GoogleMVTextDetectorResources.bundle
+  * PredictOnDeviceResource.bundle
+
 *Nov 16, 2018 - V7.0.1*
 * Works with OverrideAir ANE V5.6.1 or higher
 * Works with ANELAB V1.1.26 or higher

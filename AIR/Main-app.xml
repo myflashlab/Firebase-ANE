@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<application xmlns="http://ns.adobe.com/air/application/30.0">
+<application xmlns="http://ns.adobe.com/air/application/32.0">
     <id>com.doitflash.firebaseCore</id>
-    <versionNumber>7.0.1</versionNumber>
+    <versionNumber>8.0.0</versionNumber>
     <supportedProfiles>mobileDevice</supportedProfiles>
     <filename>exFirebaseCore</filename>
     <name>Firebase Core</name>
@@ -12,24 +12,19 @@
             <uses-permission android:name="android.permission.INTERNET"/>
             <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
             <uses-permission android:name="android.permission.WAKE_LOCK"/>
-
             <uses-sdk android:targetSdkVersion="26" />
 
-
-
-            <!-- Required by the firebase_analyticsImpl.ane & firebase-analytics.ane -->
+            <!-- Required by the googlePlayServices_measurementBase.ane -->
             <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
 
 
 
-            <!--
-                Required by firebase_iid.ane
-                Change "air.com.doitflash.firebaseCore" to your own app package name
-            -->
+            <!-- Required by firebase_iid.ane -->
             <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
-            <permission android:name="air.com.doitflash.firebaseCore.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
-            <uses-permission android:name="air.com.doitflash.firebaseCore.permission.C2D_MESSAGE"/>
 
+            
+            
+            
             <!-- Activate multidex for older Android support -->
             <application android:name="android.support.multidex.MultiDexApplication">
 
@@ -55,20 +50,11 @@
 
 
 
-                <!-- Required by the firebase_analyticsImpl.ane & firebase-analytics.ane -->
+                <!-- Required by the googlePlayServices_measurementBase.ane -->
                 <receiver
                     android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
                     android:enabled="true"
                     android:exported="false"/>
-                <service
-                    android:name="com.google.android.gms.measurement.AppMeasurementService"
-                    android:enabled="true"
-                    android:exported="false"/>
-                <service
-                    android:name="com.google.android.gms.measurement.AppMeasurementJobService"
-                    android:enabled="true"
-                    android:exported="false"
-                    android:permission="android.permission.BIND_JOB_SERVICE"/>
                 <receiver
                     android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
                     android:enabled="true"
@@ -78,12 +64,27 @@
                         <action android:name="com.android.vending.INSTALL_REFERRER"/>
                     </intent-filter>
                 </receiver>
+                <service
+                    android:name="com.google.android.gms.measurement.AppMeasurementService"
+                    android:enabled="true"
+                    android:exported="false"/>
+                <service
+                    android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+                    android:enabled="true"
+                    android:exported="false"
+                    android:permission="android.permission.BIND_JOB_SERVICE"/>
+                
+                <!-- Required by googlePlayServices_basement.ane -->
+                <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
 
+
+
+                
 
 
                 <!--
-                    Required by the firebase_common.ane
-                    Change "air.com.doitflash.firebaseCore" to your own app package name
+                      Required by the firebase_common.ane
+                      Change "air.com.doitflash.firebaseCore" to your own app package name
                 -->
                 <provider
                     android:name="com.google.firebase.provider.FirebaseInitProvider"
@@ -93,17 +94,23 @@
 
 
 
-                <service android:name="com.google.firebase.components.ComponentDiscoveryService">
+                
+                <service android:name="com.google.firebase.components.ComponentDiscoveryService" android:exported="false">
 
                     <!-- Required by firebase_iid.ane -->
                     <meta-data
                         android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
                         android:value="com.google.firebase.components.ComponentRegistrar"/>
 
-                    <!-- Required by firebase_measurementConnectorImpl.ane -->
+                    <!-- Required by googlePlayServices_measurementBase.ane -->
                     <meta-data
                         android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
                         android:value="com.google.firebase.components.ComponentRegistrar"/>
+
+                    <!-- Required by firebase_dynamicLinks.ane -->
+                    <!--<meta-data
+                        android:name="com.google.firebase.components:com.google.firebase.dynamiclinks.internal.FirebaseDynamicLinkRegistrar"
+                        android:value="com.google.firebase.components.ComponentRegistrar"/>-->
 
                     <!-- Required by firebase_auth.ane -->
                     <!--<meta-data
@@ -115,26 +122,37 @@
                         android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
                         android:value="com.google.firebase.components.ComponentRegistrar"/>-->
 
+                    <!-- Required by firebase_database.ane -->
+                    <!--<meta-data
+                        android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
+                        android:value="com.google.firebase.components.ComponentRegistrar"/>-->
+
+                    <!-- Required by firebase_config.ane -->
+                    <!--<meta-data
+                        android:name="com.google.firebase.components:com.google.firebase.remoteconfig.RemoteConfigRegistrar"
+                        android:value="com.google.firebase.components.ComponentRegistrar"/>-->
+
+                    <!-- Required by firebase_abt.ane -->
+                    <!--<meta-data
+                        android:name="com.google.firebase.components:com.google.firebase.abt.component.AbtRegistrar"
+                        android:value="com.google.firebase.components.ComponentRegistrar"/>-->
+
+                    <!-- Required by firebase_storage.ane -->
+                    <!--<meta-data
+                        android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
+                        android:value="com.google.firebase.components.ComponentRegistrar"/>-->
+
                 </service>
 
 
 
-                <!-- Required by googlePlayServices_basement.ane -->
-                <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
-
-
-
-                <!--
-                    Required by firebase_iid.ane
-                    Change "air.com.doitflash.firebaseCore" to your own app package name
-                -->
+                <!-- Required by firebase_iid.ane -->
                 <receiver
                     android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
                     android:exported="true"
                     android:permission="com.google.android.c2dm.permission.SEND">
                     <intent-filter>
                         <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
-                        <category android:name="air.com.doitflash.firebaseCore"/>
                     </intent-filter>
                 </receiver>
                 <service
@@ -152,8 +170,11 @@
                     android:theme="@android:style/Theme.Translucent.NoTitleBar"
                     android:exported="false"/>
 
+
                 <!-- Required by firebase_messaging.ane -->
-				<!--<service android:name="com.myflashlab.firebase.fcm.MyFirebaseMessagingService">
+				<!--<service
+				    android:name="com.myflashlab.firebase.fcm.MyFirebaseMessagingService"
+				    android:exported="false">
 					<intent-filter>
 						<action android:name="com.google.firebase.MESSAGING_EVENT"/>
 					</intent-filter>
@@ -167,21 +188,45 @@
 					android:hardwareAccelerated="false"
 					android:stateNotNeeded="true">
 					<intent-filter>
-						<action android:name="MY_INTENT" />
-						<category android:name="android.intent.category.DEFAULT" />
+						<action android:name="MY_INTENT"/>
+						<category android:name="android.intent.category.DEFAULT"/>
 					</intent-filter>
 				</activity>-->
+
+                <!-- Optional by firebase_messaging.ane -->
+                <!--
+				    Set custom default icon. This is used when no icon is set for incoming notification messages.
+                    See README(https://goo.gl/l4GJaQ) for more.
+                -->
+                <!--<meta-data
+                    android:name="com.google.firebase.messaging.default_notification_icon"
+                    android:resource="@drawable/ic_stat_ic_notification"/>-->
+                <!--
+                    Set color used with incoming notification messages. This is used when no color is set for the incoming
+                    notification message. See README(https://goo.gl/6BKBk7) for more.
+                -->
+                <!--<meta-data
+                    android:name="com.google.firebase.messaging.default_notification_color"
+                    android:resource="@color/colorAccent"/>-->
+                <!--<meta-data
+                    android:name="com.google.firebase.messaging.default_notification_channel_id"
+                    android:value="@string/default_notification_channel_id"/>-->
+
+                
 
                 <!-- Required by firebase_auth.ane -->
                 <!--<activity
                     android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
                     android:excludeFromRecents="true"
                     android:exported="true"
-                    android:launchMode="singleInstance"
+                    android:launchMode="singleTask"
                     android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
-                    android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+                    android:theme="@android:style/Theme.Translucent.NoTitleBar"/>-->
 
-                <!-- Required by firebaseCrashlytics.ane -->
+                <!--
+				        Required by firebaseCrashlytics.ane
+				        Change "air.com.doitflash.firebaseCore" to your own app package name
+				-->
 				<!--<provider
 					android:name="com.crashlytics.android.CrashlyticsInitProvider"
 					android:authorities="air.com.doitflash.firebaseCore.crashlyticsinitprovider"
@@ -190,15 +235,34 @@
 				<meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false"/>
 				<activity android:name="com.myflashlab.firebase.crashlytics.CrashlyticsActivity"/>-->
 
+                
+                
+
+
                 <!--
                     Optional but recommended: If you use the on-device API, configure your app to automatically
                     download the ML model to the device after your app is installed from the Play Store.
-
-                    To use multiple models: android:value="ocr,model2,model3"
                 -->
-                <!--<meta-data
+                <meta-data
                     android:name="com.google.firebase.ml.vision.DEPENDENCIES"
-                    android:value="ocr"/>-->
+                    android:value="ocr,face,barcode,label"/>
+                    <!-- To use only one model: android:value="ocr" -->
+                
+
+                <!--
+                    Required by MLKIT
+                    Change "air.com.doitflash.firebaseCore" to your own applicationID but keep
+                    ".provider" at the end. [your-app-id].provider
+                -->
+                <provider
+                    android:name="com.myflashlabs.firebase.mlkit.AneMLKITProvider"
+                    android:authorities="air.com.doitflash.firebaseCore.provider"
+                    android:exported="false"
+                    android:grantUriPermissions="true">
+                    <meta-data
+                        android:name="android.support.FILE_PROVIDER_PATHS"
+                        android:resource="@xml/mlkit_ane_provider_paths"/>
+                </provider>
 
             </application>
             </manifest>]]></manifestAdditions>
@@ -207,9 +271,9 @@
     <iPhone>
         <InfoAdditions><![CDATA[
 
-        <!--iOS 8.0 or higher can support this ANE-->
+        <!--iOS 10.0 or higher can support this ANE-->
         <key>MinimumOSVersion</key>
-        <string>8.0</string>
+        <string>10.0</string>
 
         <!-- Required by firebaseCrashlytics.ane -->
 		<!-- avoid auto initialization when using the ANE; So YOU can decide when to start Crashlytics in your app -->
@@ -230,24 +294,6 @@
             <string>1</string>
             <string>2</string>
         </array>
-
-        <!-- 
-			Required by firebaseInvites.ane
-			Change google client id to your own. Find it in GoogleService-Info.plist
-		-->
-		<!--<key>CFBundleURLTypes</key>
-		<array>
-			<dict>
-				<key>CFBundleTypeRole</key>
-				<string>Editor</string>
-				<key>CFBundleURLName</key>
-				<string>google</string>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>com.googleusercontent.apps.163763113291-5j7w6ara6rgafjub3636in7h8q2lgbeb</string>
-				</array>
-			</dict>
-		</array>-->
 
         <!-- Required by firebase_messaging.ane -->
         <!--<key>UIBackgroundModes</key>
@@ -291,17 +337,19 @@
                 <false/><<
             
             
-            >> 
-                Required by firebaseDynamicLinks.ane 
-                
-                To know what is your own app_code value, go to the "Dynamic Links" section
-                in your Firebase Console and there you will see a URL like: https://e73ko.app.goo.gl/
-                then, your app_code will be "e73ko"
-            <<
-                <key>com.apple.developer.associated-domains</key>
-                <array>
-                    <string>applinks:e73ko.app.goo.gl</string>
-                </array>
+
+            >>
+			    Required for DynamicLinks.
+
+                Go to your Firebase console/dynamicLinks and create
+			    your URL Prefix, it looks like: https://YOUR_URL_PREFIX.page.link/xxxx
+
+			    You must set the associated-domains to "YOUR_URL_PREFIX.page.link"
+			<<
+			<key>com.apple.developer.associated-domains</key>
+			<array>
+				<string>applinks:myflashlabs.page.link</string>
+			</array>
             
         ]]></Entitlements> -->
 
@@ -356,15 +404,13 @@
         <extensionID>com.myflashlab.air.extensions.dependency.androidSupport.core</extensionID>
         <extensionID>com.myflashlab.air.extensions.dependency.androidSupport.v4</extensionID>
         <extensionID>com.myflashlab.air.extensions.dependency.firebase.analytics</extensionID>
-        <extensionID>com.myflashlab.air.extensions.dependency.firebase.analytics.impl</extensionID>
         <extensionID>com.myflashlab.air.extensions.dependency.firebase.common</extensionID>
         <extensionID>com.myflashlab.air.extensions.dependency.firebase.iid</extensionID>
         <extensionID>com.myflashlab.air.extensions.dependency.firebase.measurement.connector</extensionID>
-        <extensionID>com.myflashlab.air.extensions.dependency.firebase.measurement.connector.impl</extensionID>
-        <extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.ads</extensionID>
         <extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.base</extensionID>
         <extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.basement</extensionID>
         <extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.measurementBase</extensionID>
+        <extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.ads</extensionID>
         <extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.stats</extensionID>
         <extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.tasks</extensionID>
 
