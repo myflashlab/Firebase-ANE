@@ -184,7 +184,6 @@ private function onDynamicLinksInvoke(e:DynamicLinksEvents):void
 ```
 * (Auth) Added property ```dynamicLinkDomain``` to class ```ActionCodeSettings```. that is used in out-of-band email action flows.
 
-
 * (MLKIT) MLKIT is still in beta version (by Google) and when new versions are released, they might not be backword compatible. till the alpha version is released things can change drastically. Follow the new instruction and new usage sample code on our GitHub repository.
 * (MLKIT) iOS depends on the following frameworks:
   * FirebaseMLCommon.framework
@@ -214,6 +213,8 @@ private function onDynamicLinksInvoke(e:DynamicLinksEvents):void
   * GoogleMVFaceDetectorResources.bundle
   * GoogleMVTextDetectorResources.bundle
   * PredictOnDeviceResource.bundle
+
+* (Performance) Added Firebase Performance to the collection
 
 *Nov 16, 2018 - V7.0.1*
 * Works with OverrideAir ANE V5.6.1 or higher

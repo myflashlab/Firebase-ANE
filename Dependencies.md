@@ -88,6 +88,20 @@ firebase_config.ane V16.5.0 | FirebaseRemoteConfig.framework
 firebase_abt.ane V17.1.0 | Protobuf.framework
 . | FirebaseABTesting.framework
 
+**firebasePerformance.ane**
+
+Android | iOS
+------------ | -------------
+firebaseCore.ane V8.x.x | firebaseCore.ane V8.x.x
+firebaseRemoteConfig.ane V8.x.x | firebaseRemoteConfig.ane V8.x.x
++other ANEs required by the 'Core' and 'RemoteConfig' | +other frameworks/ANEs required by the 'Core' and 'RemoteConfig'
+firebase_perf.ane V16.2.5 | FirebaseABTesting.framework
+googlePlayServices_clearcut.ane V16.0.0 | FirebasePerformance.framework
+googlePlayServices_phenotype.ane V16.0.0 | FirebaseRemoteConfig.framework
+. | GoogleToolboxForMac.framework
+. | GTMSessionFetcher.framework
+. | Protobuf.framework
+
 **firebaseStorage.ane**
 
 Android | iOS

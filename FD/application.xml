@@ -23,6 +23,8 @@
             <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
 
             
+            <!-- Required by the firebase_perf.ane -->
+            <!-- <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/> -->
             
             
             <!-- Activate multidex for older Android support -->
@@ -142,6 +144,11 @@
                         android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
                         android:value="com.google.firebase.components.ComponentRegistrar"/>-->
 
+                    <!-- Required by firebase_perf.ane -->
+                    <!--<meta-data
+                        android:name="com.google.firebase.components:com.google.firebase.perf.FirebasePerfRegistrar"
+                        android:value="com.google.firebase.components.ComponentRegistrar"/>-->
+
                 </service>
 
 
@@ -243,9 +250,9 @@
                     Optional but recommended: If you use the on-device API, configure your app to automatically
                     download the ML model to the device after your app is installed from the Play Store.
                 -->
-                <meta-data
+                <!--<meta-data
                     android:name="com.google.firebase.ml.vision.DEPENDENCIES"
-                    android:value="ocr,face,barcode,label"/>
+                    android:value="ocr,face,barcode,label"/>-->
                     <!-- To use only one model: android:value="ocr" -->
                 
 
@@ -254,7 +261,7 @@
                     Change "air.com.doitflash.firebaseCore" to your own applicationID but keep
                     ".provider" at the end. [your-app-id].provider
                 -->
-                <provider
+                <!--<provider
                     android:name="com.myflashlabs.firebase.mlkit.AneMLKITProvider"
                     android:authorities="air.com.doitflash.firebaseCore.provider"
                     android:exported="false"
@@ -262,7 +269,19 @@
                     <meta-data
                         android:name="android.support.FILE_PROVIDER_PATHS"
                         android:resource="@xml/mlkit_ane_provider_paths"/>
-                </provider>
+                </provider>-->
+
+
+                <!--
+                    Required by firebase_perf.ane
+                    Change "air.com.doitflash.firebaseCore" to your own applicationID but keep
+                    ".firebaseperfprovider" at the end. [your-app-id].firebaseperfprovider
+                -->
+                <!--<provider
+                    android:name="com.google.firebase.perf.provider.FirebasePerfProvider"
+                    android:authorities="air.com.doitflash.firebaseCore.firebaseperfprovider"
+                    android:exported="false"
+                    android:initOrder="101"/>-->
 
             </application>
             </manifest>]]></manifestAdditions>
