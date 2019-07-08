@@ -7,6 +7,21 @@ Every release of Firebase ANEs will work with specific versions of Dependency AN
 1. When updating the .framework files, always delete the old ones and then copy the new ones. Never overwrite them.  
 1. Consider useing the [ANELAB](https://github.com/myflashlab/ANE-LAB/) software. It will automatically take care of ANEs installation and manifest setup.  
 
+Supported Firebase Features:
+- [x] Analytics
+- [x] Authentication
+- [x] Crashlytics
+- [x] DynamicLinks
+- [x] FCM
+- [x] Realtime Database
+- [x] Firestore
+- [x] Functions
+- [x] MLKit
+- [x] Performance
+- [x] Remote Config
+- [x] Storage
+- [ ] In-App Messaging
+
 # V8.x.x #
 Find the latest Android dependencies [here](https://github.com/myflashlab/common-dependencies-ANE). And download the iOS frameworks **V5.20.2 [from here](https://dl.google.com/firebase/sdk/ios/5_20_2/Firebase-5.20.2.zip)**. And finally, if you want to use Crashlytics, you should download the frameworks **V3.12.0 [from here](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.12.0/com.crashlytics.ios-manual.zip)**.
 
@@ -63,6 +78,17 @@ firebaseCore.ane V8.x.x | firebaseCore.ane V8.x.x
 +other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
 firebase_database.ane V16.1.0 | FirebaseDatabase.framework
 firebase_databaseCollection.ane V16.0.1 | leveldb-library.framework
+
+**firebaseFunctions.ane**
+
+Android | iOS
+------------ | -------------
+firebaseCore.ane V8.x.x | firebaseCore.ane V8.x.x
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+firebase_addons.ane V2.0.0 | FirebaseFunctions.framework
+firebase_functions.ane V16.3.0 | GTMSessionFetcher.framework
+firebase_auth.ane V16.2.1 | .
+gson.ane V2.8.2 | .
 
 **firebaseFirestore.ane**
 
