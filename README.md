@@ -8,9 +8,11 @@ If you decide to use Firebase in your next AIR project, you should consider the 
 * [Cloud Messaging (FCM)](https://firebase.google.com/docs/cloud-messaging/) Deliver and receive messages across platforms reliably 
 * [Authentication](https://firebase.google.com/docs/auth/) Reduce friction with robust authentication 
 * [Realtime Database](https://firebase.google.com/docs/database/) Store and sync app data in realtime 
+* [Functions](https://firebase.google.com/docs/functions) Run backend code in response to events
 * [Firestore](https://firebase.google.com/docs/firestore/) Store and sync app data at global scale
 * [Storage](https://firebase.google.com/docs/storage/) Store files with ease 
 * [Remote Config](https://firebase.google.com/docs/remote-config/) Customize your app on the fly 
+* [Performance](https://firebase.google.com/docs/perf-mon) Gain insight into your app's performance issues. 
 * [Crashlytics](https://firebase.google.com/docs/crashlytics/) Get clear, actionable insight into app issues 
 * [Notifications](https://firebase.google.com/docs/notifications/) Engage with users at the right moment 
 * [Dynamic Links](https://firebase.google.com/docs/dynamic-links/) Send users to the right place inside your app 
@@ -31,6 +33,8 @@ If you decide to use Firebase in your next AIR project, you should consider the 
 * [Firebase Crashlytics](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainCrashlytics.as)
 * [Firebase FCM](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainFcm.as)
 * [Firebase Mlkit](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainMlkit.as)
+* [Firebase Performance](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainPerformance.as)
+* [Firebase Functions](https://github.com/myflashlab/Firebase-ANE/blob/master/AIR/src/MainFunctions.as)
 
 # Air Usage
 ```actionscript
@@ -102,17 +106,19 @@ Firebase ANEs are dependent on some other ANEs and frameworks. Complete informat
 4. Every Firebase ANE might need some dependency Frameworks/ANEs which is [explained in details here](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md).
 
 # Commercial Version
-* [firebaseCore.ane](http://www.myflashlabs.com/product/firebase-air-native-extension/)
-* [firebaseDatabase.ane](http://www.myflashlabs.com/product/realtime-database-firebase-air-native-extension/)
-* [firebaseFirestore.ane](http://www.myflashlabs.com/product/firestore-firebase-air-native-extension/)
-* [firebaseRemoteConfig.ane](http://www.myflashlabs.com/product/remote-config-firebase-air-native-extension/)
-* [firebaseAuth.ane](http://www.myflashlabs.com/product/authentication-firebase-air-native-extension/)
-* [firebaseDynamicLinks.ane](http://www.myflashlabs.com/product/dynamic-links-firebase-air-native-extension)
-* [firebaseStorage.ane](http://www.myflashlabs.com/product/storage-firebase-air-native-extension/)
-* [firebaseAnalytics.ane](http://www.myflashlabs.com/product/analytics-firebase-air-native-extension/)
-* [firebaseCrashlytics.ane](http://www.myflashlabs.com/product/crashlytics-firebase-air-native-extension)
-* [firebaseMessaging.ane](http://www.myflashlabs.com/product/fcm-firebase-air-native-extension/)
-* [firebaseMlkit.ane](http://www.myflashlabs.com/product/mlkit-firebase-air-native-extension/)
+* [firebaseCore.ane](https://www.myflashlabs.com/product/firebase-air-native-extension/)
+* [firebaseDatabase.ane](https://www.myflashlabs.com/product/realtime-database-firebase-air-native-extension/)
+* [firebaseFirestore.ane](https://www.myflashlabs.com/product/firestore-firebase-air-native-extension/)
+* [firebaseRemoteConfig.ane](https://www.myflashlabs.com/product/remote-config-firebase-air-native-extension/)
+* [firebaseAuth.ane](https://www.myflashlabs.com/product/authentication-firebase-air-native-extension/)
+* [firebaseDynamicLinks.ane](https://www.myflashlabs.com/product/dynamic-links-firebase-air-native-extension)
+* [firebaseStorage.ane](https://www.myflashlabs.com/product/storage-firebase-air-native-extension/)
+* [firebaseAnalytics.ane](https://www.myflashlabs.com/product/analytics-firebase-air-native-extension/)
+* [firebaseCrashlytics.ane](https://www.myflashlabs.com/product/crashlytics-firebase-air-native-extension)
+* [firebaseMessaging.ane](https://www.myflashlabs.com/product/fcm-firebase-air-native-extension/)
+* [firebaseMlkit.ane](https://www.myflashlabs.com/product/mlkit-firebase-air-native-extension/)
+* [firebasePerformance.ane](https://www.myflashlabs.com/product/performance-firebase-air-native-extension/)
+* [firebaseFunctions.ane](https://www.myflashlabs.com/product/functions-firebase-air-native-extension/)
 
 ![Firebase ANE](https://www.myflashlabs.com/wp-content/uploads/2017/12/product_adobe-air-ane-extension-firebase_all-595x738.jpg)
 
@@ -129,6 +135,8 @@ Firebase ANEs are dependent on some other ANEs and frameworks. Complete informat
 [How to use Firebase Analytics?](https://github.com/myflashlab/Firebase-ANE/wiki/H.-Analytics#get-started-with-firebase-analytics-in-adobeair)  
 [How to use Firebase Dynamic Links?](https://github.com/myflashlab/Firebase-ANE/wiki/I.-Dynamic-Links#get-started-with-firebase-dynamic-links-in-adobeair)  
 [How to use Firebase MLKit?](https://github.com/myflashlab/Firebase-ANE/wiki/M.-MLKit#get-started-with-firebase-mlkit-in-adobeair)  
+[How to use Firebase Performance?](https://github.com/myflashlab/Firebase-ANE/wiki/N.-Performance#get-started-with-firebase-performance-in-adobeair)  
+[How to use Firebase Functions?](https://github.com/myflashlab/Firebase-ANE/wiki/O.-Functions#get-started-with-firebase-functions-in-adobeair)  
 
 # Premium Support #
 [![Premium Support package](https://www.myflashlabs.com/wp-content/uploads/2016/06/professional-support.jpg)](https://www.myflashlabs.com/product/myflashlabs-support/)

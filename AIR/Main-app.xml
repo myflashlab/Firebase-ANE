@@ -149,6 +149,11 @@
                         android:name="com.google.firebase.components:com.google.firebase.perf.FirebasePerfRegistrar"
                         android:value="com.google.firebase.components.ComponentRegistrar"/>-->
 
+                    <!-- Required by firebase_functions.ane -->
+                    <!--<meta-data
+                        android:name="com.google.firebase.components:com.google.firebase.functions.FunctionsRegistrar"
+                        android:value="com.google.firebase.components.ComponentRegistrar"/>-->
+
                 </service>
 
 

@@ -214,7 +214,8 @@ private function onDynamicLinksInvoke(e:DynamicLinksEvents):void
   * GoogleMVTextDetectorResources.bundle
   * PredictOnDeviceResource.bundle
 
-* (Performance) Added Firebase Performance to the collection
+* (Performance) Added Firebase Performance
+* (Functions) Added Firebase Functions
 
 *Nov 16, 2018 - V7.0.1*
 * Works with OverrideAir ANE V5.6.1 or higher
