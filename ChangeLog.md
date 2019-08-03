@@ -1,5 +1,9 @@
 Firebase Air Native Extension
 
+*Aug 3, 2019 - V8.0.1*
+* Added support for Android 64-bit
+* Supports iOS 10+
+
 *Jun 16, 2019 - V8.0.0*
 * Updated to Firebase SDK 16.0.8 for Android. update the dependencies based on [this list](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md)
 * Updated to [Firebase SDK 5.20.2](https://dl.google.com/firebase/sdk/ios/5_20_2/Firebase-5.20.2.zip) for iOS. update all the older .framework and resources. based on [this list](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md)
