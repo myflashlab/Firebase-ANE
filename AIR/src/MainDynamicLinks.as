@@ -77,7 +77,7 @@ package
 			_txt.multiline = true;
 			_txt.wordWrap = true;
 			_txt.embedFonts = false;
-			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Dynamic Links V"+Firebase.VERSION+"</font>";
+			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Dynamic Links V"+DynamicLinks.VERSION+"</font>";
 			_txt.scaleX = _txt.scaleY = DeviceInfo.dpiScaleMultiplier;
 			this.addChild(_txt);
 			
@@ -124,6 +124,7 @@ package
 		{
 			if (_txt)
 			{
+				_txt.y = 150 * (1 / DeviceInfo.dpiScaleMultiplier);
 				_txt.width = stage.stageWidth * (1 / DeviceInfo.dpiScaleMultiplier);
 				
 				C.x = 0;
@@ -160,7 +161,7 @@ package
 			{
 				// to be able to build "short" dynamicLinks, you need to set the Web API Key manually
 				// copy this information from Firebase console: https://console.firebase.google.com/project/_/settings/general/
-				Firebase.getConfig().webApiKey = "AIzySaBvQto5SVR6pPl8FU6LHlFsrgnepNhzxhQ";
+				Firebase.getConfig().webApiKey = "AIzaSyBvWdo5STJ4pPl3FG6MHlEsiguedNzdxhQ";
 				
 				var config:FirebaseConfig = Firebase.getConfig();
 				C.log("webApiKey = " + 						config.webApiKey);
@@ -243,6 +244,7 @@ package
 				if(!_deepLink)
 				{
 					C.log("First create a deeplink!");
+					trace("First create a deeplink!");
 					return;
 				}
 				

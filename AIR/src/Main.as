@@ -101,6 +101,9 @@ package
 		private function handleActivate(e:Event):void
 		{
 			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE;
+			
+			C.log("framerate: " + stage.frameRate);
+			trace("framerate: " + stage.frameRate);
 		}
 		
 		private function handleDeactivate(e:Event):void
@@ -121,6 +124,7 @@ package
 		{
 			if (_txt)
 			{
+				_txt.y = 150 * (1 / DeviceInfo.dpiScaleMultiplier);
 				_txt.width = stage.stageWidth * (1 / DeviceInfo.dpiScaleMultiplier);
 				
 				C.x = 0;
@@ -165,6 +169,15 @@ package
 				C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
 				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
 				C.log("project_id = " + 					config.project_id);
+
+				trace("default_web_client_id = " + 			config.default_web_client_id);
+				trace("firebase_database_url = " + 			config.firebase_database_url);
+				trace("gcm_defaultSenderId = " + 			config.gcm_defaultSenderId);
+				trace("google_api_key = " + 				config.google_api_key);
+				trace("google_app_id = " + 					config.google_app_id);
+				trace("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
+				trace("google_storage_bucket = " + 			config.google_storage_bucket);
+				trace("project_id = " + 					config.project_id);
 				
 				// You must initialize any of the other Firebase children after a successful initialization
 				// of the Core ANE.
@@ -173,6 +186,7 @@ package
 			else
 			{
 				C.log("Config file is not found!");
+				trace("Config file is not found!");
 			}
 		}
 		
@@ -209,37 +223,31 @@ package
 				Firebase.iid.deleteIID();
 			}
 			
+			var btn5:MySprite = createBtn("get frame rate");
+			btn5.addEventListener(MouseEvent.CLICK, getFrameRate);
+			_list.add(btn5);
+			
+			function getFrameRate(e:MouseEvent):void
+			{
+				C.log("framerate: " + stage.frameRate);
+				trace("framerate: " + stage.frameRate);
+			}
+			
 			onResize();
 		}
 		
 		private function onIdTokenReceived(e:FirebaseEvents):void
 		{
 			C.log("iidToken = "+e.iidToken);
+			trace("iidToken = "+e.iidToken);
 		}
 		
 		private function onIdReceived(e:FirebaseEvents):void
 		{
 			C.log("iid id = "+e.iidID);
+			trace("iid id = "+e.iidID);
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		private function createBtn($str:String):MySprite
 		{
 			var sp:MySprite = new MySprite();

@@ -73,7 +73,7 @@ import flash.desktop.NativeApplication;
 			_txt.multiline = true;
 			_txt.wordWrap = true;
 			_txt.embedFonts = false;
-			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase RemoteConfig V"+Firebase.VERSION+"</font>";
+			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase RemoteConfig V"+RemoteConfig.VERSION+"</font>";
 			_txt.scaleX = _txt.scaleY = DeviceInfo.dpiScaleMultiplier;
 			this.addChild(_txt);
 			
@@ -120,6 +120,7 @@ import flash.desktop.NativeApplication;
 		{
 			if (_txt)
 			{
+				_txt.y = 150 * (1 / DeviceInfo.dpiScaleMultiplier);
 				_txt.width = stage.stageWidth * (1 / DeviceInfo.dpiScaleMultiplier);
 				
 				C.x = 0;
@@ -163,11 +164,21 @@ import flash.desktop.NativeApplication;
 				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
 				C.log("project_id = " + 					config.project_id);
 				
+				trace("default_web_client_id = " + 			config.default_web_client_id);
+				trace("firebase_database_url = " + 			config.firebase_database_url);
+				trace("gcm_defaultSenderId = " + 			config.gcm_defaultSenderId);
+				trace("google_api_key = " + 				config.google_api_key);
+				trace("google_app_id = " + 					config.google_app_id);
+				trace("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
+				trace("google_storage_bucket = " + 			config.google_storage_bucket);
+				trace("project_id = " + 					config.project_id);
+
 				initRemoteConfig();
 			}
 			else
 			{
 				C.log("Config file is not found!");
+				trace("Config file is not found!");
 			}
 		}
 		
@@ -209,11 +220,13 @@ import flash.desktop.NativeApplication;
 					if($error)
 					{
 						C.log($error.message);
+						trace($error.message);
 					}
 					else
 					{
 						C.log("Fetch was successful, Now, let's call RemoteConfig.activateFetched() to activate the new data");
-						
+						trace("Fetch was successful, Now, let's call RemoteConfig.activateFetched() to activate the new data");
+
 						// When you fetch the new information from server, you can activate them anytime you think is appropriate in your app
 						RemoteConfig.activateFetched();
 					}
@@ -233,12 +246,15 @@ import flash.desktop.NativeApplication;
 				{
 					case RemoteConfig.VALUE_SOURCE_DEFAULT:
 						C.log("source = VALUE_SOURCE_DEFAULT");
+						trace("source = VALUE_SOURCE_DEFAULT");
 					break;
 					case RemoteConfig.VALUE_SOURCE_REMOTE:
 						C.log("source = VALUE_SOURCE_REMOTE");
+						trace("source = VALUE_SOURCE_REMOTE");
 					break;
 					case RemoteConfig.VALUE_SOURCE_STATIC:
 						C.log("source = VALUE_SOURCE_STATIC");
+						trace("source = VALUE_SOURCE_STATIC");
 					break;
 					default:
 				}
@@ -253,28 +269,10 @@ import flash.desktop.NativeApplication;
 				var value:String = RemoteConfig.getValue("first_key", RemoteConfig.AS_STRING) as String;
 				
 				C.log("value = " + value);
+				trace("value = " + value);
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		private function createBtn($str:String):MySprite
 		{
 			var sp:MySprite = new MySprite();

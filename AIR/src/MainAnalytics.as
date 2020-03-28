@@ -74,7 +74,7 @@ package
 			_txt.multiline = true;
 			_txt.wordWrap = true;
 			_txt.embedFonts = false;
-			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Analytics V"+Firebase.VERSION+"</font>";
+			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Analytics V"+FirebaseAnalytics.VERSION+"</font>";
 			_txt.scaleX = _txt.scaleY = DeviceInfo.dpiScaleMultiplier;
 			this.addChild(_txt);
 			
@@ -121,6 +121,7 @@ package
 		{
 			if (_txt)
 			{
+				_txt.y = 150 * (1 / DeviceInfo.dpiScaleMultiplier);
 				_txt.width = stage.stageWidth * (1 / DeviceInfo.dpiScaleMultiplier);
 				
 				C.x = 0;

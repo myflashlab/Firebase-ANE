@@ -127,6 +127,7 @@ public class MainPerformance extends Sprite
 	{
 		if(_txt)
 		{
+			_txt.y = 150 * (1 / DeviceInfo.dpiScaleMultiplier);
 			_txt.width = stage.stageWidth * (1 / DeviceInfo.dpiScaleMultiplier);
 			
 			C.x = 0;
@@ -242,13 +243,6 @@ public class MainPerformance extends Sprite
 		}
 	}
 	
-	
-
-
-
-
-
-
 	
 	private function createBtn($str:String):MySprite
 	{
