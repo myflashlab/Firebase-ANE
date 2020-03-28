@@ -10,7 +10,7 @@ Firebase Air Native Extension
 * Minimum iOS version to support the Firebase ANEs will be iOS 10.0+ from now on
 * (Core) The current */Users/{username}/Documents/AIR_32.116/lib/android/bin/dx.jar* file in AIRSDK is too old! until Adobe updates that file, we may use the newer version copied from Android SDK build tools 28.0.3 */Users/{username}/Library/Android/sdk/build-tools/28.0.3/lib/dx.jar*
 * (Core) Because of [another bug in AIR SDK](https://tracker.adobe.com/#/view/AIR-4198557), you need to manually copy the file framework **lclang_rt** from **xcode 10.1** to your AIR SDK. This is explained in [this video](https://www.youtube.com/watch?v=m4bwZRCvs2c).
-* (Core) Added ```android:exported="false"``` to the **ComponentDiscoveryService** service:
+* (Core) Added `android:exported="false"` to the **ComponentDiscoveryService** service:
 ```xml
 <service android:name="com.google.firebase.components.ComponentDiscoveryService" android:exported="false">
 ```
@@ -20,7 +20,7 @@ Firebase Air Native Extension
 
 <uses-permission android:name="{package_name}.permission.C2D_MESSAGE"/>
 ```
-* (Core) Removed the ```<category android:name="{package_name}"/>``` tag from the following service:
+* (Core) Removed the `<category android:name="{package_name}"/>` tag from the following service:
 ```xml
 <receiver
     android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
@@ -35,7 +35,7 @@ Firebase Air Native Extension
 ```xml
 <extensionID>com.myflashlab.air.extensions.dependency.firebase.measurement.connector.impl</extensionID>
 ```
-* (Core) Removed deprecated setter ```Firebase.getConfig().projectID```. it will be read automatically.
+* (Core) Removed deprecated setter `Firebase.getConfig().projectID`. it will be read automatically.
 * (Core) You need to copy the **libclang_rt.ios.a** file from xcode 10 to your AIRSDK. [This video tutorial shows you how](https://www.youtube.com/watch?v=m4bwZRCvs2c).
 * (Core) Removed the following frameworks from iOS requirements:
   * FirebaseNanoPB.framework
@@ -46,10 +46,10 @@ Firebase Air Native Extension
   * GoogleAppMeasurement.framework
   * GoogleUtilities.framework
 
-* (Core) Added global property ```Firebase.dataCollectionDefaultEnabled```. default value is true.
-* (Core) Added new method ```Firebase.makeGooglePlayServicesAvailable```.
+* (Core) Added global property `Firebase.dataCollectionDefaultEnabled`. default value is true.
+* (Core) Added new method `Firebase.makeGooglePlayServicesAvailable`.
 
-* (Core) Google deprecated the FirebaseInvites and we removed that ANE. Instead, all its features are now implemented into the DynamicLinks ANE. Because of this change, the property ```Firebase.listener``` is removed along with the following events:
+* (Core) Google deprecated the FirebaseInvites and we removed that ANE. Instead, all its features are now implemented into the DynamicLinks ANE. Because of this change, the property `Firebase.listener` is removed along with the following events:
 
 ```actionscript
 FirebaseEvents.GOOGLE_API_CONNECTION_SUCCESS
@@ -57,7 +57,7 @@ FirebaseEvents.GOOGLE_API_CONNECTION_FAILURE
 FirebaseEvents.GOOGLE_API_CONNECTION_CANCELED
 ```
 
-* (Analytics) setter ```minimumSessionDuration``` is deprecated and won't do anything. From now on, sessions start as soon as app comes to foreground. more info [here](https://firebase.googleblog.com/2018/12/new-changes-sessions-user-engagement.html).
+* (Analytics) setter `minimumSessionDuration` is deprecated and won't do anything. From now on, sessions start as soon as app comes to foreground. more info [here](https://firebase.googleblog.com/2018/12/new-changes-sessions-user-engagement.html).
 * (Analytics) Removed deprecated const **AnalyticsParam.SIGN_UP_METHOD**
 
 * (Firestore) Added dependency firebase_auth.ane (*com.myflashlab.air.extensions.dependency.firebase.auth*)
@@ -70,17 +70,17 @@ FirebaseEvents.GOOGLE_API_CONNECTION_CANCELED
   * leveldb-library.framework
   * Protobuf.framework
 
-* (Firestore) The constent **FieldValue.TIMESTAMP** is removed. instead used the method ```FieldValue.TIMESTAMP();```
-* (Firestore) The constent **FieldValue.DELETE** is removed. instead used the method ```FieldValue.DELETE();```
+* (Firestore) The constent **FieldValue.TIMESTAMP** is removed. instead used the method `FieldValue.TIMESTAMP();`
+* (Firestore) The constent **FieldValue.DELETE** is removed. instead used the method `FieldValue.DELETE();`
 
 * (Firestore) Added new FieldValue methods:
-  * ```FieldValue.INCREMENT(value:Number);```
-  * ```FieldValue.ARRAY_UNION(value:Vector.<String>);```
-  * ```FieldValue.ARRAY_REMOVE(value:Vector.<String>);```
+  * `FieldValue.INCREMENT(value:Number);`
+  * `FieldValue.ARRAY_UNION(value:Vector.<String>);`
+  * `FieldValue.ARRAY_REMOVE(value:Vector.<String>);`
 
-* (Firestore) Added new property ```cacheSizeBytes``` to class **FirestoreSettings**.
+* (Firestore) Added new property `cacheSizeBytes` to class **FirestoreSettings**.
 
-* (RemoteConfig) Added new meta-data tags under ```<service android:name="com.google.firebase.components.ComponentDiscoveryService" android:exported="false">``` service:
+* (RemoteConfig) Added new meta-data tags under `<service android:name="com.google.firebase.components.ComponentDiscoveryService" android:exported="false">` service:
 
 ```xml
 <meta-data
@@ -91,8 +91,8 @@ FirebaseEvents.GOOGLE_API_CONNECTION_CANCELED
     android:name="com.google.firebase.components:com.google.firebase.abt.component.AbtRegistrar"
     android:value="com.google.firebase.components.ComponentRegistrar"/>
 ```
-* (RemoteConfig) Android now has a new dependency: ```<extensionID>com.myflashlab.air.extensions.dependency.firebase.abt</extensionID>```
-* (RemoteConfig) Deprecated the listener ```RemoteConfig.listener.addEventListener(RemoteConfigEvents.FETCH_RESULT, onFetched);``` and will be removed in future versions. instead, you must use the callback function from the ```RemoteConfig.fetch``` method to know when the fetch operation is completed:
+* (RemoteConfig) Android now has a new dependency: `<extensionID>com.myflashlab.air.extensions.dependency.firebase.abt</extensionID>`
+* (RemoteConfig) Deprecated the listener `RemoteConfig.listener.addEventListener(RemoteConfigEvents.FETCH_RESULT, onFetched);` and will be removed in future versions. instead, you must use the callback function from the `RemoteConfig.fetch` method to know when the fetch operation is completed:
 
 ```actionscript
 RemoteConfig.fetch(cacheExpiration, function ($error:Error):void
@@ -111,7 +111,7 @@ RemoteConfig.fetch(cacheExpiration, function ($error:Error):void
 });
 ```
 
-* (DB) Added new meta-data tag under ```<service android:name="com.google.firebase.components.ComponentDiscoveryService``` service:
+* (DB) Added new meta-data tag under `<service android:name="com.google.firebase.components.ComponentDiscoveryService` service:
 
 ```xml
 <meta-data
@@ -119,7 +119,7 @@ RemoteConfig.fetch(cacheExpiration, function ($error:Error):void
     android:value="com.google.firebase.components.ComponentRegistrar"/>
 ```
 
-* (Storage) Added new meta-data tag under ```<service android:name="com.google.firebase.components.ComponentDiscoveryService``` service:
+* (Storage) Added new meta-data tag under `<service android:name="com.google.firebase.components.ComponentDiscoveryService` service:
 
 ```xml
 <meta-data
@@ -127,18 +127,18 @@ RemoteConfig.fetch(cacheExpiration, function ($error:Error):void
     android:value="com.google.firebase.components.ComponentRegistrar"/>
 ```
 
-* (FCM) Added ```android:exported="false"``` to ```<service android:name="com.myflashlab.firebase.fcm.MyFirebaseMessagingService">```
-* (FCM) Added new event ```FcmEvents.DELETED_MESSAGES```.
-* (DynamicLinks) Removed dependency ```<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.appinvite</extensionID>```
-* (DynamicLinks) Added new meta-data tag under ```<service android:name="com.google.firebase.components.ComponentDiscoveryService``` service:
+* (FCM) Added `android:exported="false"` to `<service android:name="com.myflashlab.firebase.fcm.MyFirebaseMessagingService">`
+* (FCM) Added new event `FcmEvents.DELETED_MESSAGES`.
+* (DynamicLinks) Removed dependency `<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.appinvite</extensionID>`
+* (DynamicLinks) Added new meta-data tag under `<service android:name="com.google.firebase.components.ComponentDiscoveryService` service:
 
 ```xml
 <meta-data
     android:name="com.google.firebase.components:com.google.firebase.dynamiclinks.internal.FirebaseDynamicLinkRegistrar"
     android:value="com.google.firebase.components.ComponentRegistrar"/>
 ```
-* (DynamicLinks) property ```SocialMediaParams.su``` is deprecated and not used anymore. instead you should use ```SocialMediaParams.si```.
-* (DynamicLinks) property ```DynamicLinks.api``` is no longer available. to build dynamiclinks, you must use the new methods:
+* (DynamicLinks) property `SocialMediaParams.su` is deprecated and not used anymore. instead you should use `SocialMediaParams.si`.
+* (DynamicLinks) property `DynamicLinks.api` is no longer available. to build dynamiclinks, you must use the new methods:
 
 ```actionscript
 var myLink:String = DynamicLinks.build(
@@ -163,8 +163,8 @@ DynamicLinks.toMakeShort(myLink, function ($link:String, $raw:String):void
 	}
 });
 ```
-* (DynamicLinks) for your convenient, a new method is introduced: ```DynamicLinks.share```.
-* (Invites) Firebase invites is deprecated and removed by Google. From now on, you can create dynamiclinks with your own custom invitation id using ```DynamicLinks.build``` method. Then, in your app you must be listening to ```DynamicLinksEvents.INVOKE``` event and check if the invitationId is available or not.
+* (DynamicLinks) for your convenient, a new method is introduced: `DynamicLinks.share`.
+* (Invites) Firebase invites is deprecated and removed by Google. From now on, you can create dynamiclinks with your own custom invitation id using `DynamicLinks.build` method. Then, in your app you must be listening to `DynamicLinksEvents.INVOKE` event and check if the invitationId is available or not.
 
 ```actionscript
 DynamicLinks.listener.addEventListener(DynamicLinksEvents.INVOKE, onDynamicLinksInvoke);
@@ -176,7 +176,7 @@ private function onDynamicLinksInvoke(e:DynamicLinksEvents):void
 }
 ```
 * (Auth) Auth ANE is no longer dependent on Firebase Invites. (Invites is removed and its functionality is moved into DynamicLinks)
-* (Auth) changed activity params for ```com.google.firebase.auth.internal.FederatedSignInActivity``` to:
+* (Auth) changed activity params for `com.google.firebase.auth.internal.FederatedSignInActivity` to:
 ```xml
 <activity
     android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
@@ -186,7 +186,7 @@ private function onDynamicLinksInvoke(e:DynamicLinksEvents):void
     android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
     android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 ```
-* (Auth) Added property ```dynamicLinkDomain``` to class ```ActionCodeSettings```. that is used in out-of-band email action flows.
+* (Auth) Added property `dynamicLinkDomain` to class `ActionCodeSettings`. that is used in out-of-band email action flows.
 
 * (MLKIT) MLKIT is still in beta version (by Google) and when new versions are released, they might not be backword compatible. till the alpha version is released things can change drastically. Follow the new instruction and new usage sample code on our GitHub repository.
 * (MLKIT) iOS depends on the following frameworks:
@@ -239,9 +239,9 @@ private function onDynamicLinksInvoke(e:DynamicLinksEvents):void
 * Updated to Firebase SDK 5.4.1 for iOS. update all the older .framework and resources. https://dl.google.com/firebase/sdk/ios/5_4_1/Firebase-5.4.1.zip
 * Updated Crashlytics iOS SDK to V3.10.7. You should copy the new .framework files to your AIR SDK. [Download from here](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.10.7/com.crashlytics.ios-manual.zip).
 * Added support for Firebase MLKIT. This ANE is still in beta phase.
-* (Core) Calling ```Firebase.iid.getToken``` would be valid only when passing ```$authorizedEntity``` and ```$scope```.
-* (Core) Instead of method ```getToken```, use the new method```Firebase.iid.getInstanceId();```.
-* (Core) Removed event ```FirebaseEvents.IID_TOKEN_REFRESH```. You must use ```FCM.listener.addEventListener(FcmEvents.TOKEN_REFRESH, onTokenRefresh);``` from now on.
+* (Core) Calling `Firebase.iid.getToken` would be valid only when passing `$authorizedEntity` and `$scope`.
+* (Core) Instead of method `getToken`, use the new method`Firebase.iid.getInstanceId();`.
+* (Core) Removed event `FirebaseEvents.IID_TOKEN_REFRESH`. You must use `FCM.listener.addEventListener(FcmEvents.TOKEN_REFRESH, onTokenRefresh);` from now on.
 * (Core) Removed:
 ```xml
 <service android:name="com.myflashlab.firebase.core.MyFirebaseInstanceIdService" android:exported="true">
@@ -250,7 +250,7 @@ private function onDynamicLinksInvoke(e:DynamicLinksEvents):void
     </intent-filter>
 </service>
 ```
-* (Core) Added: ```<uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>```
+* (Core) Added: `<uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>`
 * (Core) Added:
 ```xml
 <service android:name="com.google.firebase.components.ComponentDiscoveryService">
@@ -272,8 +272,8 @@ private function onDynamicLinksInvoke(e:DynamicLinksEvents):void
 
 </service>
 ```
-* (FCM) Added Events: ```FcmEvents.ON_SUBSCRIBE``` and ```FcmEvents.ON_UNSUBSCRIBE``` to know when topic un/subscription is completed.
-* (FCM) Removed ```getToken``` and added ```getInstanceId``` method:
+* (FCM) Added Events: `FcmEvents.ON_SUBSCRIBE` and `FcmEvents.ON_UNSUBSCRIBE` to know when topic un/subscription is completed.
+* (FCM) Removed `getToken` and added `getInstanceId` method:
 ```actionscript
 FCM.getInstanceId(onTokenReceived);
 function onTokenReceived($token:String, $error:String):void
@@ -297,10 +297,10 @@ function onTokenReceived($token:String, $error:String):void
 	</intent-filter>
 </service>
 ```
-* (Analytics) Added attribute *exported="true"* to ```com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver``` and moreover, moved all manifest setup from analytics to FirebaseCore.
-* (Analytics) Added new public method ```resetAnalyticsData``` to clear all Analytics data as well as reset App Instance ID.
-* (Auth) Removed deprecated method ```Firebaseuser.getToken```. Use ```getIdToken``` instead.
-* (Auth) Added class ```TokenResult```. is accessible from “FirebaseUserEvents.GET_USER_TOKEN” event. access token using ```e.tokenResult```
+* (Analytics) Added attribute *exported="true"* to `com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver` and moreover, moved all manifest setup from analytics to FirebaseCore.
+* (Analytics) Added new public method `resetAnalyticsData` to clear all Analytics data as well as reset App Instance ID.
+* (Auth) Removed deprecated method `Firebaseuser.getToken`. Use `getIdToken` instead.
+* (Auth) Added class `TokenResult`. is accessible from “FirebaseUserEvents.GET_USER_TOKEN” event. access token using `e.tokenResult`
 ```actionscript
 FirebaseUser.listener.addEventListener(FirebaseUserEvents.GET_USER_TOKEN, onGetUserToken);
 private function onGetUserToken(e:FirebaseUserEvents):void
@@ -321,7 +321,7 @@ private function onGetUserToken(e:FirebaseUserEvents):void
 	}
 }
 ```
-* (Auth) Added new ```meta-data``` tag as follow. make sure you are adding this to the currently existing ```<service>``` tag.
+* (Auth) Added new `meta-data` tag as follow. make sure you are adding this to the currently existing `<service>` tag.
 ```xml
 <service android:name="com.google.firebase.components.ComponentDiscoveryService" >
     <meta-data
@@ -330,16 +330,16 @@ private function onGetUserToken(e:FirebaseUserEvents):void
 </service>
 ```
 * (Auth) There's a known bug in AIR SDK [explained here](https://tracker.adobe.com/#/view/AIR-4198557). If you are seeing this problem when compiling the iOS side of your app, [check out this video](https://www.youtube.com/watch?v=m4bwZRCvs2c) for the fix.
-* (Auth) Features like ```Auth.sendSignInLinkToEmail``` need DynamicLink And Invites to be implemented in the project already.
+* (Auth) Features like `Auth.sendSignInLinkToEmail` need DynamicLink And Invites to be implemented in the project already.
 * (Auth) FirebaseAuth has too many APIs based on Firebase Invites and Dynamic Links. So, we have made it dependent on FirebaseInvite when using the [ANELAB software](https://github.com/myflashlab/ANE-LAB). FirebaseInvite is also dependent on FirebaseDynamicLinks. It is strongly recommended to implement DynamicLinks and invites prior to implementing Auth to your app.
-* (Firestore) Removed ```QueryListenOptions``` class and added [MetadataChanges](https://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/firestore/MetadataChanges.html) class to be used with ```addSnapshotListener``` method. You don't need to initialize the new class, simply pass ```MetadataChanges.INCLUDE``` or ```MetadataChanges.EXCLUDE``` as the last parameter of ```addSnapshotListener``` method.
-* (Firestore) Query and collection ```read``` methods now optionally takes a MetadataChanges value. Notice that by default, metadata-only document changes are suppressed in the ```read()``` method, even when listening to a query with MetadataChanges.INCLUDE.
-* (Firestore) Added the ability to control whether ```read``` method for documents and queries should fetch from server only, cache only, or attempt server and fall back to the cache. By default, both methods still attempt server and fall back to the cache. check the new class [Source](https://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/firestore/Source.html).
-* (Firestore) Added a ```Firestore.setServerTimestampBehavior``` to control how DocumentSnapshots return unresolved server timestamps.
+* (Firestore) Removed `QueryListenOptions` class and added [MetadataChanges](https://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/firestore/MetadataChanges.html) class to be used with `addSnapshotListener` method. You don't need to initialize the new class, simply pass `MetadataChanges.INCLUDE` or `MetadataChanges.EXCLUDE` as the last parameter of `addSnapshotListener` method.
+* (Firestore) Query and collection `read` methods now optionally takes a MetadataChanges value. Notice that by default, metadata-only document changes are suppressed in the `read()` method, even when listening to a query with MetadataChanges.INCLUDE.
+* (Firestore) Added the ability to control whether `read` method for documents and queries should fetch from server only, cache only, or attempt server and fall back to the cache. By default, both methods still attempt server and fall back to the cache. check the new class [Source](https://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/firestore/Source.html).
+* (Firestore) Added a `Firestore.setServerTimestampBehavior` to control how DocumentSnapshots return unresolved server timestamps.
     * DocumentSnapshot.ServerTimestampBehavior_NONE
     * DocumentSnapshot.ServerTimestampBehavior_ESTIMATE
     * DocumentSnapshot.ServerTimestampBehavior_PREVIOUS
-* (Firestore) Added new ```meta-data``` tag as follow. make sure you are adding this to the currently existing ```<service>``` tag.
+* (Firestore) Added new `meta-data` tag as follow. make sure you are adding this to the currently existing `<service>` tag.
 ```xml
 <service android:name="com.google.firebase.components.ComponentDiscoveryService" >
     <meta-data
@@ -348,8 +348,8 @@ private function onGetUserToken(e:FirebaseUserEvents):void
 </service>
 ```
 * (Firestore) mergeFields is now available on the iOS side also. Prior to this version, it was supported on the Android side only.
-* (Storage) Removed ```downloadUrl``` and ```downloadUrls``` from StorageMetadata class and added ```ref``` property which returns a reference to the ```StorageReference``` object of the current StorageMetadata. You may use the ```getDownloadUrl``` method of this object instead of the removed ones.
-* (Storage) Added support for ```StorageEvents.TASK_COMPLETE``` on instances of UploadTask and FileDownloadTask:
+* (Storage) Removed `downloadUrl` and `downloadUrls` from StorageMetadata class and added `ref` property which returns a reference to the `StorageReference` object of the current StorageMetadata. You may use the `getDownloadUrl` method of this object instead of the removed ones.
+* (Storage) Added support for `StorageEvents.TASK_COMPLETE` on instances of UploadTask and FileDownloadTask:
 ```actionscript
 fileDownloadTask.addEventListener(StorageEvents.TASK_COMPLETE, onDownloadFileComplete);
 function onDownloadFileComplete(e:StorageEvents):void
@@ -373,11 +373,11 @@ function onDownloadFileComplete(e:StorageEvents):void
 * Updated to Firebase SDK 12.0.1 for Android. update all the depenency ANEs.
 * Updated to Firebase SDK 4.11.0 for iOS. update all the .framework and resources. https://dl.google.com/firebase/sdk/ios/4_11_0/Firebase-4.11.0.zip
 * (Core) You need to regenerate the core ANE using the ane generator software V6.5.0 and you need to update all the other Firebase children that you are using in your project.
-* (Core) multidex attribute added to the main android application tag in the manifest: ```android:name="android.support.multidex.MultiDexApplication"```
+* (Core) multidex attribute added to the main android application tag in the manifest: `android:name="android.support.multidex.MultiDexApplication"`
 * (Firestore) Removed the following framework dependencies:
     * FirebaseAuth
     * GTMSessionFetcher
-* (Firestore) batch.commit now takes a param ```$listenForCallback```. if set to false, FirestoreEvents.BATCH_SUCCESS or FirestoreEvents.BATCH_FAILURE won’t be dispatched.
+* (Firestore) batch.commit now takes a param `$listenForCallback`. if set to false, FirestoreEvents.BATCH_SUCCESS or FirestoreEvents.BATCH_FAILURE won’t be dispatched.
 * (Firestore) Added methods: disableNetwork/enableNetwork
 * (Analytics) introduced new analytics events and params. Check asdoc for more details.
 * (Analytics) Setting the ID to null removes the user ID.
