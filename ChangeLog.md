@@ -1,5 +1,8 @@
 Firebase Air Native Extension
 
+J*an 23, 2020 - V9.0.0*
+- Add sondroidx dependencies instead of android support libraries.
+
 *Aug 3, 2019 - V8.0.1*
 * Added support for Android 64-bit
 * Supports iOS 10+
