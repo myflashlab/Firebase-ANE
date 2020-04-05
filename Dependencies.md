@@ -12,15 +12,157 @@ Supported Firebase Features:
 - [x] Authentication
 - [x] Crashlytics
 - [x] DynamicLinks
-- [x] FCM
+- [x] FCM + **OneSignal**
 - [x] Realtime Database
 - [x] Firestore
 - [x] Functions
-- [x] MLKit
+- [ ] ~~MLKit~~
 - [x] Performance
 - [x] Remote Config
 - [x] Storage
 - [ ] In-App Messaging
+
+# V9.x.x #
+Find the latest Android dependencies [here](https://github.com/myflashlab/common-dependencies-ANE). And download the iOS frameworks **V6.5.0 [from here](https://dl.google.com/firebase/sdk/ios/6_5_0/Firebase-6.5.0.zip)**. And finally, if you want to use Crashlytics, you should download the frameworks **V3.14.0 [from here](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.14.0/com.crashlytics.ios-manual.zip)**.
+
+**firebaseCore.ane**
+Android | iOS
+------------ | -------------
+overrideAir.ane | overrideAir.ane
+androidx_arch.ane | FirebaseAnalytics.framework
+androidx_core.ane | FirebaseCore.framework
+androidx_lifecycle.ane | FirebaseInstanceID.framework
+firebase_analytics.ane | GoogleAppMeasurement.framework
+firebase_common.ane | GoogleUtilities.framework
+firebase_iid.ane | nanopb.framework
+firebase_measurementConnector.ane | FIRAnalyticsConnector.framework
+googlePlayServices_ads.ane | FirebaseCoreDiagnostics.framework
+googlePlayServices_base.ane | .
+googlePlayServices_basement.ane | .
+googlePlayServices_measurementBase.ane | .
+googlePlayServices_stats.ane | .
+googlePlayServices_tasks.ane | .
+
+
+**firebaseAnalytics.ane**
+Android | iOS
+------------ | -------------
+firebaseCore.ane | firebaseCore.ane
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+
+**firebaseDynamicLinks.ane**
+Android | iOS
+------------ | -------------
+firebaseCore.ane | firebaseCore.ane
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+firebase_dynamicLinks.ane | FirebaseDynamicLinks.framework
+
+**firebaseAuth.ane**
+Android | iOS
+------------ | -------------
+firebaseCore.ane | firebaseCore.ane
+firebaseDynamicLinks.ane | firebaseDynamicLinks.ane
++other ANEs required by the 'Core' and 'DynamicLinks' | +other frameworks/ANEs required by the 'Core' and 'DynamicLinks'
+firebase_auth.ane | FirebaseAuth.framework
+gson.ane | GTMSessionFetcher.framework
+googlePlayServices_flags.ane | .
+
+**firebaseDatabase.ane**
+Android | iOS
+------------ | -------------
+firebaseCore.ane | firebaseCore.ane
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+firebase_database.ane | FirebaseDatabase.framework
+firebase_databaseCollection.ane | leveldb-library.framework
+firebase_auth.ane | .
+googlePlayServices_flags.ane | .
+gson.ane | .
+
+**firebaseFunctions.ane**
+Android | iOS
+------------ | -------------
+firebaseCore.ane | firebaseCore.ane
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+firebase_addons_squareup.ane | FirebaseFunctions.framework
+firebase_functions.ane | GTMSessionFetcher.framework
+firebase_auth.ane | .
+gson.ane | .
+
+**firebaseFirestore.ane**
+Android | iOS
+------------ | -------------
+firebaseCore.ane | firebaseCore.ane
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+firebase_addons_squareup.ane | BoringSSL-GRPC.framework
+firebase_auth.ane | FirebaseFirestore.framework
+firebase_databaseCollection.ane | gRPC-C++.framework
+firebase_firestore.ane | gRPC-Core.framework
+gson.ane | leveldb-library.framework
+firebase_addons_firestore.ane | Protobuf.framework
+. | **Resources:**  gRPCCertificates-Cpp.bundle
+
+**firebaseRemoteConfig.ane**
+Android | iOS
+------------ | -------------
+firebaseCore.ane | firebaseCore.ane
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+firebase_config.ane | FirebaseRemoteConfig.framework
+firebase_abt.ane | Protobuf.framework
+. | FirebaseABTesting.framework
+
+**firebasePerformance.ane**
+Android | iOS
+------------ | -------------
+firebaseCore.ane | firebaseCore.ane
+firebaseRemoteConfig.ane | firebaseRemoteConfig.ane
++other ANEs required by the 'Core' and 'RemoteConfig' | +other frameworks/ANEs required by the 'Core' and 'RemoteConfig'
+firebase_perf.ane | FirebasePerformance.framework
+googlePlayServices_clearcut.ane | GTMSessionFetcher.framework
+googlePlayServices_phenotype.ane | GoogleToolboxForMac.framework
+
+**firebaseStorage.ane**
+Android | iOS
+------------ | -------------
+firebaseCore.ane | firebaseCore.ane
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+firebase_storage.ane | FirebaseStorage.framework
+firebase_auth.ane | GTMSessionFetcher.framework
+googlePlayServices_flags.ane | .
+gson.ane | .
+
+**firebaseCrashlytics.ane**
+Android | iOS
+------------ | -------------
+firebaseCore.ane | firebaseCore.ane
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+. | [Crashlytics.framework V3.14.0](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.14.0/com.crashlytics.ios-manual.zip)
+. | [Fabric.framework V3.14.0](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.14.0/com.crashlytics.ios-manual.zip)
+
+**firebaseMessaging.ane**
+Android | iOS
+------------ | -------------
+firebaseCore.ane | firebaseCore.ane
++other ANEs required by the 'Core' | +other frameworks/ANEs required by the 'Core'
+firebase_messaging.ane | FirebaseMessaging.framework
+firebase_datatransport.ane | Protobuf.framework
+firebase_encoders_json.ane | .
+firebase_addons_fcm.ane | .
+(*OneSignal*) googlePlayServices_places.ane | .
+(*OneSignal*) googlePlayServices_location.ane | .
+(*OneSignal*) androidx_design.ane | .
+(*OneSignal*) androidx_browser.ane | .
+------------
+
+
+
+
+
+
+
+
+
+
+
 
 # V8.x.x #
 Find the latest Android dependencies [here](https://github.com/myflashlab/common-dependencies-ANE). And download the iOS frameworks **V5.20.2 [from here](https://dl.google.com/firebase/sdk/ios/5_20_2/Firebase-5.20.2.zip)**. And finally, if you want to use Crashlytics, you should download the frameworks **V3.12.0 [from here](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.12.0/com.crashlytics.ios-manual.zip)**.

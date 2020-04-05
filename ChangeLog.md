@@ -1,7 +1,225 @@
 Firebase Air Native Extension
 
-J*an 23, 2020 - V9.0.0*
-- Add androidx dependencies instead of android support libraries.
+*Apr 04, 2020 - V9.0.1*
+- Upgraded to Androidx libraries.
+- Upgraded to Firebase SDK 17.2.1 for Android. update the dependencies based on [this list](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md)
+- Upgraded to [Firebase SDK 6.5.0](https://dl.google.com/firebase/sdk/ios/6_5_0/Firebase-6.5.0.zip) for iOS. update all the older .framework and resources. based on [this list](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md)
+- Replace the following dependencies:
+```xml
+<extensionID>com.myflashlab.air.extensions.dependency.androidSupport.arch</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.androidSupport.core</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.androidSupport.v4</extensionID>
+```
+with these:
+```xml
+<extensionID>com.myflashlab.air.extensions.dependency.androidx.arch</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.androidx.core</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.androidx.lifecycle</extensionID>
+```
+
+- Remove the following server tag:
+```xml
+<service
+    android:name="com.google.firebase.iid.FirebaseInstanceIdService"
+    android:exported="true">
+    <intent-filter android:priority="-500">
+        <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+    </intent-filter>
+</service>
+```
+
+- Add the following provider:
+```xml
+<!-- Required by androidx_lifecycle.ane Change {PACKAGE_NAME} to your own app package name -->
+<provider
+    android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+    android:authorities="{PACKAGE_NAME}.lifecycle-process"
+    android:exported="false"
+    android:multiprocess="true"/>
+```
+
+- (**FCM**) the following new dependencies must be added:
+```xml
+<extensionID>com.myflashlab.air.extensions.dependency.firebase.datatransport</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.firebase.encoders.json</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.firebase.addons.fcm</extensionID>
+```
+
+- (**FCM**) the following new service tags must be added under the android ```<application>``` tag:
+```xml
+<!-- Required by firebase_addons_fcm.ane -->
+<service
+    android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+    android:exported="false">
+    <meta-data
+        android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+        android:value="cct"/>
+</service>
+<service
+    android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+    android:exported="false"
+    android:permission="android.permission.BIND_JOB_SERVICE"/>
+<receiver
+    android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+    android:exported="false"/>
+```
+
+- (**FCM**) the following two ```meta-data``` must be added under the ``` ``` tag:
+```xml
+<service android:name="com.google.firebase.components.ComponentDiscoveryService" android:exported="false">
+
+    <!-- 
+        Previous meta-data tags for Firebase core and other children...
+        ...
+    -->
+
+
+    <!-- Required by firebase_messaging.ane -->
+    <meta-data
+        android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+        android:value="com.google.firebase.components.ComponentRegistrar"/>
+
+    <!-- Required by firebase_datatransport.ane -->
+    <meta-data
+        android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+        android:value="com.google.firebase.components.ComponentRegistrar"/>
+</service>
+```
+
+- (**FCM**) implemented OneSignal functionalety into FCM.
+    - OneSignal Android SDK [V3.13.0](https://github.com/OneSignal/OneSignal-Android-SDK/releases)
+    - OneSignal iOS SDK [V2.10.0](https://github.com/OneSignal/OneSignal-iOS-SDK/releases)
+
+- (**FCM**) For OneSignal library, the folloiwng dependencies must also be added:
+```xml
+<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.places</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.location</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.androidx.design</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.androidx.browser</extensionID>
+```
+
+- (**FCM**) OneSignal library requiers the following permissions added to the manifest also: Don't forget to replace **{PACKAGE_NAME}** to your app's package name before copy pasting.
+```xml
+<uses-permission android:name="android.permission.VIBRATE"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+<permission android:name="{PACKAGE_NAME}.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+<uses-permission android:name="{PACKAGE_NAME}.permission.C2D_MESSAGE"/>
+
+<!-- Samsung -->
+<uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
+<uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
+<!-- HTC -->
+<uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS"/>
+<uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT"/>
+<!-- Sony -->
+<uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE"/>
+<uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE"/>
+<!-- Apex -->
+<uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT"/>
+<!-- Solid -->
+<uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE"/>
+<!-- Huawei -->
+<uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
+<uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS"/>
+<uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS"/>
+<!-- ZUK -->
+<uses-permission android:name="android.permission.READ_APP_BADGE"/>
+<!-- OPPO -->
+<uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS"/>
+<uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS"/>
+<!-- EvMe -->
+<uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ"/>
+<uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE"/>
+```
+
+- (**FCM**) And finally, for OneSignal library to work, you need to add the folloiwng to the ```<application>``` tag of your Android setup: Don't forget to replace the data inside **{xxxx}** to the correct data.
+```xml
+<!-- Required if using OneSignal -->
+<meta-data android:name="onesignal_app_id" android:value="{ONESIGNAL_APP_ID}"/>
+<meta-data android:name="onesignal_google_project_number" android:value="str:REMOTE"/>
+<receiver
+    android:name="com.onesignal.GcmBroadcastReceiver"
+    android:permission="com.google.android.c2dm.permission.SEND">
+
+    <intent-filter android:priority="999">
+        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+        <category android:name="{PACKAGE_NAME}"/>
+    </intent-filter>
+</receiver>
+<receiver android:name="com.onesignal.NotificationOpenedReceiver"/>
+<service android:name="com.onesignal.GcmIntentService"/>
+<service android:name="com.onesignal.GcmIntentJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+<service android:name="com.onesignal.RestoreJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+<service android:name="com.onesignal.RestoreKickoffJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+<service android:name="com.onesignal.SyncService" android:stopWithTask="true"/>
+<service android:name="com.onesignal.SyncJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+<activity android:name="com.onesignal.PermissionsActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+<service android:name="com.onesignal.NotificationRestoreService"/>
+<receiver android:name="com.onesignal.BootUpReceiver">
+    <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+    </intent-filter>
+</receiver>
+<receiver android:name="com.onesignal.UpgradeReceiver">
+    <intent-filter>
+       <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+    </intent-filter>
+</receiver>
+```
+
+- (**FCM**) For OneSignal to work on the iOS side, you must add the following under: Don't forget to replace **{ONESIGNAL_APP_ID}**.
+```xml
+<key>onesignal_app_id</key>
+<string>{ONESIGNAL_APP_ID}</string>
+```
+
+- (**Storage**) Beside the older dependencies, the following dependencies are needed to be added too:
+```xml
+<extensionID>com.myflashlab.air.extensions.dependency.firebase.auth</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.flags</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.gson</extensionID>
+```
+
+- (**DB**) Beside the older dependencies, the following dependencies are needed to be added too:
+```xml
+<extensionID>com.myflashlab.air.extensions.dependency.firebase.auth</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.googlePlayServices.flags</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.gson</extensionID>
+```
+
+- (**Functions**) Replace this dependnecy ```<extensionID>com.myflashlab.air.extensions.dependency.firebase.addons</extensionID>``` with the following:
+```xml
+<extensionID>com.myflashlab.air.extensions.dependency.firebase.addons.squareup</extensionID>
+```
+
+- (**Firestore**) Replace this dependnecy ```<extensionID>com.myflashlab.air.extensions.dependency.firebase.addons</extensionID>``` with the following ones:
+```xml
+<extensionID>com.myflashlab.air.extensions.dependency.firebase.addons.firestore</extensionID>
+<extensionID>com.myflashlab.air.extensions.dependency.firebase.addons.squareup</extensionID>
+```
+
+- (**Auth**) Need to add REVERSED_CLIENT_ID from the GoogleService-Info.plist file to the manifest for iOS side under the ```<InfoAdditions>``` tag:
+```xml
+<!-- Add REVERSED_CLIENT_ID from the GoogleService-Info.plist file -->
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLName</key>
+		<string>google</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>{REVERSED_CLIENT_ID}</string>
+		</array>
+	</dict>
+</array>
+```
+
+- (**MLKIT**) MLKIT development is temporarily discontinues.
+
 
 *Aug 3, 2019 - V8.0.1*
 * Added support for Android 64-bit

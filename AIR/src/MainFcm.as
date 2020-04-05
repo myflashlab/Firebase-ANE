@@ -209,6 +209,7 @@ public class MainFcm extends Sprite
 				
 				// now you can use FCM
 				initFCM();
+				initOneSignal();
 				createAndroidNotificationChannel();
 				onResize();
 				
@@ -246,7 +247,7 @@ public class MainFcm extends Sprite
 		}
 	}
 	
-	private function createAndroidNotificationChannel():void
+	private static function createAndroidNotificationChannel():void
 	{
 		// channels are required on Android 8+ only
 		if(OverrideAir.os == OverrideAir.ANDROID)
@@ -276,107 +277,263 @@ public class MainFcm extends Sprite
 	private function initFCM():void
 	{
 		FCM.init(); // web API key: AIzaSyBvWdo5STJ4pPl3FG6MHlEsiguedNzdxhQ
-		FCM.listener.addEventListener(FcmEvents.TOKEN_REFRESH, onTokenRefresh);
-		FCM.listener.addEventListener(FcmEvents.MESSAGE, onMessage);
-		FCM.listener.addEventListener(FcmEvents.DELETED_MESSAGES, onDeletedMessages);
 		
-		var btn1:MySprite = createBtn("getToken");
-		btn1.addEventListener(MouseEvent.CLICK, getToken);
-		_list.add(btn1);
-		
-		function getToken(e:MouseEvent):void
+		FCM.listener.addEventListener(FcmEvents.TOKEN_REFRESH, function(e:FcmEvents):void
 		{
-			FCM.getInstanceId(onTokenReceived);
-		}
+			trace("\tFCM: onTokenRefresh = " + e.token);
+			C.log("\tFCM: onTokenRefresh = " + e.token);
+		});
 		
-		function onTokenReceived($token:String, $error:String):void
+		FCM.listener.addEventListener(FcmEvents.MESSAGE, function(e:FcmEvents):void
 		{
-			if($error)
-			{
-				trace("onTokenReceived error: " + $error);
-				C.log("onTokenReceived error: " + $error);
-			}
+			trace(e.msg);
+			var payload:Object = FCM.parsePayloadFromString(e.msg);
 			
-			if($token)
+			if(payload)
 			{
-				trace("token: " + $token);
-				C.log("token: " + $token);
+				for(var name:String in payload)
+				{
+					C.log("\tFCM: " + name + " = " + payload[name]);
+					trace("\tFCM: " + name + " = " + payload[name]);
+				}
 			}
-		}
+		});
 		
-		var btn2:MySprite = createBtn("subscribe to 'news'");
-		btn2.addEventListener(MouseEvent.CLICK, subscribe);
-		_list.add(btn2);
+		FCM.listener.addEventListener(FcmEvents.DELETED_MESSAGES, function onDeletedMessages(e:FcmEvents):void
+		{
+			C.log("\tFCM: DELETED_MESSAGES happened!");
+		});
 		
-		function subscribe(e:MouseEvent):void
+		var btn_fcm_1:MySprite = createBtn("getToken", 0xe6ffdf);
+		_list.add(btn_fcm_1);
+		btn_fcm_1.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void
+		{
+			FCM.getInstanceId(function($token:String, $error:String):void
+			{
+				if($error)
+				{
+					trace("\tFCM: onTokenReceived error: " + $error);
+					C.log("\tFCM: onTokenReceived error: " + $error);
+				}
+				
+				if($token)
+				{
+					trace("\tFCM: token: " + $token);
+					C.log("\tFCM: token: " + $token);
+				}
+			});
+		});
+		
+		var btn_fcm_2:MySprite = createBtn("subscribe to 'news'", 0xe6ffdf);
+		_list.add(btn_fcm_2);
+		btn_fcm_2.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void
 		{
 			// optionally you can listen to FcmEvents.ON_SUBSCRIBE to know the result
-			if(!FCM.listener.hasEventListener(FcmEvents.ON_SUBSCRIBE)) FCM.listener.addEventListener(FcmEvents.ON_SUBSCRIBE, onSubscribeResult);
+			if(!FCM.listener.hasEventListener(FcmEvents.ON_SUBSCRIBE))
+			{
+				FCM.listener.addEventListener(FcmEvents.ON_SUBSCRIBE, function(e:FcmEvents):void
+				{
+					trace("\tFCM: subscribe to topic " + e.topic + ": " + e.isSuccessful);
+					C.log("\tFCM: subscribe to topic " + e.topic + ": " + e.isSuccessful);
+				});
+			}
 			
 			// It will take 24 hours before you can see this topic on the Firebase console
 			FCM.subscribeToTopic("news");
-		}
+		});
 		
-		var btn3:MySprite = createBtn("unsubscribe from 'news'");
-		btn3.addEventListener(MouseEvent.CLICK, unsubscribe);
-		_list.add(btn3);
-		
-		function unsubscribe(e:MouseEvent):void
+		var btn_fcm_3:MySprite = createBtn("unsubscribe from 'news'", 0xe6ffdf);
+		_list.add(btn_fcm_3);
+		btn_fcm_3.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void
 		{
 			// optionally you can listen to FcmEvents.ON_UNSUBSCRIBE to know the result
-			if(!FCM.listener.hasEventListener(FcmEvents.ON_UNSUBSCRIBE)) FCM.listener.addEventListener(FcmEvents.ON_UNSUBSCRIBE, onUnsubscribeResult);
+			if(!FCM.listener.hasEventListener(FcmEvents.ON_UNSUBSCRIBE))
+			{
+				FCM.listener.addEventListener(FcmEvents.ON_UNSUBSCRIBE, function(e:FcmEvents):void
+				{
+					trace("\tFCM: unsubscribe to topic " + e.topic + ": " + e.isSuccessful);
+					C.log("\tFCM: unsubscribe to topic " + e.topic + ": " + e.isSuccessful);
+				});
+			}
 			
 			FCM.unsubscribeFromTopic("news");
-		}
+		});
 	}
 	
-	private function onSubscribeResult(e:FcmEvents):void
+	private function initOneSignal():void
 	{
-		trace("subscribe to topic " + e.topic + ": " + e.isSuccessful);
-		C.log("subscribe to topic " + e.topic + ": " + e.isSuccessful);
-	}
-	
-	private function onUnsubscribeResult(e:FcmEvents):void
-	{
-		trace("unsubscribe to topic " + e.topic + ": " + e.isSuccessful);
-		C.log("unsubscribe to topic " + e.topic + ": " + e.isSuccessful);
-	}
-	
-	private function onTokenRefresh(e:FcmEvents):void
-	{
-		trace("onTokenRefresh = " + e.token);
-		C.log("onTokenRefresh = " + e.token);
-	}
-	
-	private function onDeletedMessages(e:FcmEvents):void
-	{
-		C.log("FcmEvents.DELETED_MESSAGES happened!");
-	}
-	
-	private function onMessage(e:FcmEvents):void
-	{
-		trace(e.msg);
-		var payload:Object = FCM.parsePayloadFromString(e.msg);
+		/*
+			if you set to true, you must ask for user's consent and then pass the result to
+			'consentGranted($granted:Boolean)' so the SDK can continue to work normally
+		*/
+		//OneSignal.requiresUserPrivacyConsent = true;
 		
-		if(payload)
+		OneSignal.setLogLevel(OneSignalLogLevel.VERBOSE, OneSignalLogLevel.NONE);
+		
+		var settings:OneSignalInitSettings = new OneSignalInitSettings();
+		
+		// iOS settings
+		settings.autoPrompt = false;
+		settings.inAppAlerts = true;
+		settings.inAppLaunchURL = true;
+		settings.promptBeforeOpeningPushURL = true;
+		settings.providesAppNotificationSettings = true;
+		
+		// Android settings
+		settings.autoPromptLocation = false;
+		settings.disableGmsMissingPrompt = false;
+		settings.unsubscribeWhenNotificationsAreDisabled = false;
+		settings.filterOtherGCMReceivers = false;
+		
+		// Android + iOS settings
+		settings.inFocusDisplayOption = OneSignalDisplayType.IN_APP_ALERT;
+		
+		OneSignal.init(settings);
+		
+		// you may change how notifications are shown when your app is in focus
+		OneSignal.inFocusDisplayType = OneSignalDisplayType.IN_APP_ALERT;
+		
+		// On iOS, it is required to get the user's consent before collecting location.
+		OneSignal.setlocationshared(true);
+		
+		// add listeners
+		OneSignal.listener.addEventListener(OneSignalEvents.NOTIFICATION_RECEIVED, function(e:OneSignalEvents):void
 		{
-			for(var name:String in payload)
+			trace("OneSignal onNotificationReceived: " + e.msg);
+			C.log("OneSignal onNotificationReceived: " + e.msg);
+		});
+		
+		OneSignal.listener.addEventListener(OneSignalEvents.NOTIFICATION_OPENED, function(e:OneSignalEvents):void
+		{
+			trace("OneSignal onNotificationOpened: " + e.msg);
+			C.log("OneSignal onNotificationOpened: " + e.msg);
+		});
+		
+		//----------------------------------------------------------------------
+		var btn0:MySprite = createBtn("Ask for permission", 0xDFE4FF);
+		btn0.addEventListener(MouseEvent.CLICK, askPermission);
+		if(OverrideAir.os == OverrideAir.IOS) _list.add(btn0);
+		
+		function askPermission(e:MouseEvent):void
+		{
+			OneSignal.promptForPushNotifications(function ($accepted:Boolean):void
 			{
-				C.log(name + " = " + payload[name]);
-				trace(name + " = " + payload[name]);
-			}
+				trace("promptForPushNotifications, result: " + $accepted);
+				C.log("promptForPushNotifications, result: " + $accepted);
+			});
 		}
+		
+		//----------------------------------------------------------------------
+		var btn1:MySprite = createBtn("getPermissionSubscriptionState", 0xDFE4FF);
+		_list.add(btn1);
+		btn1.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void
+		{
+			/*
+				check permission state meaning in NotificationPermissionStatus
+				NotificationPermissionStatus.NOT_DETERMINDED > 0
+				NotificationPermissionStatus.DENIED > 1
+				NotificationPermissionStatus.AUTHORIZED > 2
+				NotificationPermissionStatus.PROVISIONAL > 3
+			*/
+			C.log(OneSignal.getPermissionSubscriptionState());
+			trace(OneSignal.getPermissionSubscriptionState());
+		});
+		
+		//----------------------------------------------------------------------
+		var btn2:MySprite = createBtn("getTags", 0xDFE4FF);
+		_list.add(btn2);
+		btn2.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void
+		{
+			OneSignal.getTags(function($msg:String):void
+			{
+				trace($msg);
+				C.log($msg);
+			});
+		});
+		
+		//----------------------------------------------------------------------
+		var btn3:MySprite = createBtn("sendTag", 0xDFE4FF);
+		_list.add(btn3);
+		btn3.addEventListener(MouseEvent.CLICK, function sendTag(e:MouseEvent):void
+		{
+			OneSignal.sendTag("TagKey1", "TagValue1");
+		});
+		
+		//----------------------------------------------------------------------
+		var btn4:MySprite = createBtn("sendTags", 0xDFE4FF);
+		_list.add(btn4);
+		btn4.addEventListener(MouseEvent.CLICK, function sendTags(e:MouseEvent):void
+		{
+			var tags:Object = {};
+			tags.TagKey2 = "TagValue2";
+			tags.TagKey3 = "TagValue3";
+			tags["TagKey4"] = "TagValue4";
+			tags.time = new Date().toLocaleTimeString();
+			
+			OneSignal.sendTags(tags, function($msg:String):void
+			{
+				trace($msg);
+				C.log($msg);
+				
+			}, function($error:String):void
+			{
+				trace($error);
+				C.log($error);
+			});
+		});
+		
+		//----------------------------------------------------------------------
+		var btn5:MySprite = createBtn("deleteTag", 0xDFE4FF);
+		_list.add(btn5);
+		btn5.addEventListener(MouseEvent.CLICK, function deleteTag(e:MouseEvent):void
+		{
+			OneSignal.deleteTag("TagKey4", function($msg:String):void
+			{
+				trace($msg);
+				C.log($msg);
+				
+			}, function($error:String):void
+			{
+				trace($error);
+				C.log($error);
+			});
+		});
+		
+		//----------------------------------------------------------------------
+		var btn6:MySprite = createBtn("deleteTags", 0xDFE4FF);
+		_list.add(btn6);
+		btn6.addEventListener(MouseEvent.CLICK, function deleteTags(e:MouseEvent):void
+		{
+			OneSignal.deleteTags(["TagKey3", "TagKey4"], function($msg:String):void
+			{
+				trace($msg);
+				C.log($msg);
+				
+			}, function ($error:String):void
+			{
+				trace($error);
+				C.log($error);
+			});
+		});
+		
+		//----------------------------------------------------------------------
+		var btn7:MySprite = createBtn("promptLocation", 0xDFE4FF);
+		_list.add(btn7);
+		btn7.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void
+		{
+			OneSignal.promptLocation();
+		});
 	}
 	
-	
-	private function createBtn($str:String):MySprite
+	// --------------------------------------------------------------------------------------------------------
+	private function createBtn($str:String, $bgColor:uint = 0xDFE4FF):MySprite
 	{
 		var sp:MySprite = new MySprite();
 		sp.addEventListener(MouseEvent.MOUSE_OVER, onOver);
 		sp.addEventListener(MouseEvent.MOUSE_OUT, onOut);
 		sp.addEventListener(MouseEvent.CLICK, onOut);
 		sp.bgAlpha = 1;
-		sp.bgColor = 0xDFE4FF;
+		sp.bgColor = $bgColor;
 		sp.drawBg();
 		sp.width = BTN_WIDTH * DeviceInfo.dpiScaleMultiplier;
 		sp.height = BTN_HEIGHT * DeviceInfo.dpiScaleMultiplier;
@@ -391,7 +548,7 @@ public class MainFcm extends Sprite
 		function onOut(e:MouseEvent):void
 		{
 			sp.bgAlpha = 1;
-			sp.bgColor = 0xDFE4FF;
+			sp.bgColor = $bgColor;
 			sp.drawBg();
 		}
 		
