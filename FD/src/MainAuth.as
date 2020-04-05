@@ -75,7 +75,7 @@ package
 			_txt.multiline = true;
 			_txt.wordWrap = true;
 			_txt.embedFonts = false;
-			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Auth V"+Firebase.VERSION+"</font>";
+			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Auth V"+Auth.VERSION+"</font>";
 			_txt.scaleX = _txt.scaleY = DeviceInfo.dpiScaleMultiplier;
 			this.addChild(_txt);
 			
@@ -122,6 +122,7 @@ package
 		{
 			if (_txt)
 			{
+				_txt.y = 150 * (1 / DeviceInfo.dpiScaleMultiplier);
 				_txt.width = stage.stageWidth * (1 / DeviceInfo.dpiScaleMultiplier);
 				
 				C.x = 0;
@@ -166,12 +167,22 @@ package
 				C.log("google_storage_bucket = " + 				config.google_storage_bucket);
 				C.log("project_id = " + 						config.project_id);
 				
+				trace("default_web_client_id = " + 				config.default_web_client_id);
+				trace("firebase_database_url = " + 				config.firebase_database_url);
+				trace("gcm_defaultSenderId = " + 				config.gcm_defaultSenderId);
+				trace("google_api_key = " + 					config.google_api_key);
+				trace("google_app_id = " + 						config.google_app_id);
+				trace("google_crash_reporting_api_key = " + 	config.google_crash_reporting_api_key);
+				trace("google_storage_bucket = " + 				config.google_storage_bucket);
+				trace("project_id = " + 						config.project_id);
+
 				initFirebaseAuth();
 				initDynamicLinks();
 			}
 			else
 			{
 				C.log("Config file is not found!");
+				trace("Config file is not found!");
 			}
 		}
 		
@@ -196,11 +207,13 @@ package
 				if (Auth.isLoggin)
 				{
 					C.log("user is logged in");
+					trace("user is logged in");
 					getUserInfo();
 				}
 				else
 				{
 					C.log("user is NOT logged in");
+					trace("user is NOT logged in");
 				}
 			}
 			
@@ -214,6 +227,7 @@ package
 				if (Auth.isLoggin)
 				{
 					C.log("user is already signed in.")
+					trace("user is already signed in.")
 				}
 				else
 				{
@@ -311,8 +325,12 @@ package
 			
 			function reloadUserInfo(e:MouseEvent):void
 			{
-				if (FirebaseUser.isAvailable) FirebaseUser.reload();
-				else C.log("FirebaseUser is not available");
+				if (FirebaseUser.isAvailable) {
+					FirebaseUser.reload()
+				} else {
+					C.log("FirebaseUser is not available");
+					trace("FirebaseUser is not available");
+				}
 			}
 			
 			// -----------------------------------------------------------
@@ -325,6 +343,7 @@ package
 				if (FirebaseUser.isEmailVerified)
 				{
 					C.log("email is already verified.");
+					trace("email is already verified.");
 					return;
 				}
 				
@@ -348,8 +367,12 @@ package
 			
 			function updateDisplayName(e:MouseEvent):void
 			{
-				if (FirebaseUser.isAvailable) FirebaseUser.updateProfile("Hadi");
-				else C.log("FirebaseUser is not available");
+				if (FirebaseUser.isAvailable) {
+					FirebaseUser.updateProfile("Hadi")
+				} else {
+					C.log("FirebaseUser is not available")
+					trace("FirebaseUser is not available")
+				}
 			}
 			
 			// -----------------------------------------------------------
@@ -359,8 +382,12 @@ package
 			
 			function updateEmail(e:MouseEvent):void
 			{
-				if (FirebaseUser.isAvailable) FirebaseUser.updateEmail(email);
-				else C.log("FirebaseUser is not available");
+				if (FirebaseUser.isAvailable) {
+					FirebaseUser.updateEmail(email)
+				} else {
+					C.log("FirebaseUser is not available")
+					trace("FirebaseUser is not available")
+				}
 			}
 			
 			// -----------------------------------------------------------
@@ -370,8 +397,12 @@ package
 			
 			function getIdToken(e:MouseEvent):void
 			{
-				if (FirebaseUser.isAvailable) FirebaseUser.getIdToken(false);
-				else C.log("FirebaseUser is not available");
+				if (FirebaseUser.isAvailable) {
+					FirebaseUser.getIdToken(false)
+				} else {
+					C.log("FirebaseUser is not available")
+					trace("FirebaseUser is not available")
+				}
 			}
 			
 			// -----------------------------------------------------------
@@ -388,6 +419,15 @@ package
 				// phone number format: +(country code)(mobile number with no initial zero)
 				Auth.verifyPhoneNumber("+11222222222");
 			}
+			
+			
+			/*
+			
+				Fake Testing Number: +995 555 55 55 55, SMS CODE: 555555
+			
+			 */
+			
+			
 			
 			// -----------------------------------------------------------
 			/*
@@ -456,6 +496,9 @@ package
 			// On a successful verification, the ANE will try to sign-in the user automatically.
 			C.log("PHONE_VERIFICATION_RESULT, smsCode = " + e.smsCode);
 			C.log("PHONE_VERIFICATION_RESULT, msg = " + e.msg);
+
+			trace("PHONE_VERIFICATION_RESULT, smsCode = " + e.smsCode);
+			trace("PHONE_VERIFICATION_RESULT, msg = " + e.msg);
 		}
 		
 		private function onPhoneCodeSent(e:AuthEvents):void
@@ -471,6 +514,7 @@ package
 		private function onPhoneTimeout(e:AuthEvents):void
 		{
 			C.log("PHONE_AUTO_RETRIEVAL_TIME_OUT, verificationId = " + e.verificationId);
+			trace("PHONE_AUTO_RETRIEVAL_TIME_OUT, verificationId = " + e.verificationId);
 		}
 		
 		private function getUserInfo():void
@@ -482,10 +526,22 @@ package
 			C.log("providerId = " + 		FirebaseUser.providerId);
 			C.log("userId = " + 			FirebaseUser.userId);
 			C.log("isEmailVerified = " +	FirebaseUser.isEmailVerified);
+
+			trace("displayName = " + 		FirebaseUser.displayName);
+			trace("email = " + 				FirebaseUser.email);
+			trace("photoUrl = " + 			FirebaseUser.photoUrl);
+			trace("phoneNumber = " + 		FirebaseUser.phoneNumber);
+			trace("providerId = " + 		FirebaseUser.providerId);
+			trace("userId = " + 			FirebaseUser.userId);
+			trace("isEmailVerified = " +	FirebaseUser.isEmailVerified);
+
 			if(FirebaseUser.metadata)
 			{
 				C.log("creatinTime = " + 	new Date(FirebaseUser.metadata.creationTime).toLocaleString());
 				C.log("lastSignInTime = " + new Date(FirebaseUser.metadata.lastSignInTime).toLocaleString());
+
+				trace("creatinTime = " + 	new Date(FirebaseUser.metadata.creationTime).toLocaleString());
+				trace("lastSignInTime = " + new Date(FirebaseUser.metadata.lastSignInTime).toLocaleString());
 			}
 			
 			var userInfoOnProviders:UserInfo;
@@ -500,6 +556,15 @@ package
 				C.log("phoneNumber = " + 		userInfoOnProviders.phoneNumber);
 				C.log("userId = " + 			userInfoOnProviders.userId);
 				C.log("-------------")
+
+				trace("-------------")
+				trace("providerId = " + 		userInfoOnProviders.providerId);
+				trace("displayName = " + 		userInfoOnProviders.displayName);
+				trace("email = " + 				userInfoOnProviders.email);
+				trace("photoUrl = " + 			userInfoOnProviders.photoUrl);
+				trace("phoneNumber = " + 		userInfoOnProviders.phoneNumber);
+				trace("userId = " + 			userInfoOnProviders.userId);
+				trace("-------------")
 			}
 		}
 		
@@ -593,6 +658,7 @@ package
 			if (FirebaseUser.isAvailable)
 			{
 				C.log("user is logged in");
+				trace("user is logged in");
 				getUserInfo();
 				
 				// when you are logged in, it's a good time to add user listeners
@@ -611,7 +677,8 @@ package
 			else
 			{
 				C.log("user is NOT logged in");
-				
+				trace("user is NOT logged in");
+
 				// When logged out, it's a good idea to remove the user listeners
 				FirebaseUser.listener.removeEventListener(FirebaseUserEvents.RELOAD_USER_INFO, 					onReloadUserInfo);
 				FirebaseUser.listener.removeEventListener(FirebaseUserEvents.REAUTHENTICATE_RESULT, 			onReauthenticate);
@@ -630,11 +697,13 @@ package
 		private function onReloadUserInfo(e:FirebaseUserEvents):void
 		{
 			C.log("onReloadUserInfo result=" + e.result, "     msg=" + e.msg);
+			trace("onReloadUserInfo result=" + e.result, "     msg=" + e.msg);
 		}
 		
 		private function onReauthenticate(e:FirebaseUserEvents):void
 		{
 			C.log("onReauthenticate result=" + e.result, "     msg=" + e.msg);
+			trace("onReauthenticate result=" + e.result, "     msg=" + e.msg);
 		}
 		
 		private function onGetUserToken(e:FirebaseUserEvents):void
@@ -650,22 +719,33 @@ package
 				C.log("e.tokenResult.expirationTimestamp: " + new Date(e.tokenResult.expirationTimestamp).toLocaleString());
 				C.log("e.tokenResult.issuedAtTimestamp: " + new Date(e.tokenResult.issuedAtTimestamp).toLocaleString());
 				C.log("e.tokenResult.signInProvider: " + e.tokenResult.signInProvider);
+
+				trace("onGetUserToken result == Auth.RESULT_SUCCESS");
+				trace("e.tokenResult.token: " + e.tokenResult.token);
+				trace("e.tokenResult.claims: " + JSON.stringify(e.tokenResult.claims));
+				trace("e.tokenResult.authTimestamp: " + new Date(e.tokenResult.authTimestamp).toLocaleString());
+				trace("e.tokenResult.expirationTimestamp: " + new Date(e.tokenResult.expirationTimestamp).toLocaleString());
+				trace("e.tokenResult.issuedAtTimestamp: " + new Date(e.tokenResult.issuedAtTimestamp).toLocaleString());
+				trace("e.tokenResult.signInProvider: " + e.tokenResult.signInProvider);
 			}
 			else
 			{
 				C.log("onGetUserToken result != Auth.RESULT_SUCCESS");
+				trace("onGetUserToken result != Auth.RESULT_SUCCESS");
 			}
 		}
 		
 		private function onUnlink(e:FirebaseUserEvents):void
 		{
 			C.log("onUnlink result=" + e.result, "     msg=" + e.msg);
+			trace("onUnlink result=" + e.result, "     msg=" + e.msg);
 		}
 		
 		private function onLink(e:FirebaseUserEvents):void
 		{
 			C.log("onLink result=" + e.result, "     msg=" + e.msg);
-			
+			trace("onLink result=" + e.result, "     msg=" + e.msg);
+
 			if(e.additionalUserInfo)
 			{
 				trace("-------------- additionalUserInfo ------------");
@@ -692,6 +772,7 @@ package
 		private function onPassUpdate(e:FirebaseUserEvents):void
 		{
 			C.log("onPassUpdate result=" + e.result, "     msg=" + e.msg);
+			trace("onPassUpdate result=" + e.result, "     msg=" + e.msg);
 		}
 		
 		private function onEmailUpdate(e:FirebaseUserEvents):void
@@ -757,6 +838,7 @@ package
 		private function onPhoneUpdate(e:FirebaseUserEvents):void
 		{
 			C.log("onPhoneUpdate result=" + e.result, "     msg=" + e.msg);
+			trace("onPhoneUpdate result=" + e.result, "     msg=" + e.msg);
 		}
 		
 		

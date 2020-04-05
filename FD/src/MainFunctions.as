@@ -12,14 +12,9 @@ import flash.display.Sprite;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.Event;
-import flash.events.HTTPStatusEvent;
-import flash.events.IOErrorEvent;
 import flash.events.InvokeEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
-import flash.net.URLLoader;
-import flash.net.URLRequest;
-import flash.net.URLRequestMethod;
 import flash.text.AntiAliasType;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
@@ -32,17 +27,15 @@ import flash.ui.MultitouchInputMode;
 import com.luaye.console.C;
 
 import com.myflashlab.air.extensions.firebase.core.*;
-import com.myflashlab.air.extensions.firebase.performance.*;
+import com.myflashlab.air.extensions.firebase.functions.Functions;
 import com.myflashlab.air.extensions.dependency.OverrideAir;
-
-import flash.utils.setTimeout;
 
 
 /**
  * ...
- * @author Hadi Tavakoli - 22/6/2019 12:38 PM
+ * @author Hadi Tavakoli - 7/7/2019 1:42 PM
  */
-public class MainPerformance extends Sprite
+public class MainFunctions extends Sprite
 {
 	private const BTN_WIDTH:Number = 150;
 	private const BTN_HEIGHT:Number = 60;
@@ -52,7 +45,7 @@ public class MainPerformance extends Sprite
 	private var _list:List;
 	private var _numRows:int = 1;
 	
-	public function MainPerformance():void
+	public function MainFunctions():void
 	{
 		Multitouch.inputMode = MultitouchInputMode.GESTURE;
 		NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, handleActivate);
@@ -80,7 +73,7 @@ public class MainPerformance extends Sprite
 		_txt.multiline = true;
 		_txt.wordWrap = true;
 		_txt.embedFonts = false;
-		_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Performance V" + Perf.VERSION + "</font>";
+		_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Functions V" + Functions.VERSION + "</font>";
 		_txt.scaleX = _txt.scaleY = DeviceInfo.dpiScaleMultiplier;
 		this.addChild(_txt);
 		
@@ -170,78 +163,66 @@ public class MainPerformance extends Sprite
 			C.log("google_storage_bucket = " + config.google_storage_bucket);
 			C.log("project_id = " + config.project_id);
 			
-			initFirebasePerformance();
+			initFirebaseFunctions();
 		} else
 		{
 			C.log("Config file is not found!");
 		}
 	}
 	
-	private function initFirebasePerformance():void
+	private function initFirebaseFunctions():void
 	{
-		Perf.init();
+		Functions.init(null);
 		
-		var btn1:MySprite = createBtn("is collectionEnabled?");
-		btn1.addEventListener(MouseEvent.CLICK, isCollectionEnabled);
+		var btn1:MySprite = createBtn("call Function 'HelloWorld'");
+		btn1.addEventListener(MouseEvent.CLICK, callFunctionHelloWorld);
 		_list.add(btn1);
 		
-		function isCollectionEnabled(e:MouseEvent):void
+		function callFunctionHelloWorld(e:MouseEvent):void
 		{
-			trace("is collectionEnabled: " + Perf.collectionEnabled);
-		}
-		
-		var btn2:MySprite = createBtn("toggle collectionEnabled");
-		btn2.addEventListener(MouseEvent.CLICK, toggleCollectionEnabled);
-		_list.add(btn2);
-		
-		function toggleCollectionEnabled(e:MouseEvent):void
-		{
-			Perf.collectionEnabled = !Perf.collectionEnabled;
-		}
-		
-		var btn3:MySprite = createBtn("Monitor Network");
-		btn3.addEventListener(MouseEvent.CLICK, monitorNetwork);
-		_list.add(btn3);
-		
-		function monitorNetwork(e:MouseEvent):void
-		{
-			var httpMetric:HttpMetric = Perf.newHttpMetric("https://www.google.com", URLRequestMethod.GET);
-			httpMetric.start();
+			C.log("callFunctionHelloWorld... Please Wait...");
 			
-			var request:URLRequest = new URLRequest();
-			request.url = "https://www.google.com";
-			request.method = URLRequestMethod.GET;
+			var obj:Object = {text:"This msg is sent from AIR!"};
 			
-			var loader:URLLoader = new URLLoader();
-			loader.addEventListener(IOErrorEvent.IO_ERROR, function (event:IOErrorEvent):void {
-				trace(event.toString());
+			Functions.callFunction("addMessageFromApp", obj, function ($data:String, $error:Error):void
+			{
+				if($error)
+				{
+					trace($error.errorID + " > " + $error.message);
+					C.log($error.errorID + " > " + $error.message);
+				}
+				else
+				{
+					trace($data);
+					C.log($data);
+				}
 			});
-			
-			loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, function (event:HTTPStatusEvent):void {
-				trace("httpStatusHandler: " + event);
-				
-				httpMetric.setHttpResponseCode(event.status);
-				httpMetric.stop();
-			});
-			loader.load(request);
 		}
 		
-		var btn4:MySprite = createBtn("custom trace");
-		btn4.addEventListener(MouseEvent.CLICK, customTrace);
-		_list.add(btn4);
 		
-		function customTrace(e:MouseEvent):void
-		{
-			var perfTrace:PerfTrace = Perf.newTrace("customTraceName");
-			perfTrace.start();
-			
-			setTimeout(function ():void {
-				trace("app process completed");
-				
-				perfTrace.stop();
-			}, 3000);
-		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	private function createBtn($str:String):MySprite

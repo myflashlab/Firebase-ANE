@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <application xmlns="http://ns.adobe.com/air/application/32.0">
     <id>com.doitflash.firebaseCore</id>
-    <versionNumber>8.0.0</versionNumber>
+    <versionNumber>9.0.1</versionNumber>
     <supportedProfiles>mobileDevice</supportedProfiles>
     <filename>exFirebaseCore</filename>
     <name>Firebase Core</name>
@@ -39,7 +39,16 @@
         <!--<key>UIBackgroundModes</key>
         <array>
             <string>remote-notification</string>
+            <string>location</string> >> Required if using location for OneSignal <<
         </array>-->
+
+
+        <!-- Required by fcm if using OneSignal libraries -->
+        <!-- make sure to replace {ONESIGNAL_APP_ID} with your the correct value -->
+        <key>onesignal_app_id</key>
+        <string>{ONESIGNAL_APP_ID}</string>
+
+
 
         <!-- Required by firebaseDynamicLinks.ane -->
 		<!--<key>com.myflashlabs.firebase.deepLinkURLScheme</key>

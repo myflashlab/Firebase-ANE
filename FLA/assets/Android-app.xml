@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <application xmlns="http://ns.adobe.com/air/application/32.0">
     <id>com.doitflash.firebaseCore</id>
-    <versionNumber>8.0.1</versionNumber>
+    <versionNumber>9.0.1</versionNumber>
     <supportedProfiles>mobileDevice</supportedProfiles>
     <filename>exFirebaseCore</filename>
     <name>Firebase Core</name>
@@ -15,6 +15,14 @@
             <uses-permission android:name="android.permission.WAKE_LOCK"/>
             <uses-sdk android:targetSdkVersion="28" />
 
+            <!-- Required by FCM if using OneSignal lib -->
+            <!-- Replace {PACKAGE_NAME} with your app package name -->
+            <!-- <uses-permission android:name="android.permission.VIBRATE"/>
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+            <permission android:name="{PACKAGE_NAME}.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+            <uses-permission android:name="{PACKAGE_NAME}.permission.C2D_MESSAGE"/> -->
+
             <!-- Required by the googlePlayServices_measurementBase.ane -->
             <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
 
@@ -26,6 +34,31 @@
             
             <!-- Required by the firebase_perf.ane -->
             <!-- <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/> -->
+
+
+
+            
+            <!-- Required by FCM if using OneSignal lib -->
+            <!-- <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
+            <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
+            <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS"/>
+            <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT"/>
+            <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE"/>
+            <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE"/>
+            <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT"/>
+            <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE"/>
+            <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
+            <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS"/>
+            <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS"/>
+            <uses-permission android:name="android.permission.READ_APP_BADGE"/>
+            <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS"/>
+            <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS"/>
+            <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ"/>
+            <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE"/> -->
+
+
+
+
             
             
             <!-- Activate multidex for older Android support -->
@@ -42,7 +75,7 @@
                         <category android:name="android.intent.category.DEFAULT"/>
 
                         <!-- Change app scheme to your own pakage name -->
-                        <data android:scheme="air.com.doitflash.firebaseCore" />
+                        <data android:scheme="{PACKAGE_NAME}" />
 
                         <!-- Required by firebaseDynamicLinks.ane -->
                         <!-- put your own website name instead of myflashlabs.com -->
@@ -82,16 +115,22 @@
 
 
 
+                <!-- Required by androidx_lifecycle.ane Change {PACKAGE_NAME} to your own app package name -->
+                <provider
+                    android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+                    android:authorities="{PACKAGE_NAME}.lifecycle-process"
+                    android:exported="false"
+                    android:multiprocess="true"/>
                 
 
 
                 <!--
                       Required by the firebase_common.ane
-                      Change "air.com.doitflash.firebaseCore" to your own app package name
+                      Change {PACKAGE_NAME} to your own app package name
                 -->
                 <provider
                     android:name="com.google.firebase.provider.FirebaseInitProvider"
-                    android:authorities="air.com.doitflash.firebaseCore.firebaseinitprovider"
+                    android:authorities="{PACKAGE_NAME}.firebaseinitprovider"
                     android:exported="false"
                     android:initOrder="100"/>
 
@@ -155,6 +194,16 @@
                         android:name="com.google.firebase.components:com.google.firebase.functions.FunctionsRegistrar"
                         android:value="com.google.firebase.components.ComponentRegistrar"/>-->
 
+                    <!-- Required by firebase_messaging.ane -->
+                    <!--<meta-data
+                        android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+                        android:value="com.google.firebase.components.ComponentRegistrar"/>-->
+
+                    <!-- Required by firebase_datatransport.ane -->
+                    <!--<meta-data
+                        android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+                        android:value="com.google.firebase.components.ComponentRegistrar"/>-->
+
                 </service>
 
 
@@ -168,13 +217,6 @@
                         <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
                     </intent-filter>
                 </receiver>
-                <service
-                    android:name="com.google.firebase.iid.FirebaseInstanceIdService"
-                    android:exported="true">
-                    <intent-filter android:priority="-500">
-                        <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-                    </intent-filter>
-                </service>
 
 
 
@@ -206,6 +248,24 @@
 					</intent-filter>
 				</activity>-->
 
+
+                <!-- Required by firebase_addons_fcm.ane -->
+                <!--<service
+                    android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+                    android:exported="false">
+                    <meta-data
+                        android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+                        android:value="cct"/>
+                </service>
+                <service
+                    android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+                    android:exported="false"
+                    android:permission="android.permission.BIND_JOB_SERVICE"/>
+                <receiver
+                    android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+                    android:exported="false"/>-->
+
+
                 <!-- Optional by firebase_messaging.ane -->
                 <!--
 				    Set custom default icon. This is used when no icon is set for incoming notification messages.
@@ -225,6 +285,49 @@
                     android:name="com.google.firebase.messaging.default_notification_channel_id"
                     android:value="@string/default_notification_channel_id"/>-->
 
+
+
+
+                <!-- 
+                    Required by FCM if using OneSignal libraries
+                    make sure to replace {ONESIGNAL_APP_ID} with your the correct value
+                    make sure to replace {PACKAGE_NAME} with your app's package name
+                -->
+                <!-- <meta-data android:name="onesignal_app_id" android:value="{ONESIGNAL_APP_ID}"/>
+                <meta-data android:name="onesignal_google_project_number" android:value="str:REMOTE"/>
+                <receiver
+                    android:name="com.onesignal.GcmBroadcastReceiver"
+                    android:permission="com.google.android.c2dm.permission.SEND">
+
+                    <intent-filter android:priority="999">
+                        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                        <category android:name="{PACKAGE_NAME}"/>
+                    </intent-filter>
+                </receiver>
+                <receiver android:name="com.onesignal.NotificationOpenedReceiver"/>
+                <service android:name="com.onesignal.GcmIntentService"/>
+                <service android:name="com.onesignal.GcmIntentJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+                <service android:name="com.onesignal.RestoreJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+                <service android:name="com.onesignal.RestoreKickoffJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+                <service android:name="com.onesignal.SyncService" android:stopWithTask="true"/>
+                <service android:name="com.onesignal.SyncJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+                <activity android:name="com.onesignal.PermissionsActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+                <service android:name="com.onesignal.NotificationRestoreService"/>
+                <receiver android:name="com.onesignal.BootUpReceiver">
+                    <intent-filter>
+                        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                        <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+                    </intent-filter>
+                </receiver>
+                <receiver android:name="com.onesignal.UpgradeReceiver">
+                    <intent-filter>
+                    <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                    </intent-filter>
+                </receiver> -->
+
+
+
+
                 
 
                 <!-- Required by firebase_auth.ane -->
@@ -238,11 +341,11 @@
 
                 <!--
 				        Required by firebaseCrashlytics.ane
-				        Change "air.com.doitflash.firebaseCore" to your own app package name
+				        Change {PACKAGE_NAME} to your own app package name
 				-->
 				<!--<provider
 					android:name="com.crashlytics.android.CrashlyticsInitProvider"
-					android:authorities="air.com.doitflash.firebaseCore.crashlyticsinitprovider"
+					android:authorities="{PACKAGE_NAME}.crashlyticsinitprovider"
 					android:exported="false"
 					android:initOrder="99"/>
 				<meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false"/>
@@ -251,41 +354,17 @@
                 
                 
 
-
-                <!--
-                    Optional but recommended: If you use the on-device API, configure your app to automatically
-                    download the ML model to the device after your app is installed from the Play Store.
-                -->
-                <!--<meta-data
-                    android:name="com.google.firebase.ml.vision.DEPENDENCIES"
-                    android:value="ocr,face,barcode,label"/>-->
-                    <!-- To use only one model: android:value="ocr" -->
                 
-
-                <!--
-                    Required by MLKIT
-                    Change "air.com.doitflash.firebaseCore" to your own applicationID but keep
-                    ".provider" at the end. [your-app-id].provider
-                -->
-                <!--<provider
-                    android:name="com.myflashlabs.firebase.mlkit.AneMLKITProvider"
-                    android:authorities="air.com.doitflash.firebaseCore.provider"
-                    android:exported="false"
-                    android:grantUriPermissions="true">
-                    <meta-data
-                        android:name="android.support.FILE_PROVIDER_PATHS"
-                        android:resource="@xml/mlkit_ane_provider_paths"/>
-                </provider>-->
 
 
                 <!--
                     Required by firebase_perf.ane
-                    Change "air.com.doitflash.firebaseCore" to your own applicationID but keep
+                    Change {PACKAGE_NAME} to your own applicationID but keep
                     ".firebaseperfprovider" at the end. [your-app-id].firebaseperfprovider
                 -->
                 <!--<provider
                     android:name="com.google.firebase.perf.provider.FirebasePerfProvider"
-                    android:authorities="air.com.doitflash.firebaseCore.firebaseperfprovider"
+                    android:authorities="{PACKAGE_NAME}.firebaseperfprovider"
                     android:exported="false"
                     android:initOrder="101"/>-->
 
@@ -335,9 +414,9 @@
 
         <!-- Dependency ANEs for FirebaseCore -->
         <extensionID>com.myflashlab.air.extensions.dependency.overrideAir</extensionID>
-        <extensionID>com.myflashlab.air.extensions.dependency.androidSupport.arch</extensionID>
-        <extensionID>com.myflashlab.air.extensions.dependency.androidSupport.core</extensionID>
-        <extensionID>com.myflashlab.air.extensions.dependency.androidSupport.v4</extensionID>
+        <extensionID>com.myflashlab.air.extensions.dependency.androidx.arch</extensionID>
+        <extensionID>com.myflashlab.air.extensions.dependency.androidx.core</extensionID>
+        <extensionID>com.myflashlab.air.extensions.dependency.androidx.lifecycle</extensionID>
         <extensionID>com.myflashlab.air.extensions.dependency.firebase.analytics</extensionID>
         <extensionID>com.myflashlab.air.extensions.dependency.firebase.common</extensionID>
         <extensionID>com.myflashlab.air.extensions.dependency.firebase.iid</extensionID>

@@ -16,11 +16,11 @@
 
             <!-- Required by FCM if using OneSignal lib -->
             <!-- Replace {PACKAGE_NAME} with your app package name -->
-            <uses-permission android:name="android.permission.VIBRATE"/>
+            <!-- <uses-permission android:name="android.permission.VIBRATE"/>
             <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
             <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
             <permission android:name="{PACKAGE_NAME}.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
-            <uses-permission android:name="{PACKAGE_NAME}.permission.C2D_MESSAGE"/>
+            <uses-permission android:name="{PACKAGE_NAME}.permission.C2D_MESSAGE"/> -->
 
             <!-- Required by the googlePlayServices_measurementBase.ane -->
             <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
@@ -38,31 +38,22 @@
 
             
             <!-- Required by FCM if using OneSignal lib -->
-            <!-- Samsung -->
-            <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
+            <!-- <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
             <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
-            <!-- HTC -->
             <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS"/>
             <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT"/>
-            <!-- Sony -->
             <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE"/>
             <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE"/>
-            <!-- Apex -->
             <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT"/>
-            <!-- Solid -->
             <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE"/>
-            <!-- Huawei -->
             <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
             <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS"/>
             <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS"/>
-            <!-- ZUK -->
             <uses-permission android:name="android.permission.READ_APP_BADGE"/>
-            <!-- OPPO -->
             <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS"/>
             <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS"/>
-            <!-- EvMe -->
             <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ"/>
-            <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE"/>
+            <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE"/> -->
 
 
 

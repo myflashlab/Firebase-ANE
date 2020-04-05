@@ -73,7 +73,7 @@ package
 			_txt.multiline = true;
 			_txt.wordWrap = true;
 			_txt.embedFonts = false;
-			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Firestore V"+Firebase.VERSION+"</font>";
+			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Firestore V"+Firestore.VERSION+"</font>";
 			_txt.scaleX = _txt.scaleY = DeviceInfo.dpiScaleMultiplier;
 			this.addChild(_txt);
 			
@@ -120,6 +120,7 @@ package
 		{
 			if (_txt)
 			{
+				_txt.y = 150 * (1 / DeviceInfo.dpiScaleMultiplier);
 				_txt.width = stage.stageWidth * (1 / DeviceInfo.dpiScaleMultiplier);
 				
 				C.x = 0;
@@ -164,11 +165,21 @@ package
 				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
 				C.log("project_id = " + 					config.project_id);
 				
+				trace("default_web_client_id = " + 			config.default_web_client_id);
+				trace("firebase_database_url = " + 			config.firebase_database_url);
+				trace("gcm_defaultSenderId = " + 			config.gcm_defaultSenderId);
+				trace("google_api_key = " + 				config.google_api_key);
+				trace("google_app_id = " + 					config.google_app_id);
+				trace("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
+				trace("google_storage_bucket = " + 			config.google_storage_bucket);
+				trace("project_id = " + 					config.project_id);
+
 				initFirestore();
 			}
 			else
 			{
 				C.log("Config file is not found!");
+				trace("Config file is not found!");
 			}
 		}
 		
@@ -218,8 +229,13 @@ package
 			{
 				Firestore.enableNetwork(function ($err:Error):void
 				{
-					if($err) C.log("Firestore.enableNetwork: " + $err.message);
-					else C.log("Firestore.enableNetwork done");
+					if ($err) {
+						C.log("Firestore.enableNetwork: " + $err.message);
+						trace("Firestore.enableNetwork: " + $err.message);
+					} else {
+						C.log("Firestore.enableNetwork done");
+						trace("Firestore.enableNetwork done");
+					}
 				})
 			}
 			
@@ -231,8 +247,13 @@ package
 			{
 				Firestore.disableNetwork(function ($err:Error):void
 				{
-					if($err) C.log("Firestore.disableNetwork: " + $err.message);
-					else C.log("Firestore.disableNetwork done");
+					if($err) {
+						C.log("Firestore.disableNetwork: " + $err.message);
+						trace("Firestore.disableNetwork: " + $err.message);
+					} else {
+						C.log("Firestore.disableNetwork done");
+						trace("Firestore.disableNetwork done");
+					}
 				})
 			}
 			

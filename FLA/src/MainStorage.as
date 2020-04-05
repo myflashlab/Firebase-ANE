@@ -78,7 +78,7 @@ package
 			_txt.multiline = true;
 			_txt.wordWrap = true;
 			_txt.embedFonts = false;
-			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Storage V"+Firebase.VERSION+"</font>";
+			_txt.htmlText = "<font face='Arimo' color='#333333' size='20'><b>Firebase Storage V"+Storage.VERSION+"</font>";
 			_txt.scaleX = _txt.scaleY = DeviceInfo.dpiScaleMultiplier;
 			this.addChild(_txt);
 			
@@ -125,6 +125,7 @@ package
 		{
 			if (_txt)
 			{
+				_txt.y = 150 * (1 / DeviceInfo.dpiScaleMultiplier);
 				_txt.width = stage.stageWidth * (1 / DeviceInfo.dpiScaleMultiplier);
 				
 				C.x = 0;
@@ -168,6 +169,15 @@ package
 				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
 				C.log("project_id = " + 					config.project_id);
 				
+				trace("default_web_client_id = " + 			config.default_web_client_id);
+				trace("firebase_database_url = " + 			config.firebase_database_url);
+				trace("gcm_defaultSenderId = " + 			config.gcm_defaultSenderId);
+				trace("google_api_key = " + 				config.google_api_key);
+				trace("google_app_id = " + 					config.google_app_id);
+				trace("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
+				trace("google_storage_bucket = " + 			config.google_storage_bucket);
+				trace("project_id = " + 					config.project_id);
+
 				initStorage();
 			}
 			else
@@ -212,6 +222,7 @@ package
 			function onGetBytesFailed(e:StorageEvents):void
 			{
 				C.log("onGetBytesFailed, errorCode = " + e.errorCode + " with message: " + e.msg);
+				trace("onGetBytesFailed, errorCode = " + e.errorCode + " with message: " + e.msg);
 			}
 			
 			function onGetBytesSuccess(e:StorageEvents):void
@@ -235,6 +246,7 @@ package
 			function onMetadataFailed(e:StorageEvents):void
 			{
 				C.log("onMetadataFailed, errorCode = " + e.errorCode + " with message: " + e.msg);
+				trace("onMetadataFailed, errorCode = " + e.errorCode + " with message: " + e.msg);
 			}
 			
 			function onMetadataSuccess(e:StorageEvents):void
@@ -254,6 +266,22 @@ package
 				C.log("path = " + 					e.metadata.path);
 				C.log("sizeBytes = " + 				e.metadata.sizeBytes);
 				C.log("------------------------------------------------------");
+
+				trace("bucket = " + 				e.metadata.bucket);
+				trace("cacheControl = " + 			e.metadata.cacheControl);
+				trace("contentDisposition = " + 	e.metadata.contentDisposition);
+				trace("contentEncoding = " + 		e.metadata.contentEncoding);
+				trace("contentLanguage = " + 		e.metadata.contentLanguage);
+				trace("contentType = " + 			e.metadata.contentType);
+				trace("creationTimeMillis = " + 	new Date(e.metadata.creationTimeMillis).toLocaleString());
+				trace("updatedTimeMillis = " + 		new Date(e.metadata.updatedTimeMillis).toLocaleString());
+				trace("customMetadata = " + 		JSON.stringify(e.metadata.customMetadata));
+				trace("generation = " + 			e.metadata.generation);
+				trace("metadataGeneration = " + 	e.metadata.metadataGeneration);
+				trace("name = " + 					e.metadata.name);
+				trace("path = " + 					e.metadata.path);
+				trace("sizeBytes = " + 				e.metadata.sizeBytes);
+				trace("------------------------------------------------------");
 			}
 			
 // ---------------------------------------------------------------------------------------------------------------
@@ -284,6 +312,7 @@ package
 			function onUploadBytesFailed(e:StorageEvents):void
 			{
 				C.log("onUploadBytesFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
+				trace("onUploadBytesFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
 			}
 			
 			function onUploadBytesProgress(e:StorageEvents):void
@@ -291,6 +320,7 @@ package
 				var task:UploadTask = e.currentTarget as UploadTask;
 				var percent:Number = task.bytesTransferred / task.bytesTotal * 100;
 				C.log("onUploadBytesProgress = " + Math.floor(percent) + "%");
+				trace("onUploadBytesProgress = " + Math.floor(percent) + "%");
 			}
 			
 			function onUploadBytesSuccess(e:StorageEvents):void
@@ -312,6 +342,22 @@ package
 				C.log("onUploadBytesSuccess. task.metadata.path = " + 					task.metadata.path);
 				C.log("onUploadBytesSuccess. task.metadata.sizeBytes = " + 				task.metadata.sizeBytes);
 				C.log("------------------------------------------------------");
+
+				trace("onUploadBytesSuccess. task.metadata.bucket = " + 				task.metadata.bucket);
+				trace("onUploadBytesSuccess. task.metadata.cacheControl = " + 			task.metadata.cacheControl);
+				trace("onUploadBytesSuccess. task.metadata.contentDisposition = " + 	task.metadata.contentDisposition);
+				trace("onUploadBytesSuccess. task.metadata.contentEncoding = " + 		task.metadata.contentEncoding);
+				trace("onUploadBytesSuccess. task.metadata.contentLanguage = " + 		task.metadata.contentLanguage);
+				trace("onUploadBytesSuccess. task.metadata.contentType = " + 			task.metadata.contentType);
+				trace("onUploadBytesSuccess. task.metadata.creationTimeMillis = " + 	new Date(task.metadata.creationTimeMillis).toLocaleString());
+				trace("onUploadBytesSuccess. task.metadata.updatedTimeMillis = " + 		new Date(task.metadata.updatedTimeMillis).toLocaleString());
+				trace("onUploadBytesSuccess. task.metadata.customMetadata = " + 		JSON.stringify(task.metadata.customMetadata));
+				trace("onUploadBytesSuccess. task.metadata.generation = " + 			task.metadata.generation);
+				trace("onUploadBytesSuccess. task.metadata.metadataGeneration = " + 	task.metadata.metadataGeneration);
+				trace("onUploadBytesSuccess. task.metadata.name = " + 					task.metadata.name);
+				trace("onUploadBytesSuccess. task.metadata.path = " + 					task.metadata.path);
+				trace("onUploadBytesSuccess. task.metadata.sizeBytes = " + 				task.metadata.sizeBytes);
+				trace("------------------------------------------------------");
 			}
 			
 			function onUploadBytesComplete(e:StorageEvents):void
@@ -325,6 +371,7 @@ package
 				if(e.error)
 				{
 					C.log("onUploadBytesComplete: " + e.error.message);
+					trace("onUploadBytesComplete: " + e.error.message);
 				}
 				else
 				{
@@ -343,6 +390,22 @@ package
 					C.log("onUploadBytesComplete. task.metadata.path = " + 					task.metadata.path);
 					C.log("onUploadBytesComplete. task.metadata.sizeBytes = " + 			task.metadata.sizeBytes);
 					C.log("------------------------------------------------------");
+
+					trace("onUploadBytesComplete. task.metadata.bucket = " + 				task.metadata.bucket);
+					trace("onUploadBytesComplete. task.metadata.cacheControl = " + 			task.metadata.cacheControl);
+					trace("onUploadBytesComplete. task.metadata.contentDisposition = " + 	task.metadata.contentDisposition);
+					trace("onUploadBytesComplete. task.metadata.contentEncoding = " + 		task.metadata.contentEncoding);
+					trace("onUploadBytesComplete. task.metadata.contentLanguage = " + 		task.metadata.contentLanguage);
+					trace("onUploadBytesComplete. task.metadata.contentType = " + 			task.metadata.contentType);
+					trace("onUploadBytesComplete. task.metadata.creationTimeMillis = " + 	new Date(task.metadata.creationTimeMillis).toLocaleString());
+					trace("onUploadBytesComplete. task.metadata.updatedTimeMillis = " + 	new Date(task.metadata.updatedTimeMillis).toLocaleString());
+					trace("onUploadBytesComplete. task.metadata.customMetadata = " + 		JSON.stringify(task.metadata.customMetadata));
+					trace("onUploadBytesComplete. task.metadata.generation = " + 			task.metadata.generation);
+					trace("onUploadBytesComplete. task.metadata.metadataGeneration = " + 	task.metadata.metadataGeneration);
+					trace("onUploadBytesComplete. task.metadata.name = " + 					task.metadata.name);
+					trace("onUploadBytesComplete. task.metadata.path = " + 					task.metadata.path);
+					trace("onUploadBytesComplete. task.metadata.sizeBytes = " + 			task.metadata.sizeBytes);
+					trace("------------------------------------------------------");
 				}
 			}
 			
@@ -360,11 +423,13 @@ package
 			function onDeleteFailed(e:StorageEvents):void
 			{
 				C.log("onDeleteFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
+				trace("onDeleteFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
 			}
 			
 			function onDeleteSuccess(e:StorageEvents):void
 			{
 				C.log("onDeleteSuccess");
+				trace("onDeleteSuccess");
 			}
 		
 // ---------------------------------------------------------------------------------------------------------------
@@ -421,11 +486,13 @@ package
 			function onUploadFileFailed(e:StorageEvents):void
 			{
 				C.log("onUploadFileFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
+				trace("onUploadFileFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
 			}
 			
 			function onUploadFilePaused(e:StorageEvents):void
 			{
 				C.log("onUploadFilePaused");
+				trace("onUploadFilePaused");
 			}
 			
 			function onUploadFileProgress(e:StorageEvents):void
@@ -433,6 +500,7 @@ package
 				var percent:Number = fileUploadTask.bytesTransferred / fileUploadTask.bytesTotal * 100;
 				
 				C.log("onUploadFileProgress = " + Math.floor(percent) + "%");
+				trace("onUploadFileProgress = " + Math.floor(percent) + "%");
 			}
 			
 			function onUploadFileSuccess(e:StorageEvents):void
@@ -452,6 +520,22 @@ package
 				C.log("onUploadFileSuccess. fileUploadTask.metadata.path = " + 					fileUploadTask.metadata.path);
 				C.log("onUploadFileSuccess. fileUploadTask.metadata.sizeBytes = " + 			fileUploadTask.metadata.sizeBytes);
 				C.log("------------------------------------------------------");
+
+				trace("onUploadFileSuccess. fileUploadTask.metadata.bucket = " + 				fileUploadTask.metadata.bucket);
+				trace("onUploadFileSuccess. fileUploadTask.metadata.cacheControl = " + 			fileUploadTask.metadata.cacheControl);
+				trace("onUploadFileSuccess. fileUploadTask.metadata.contentDisposition = " + 	fileUploadTask.metadata.contentDisposition);
+				trace("onUploadFileSuccess. fileUploadTask.metadata.contentEncoding = " + 		fileUploadTask.metadata.contentEncoding);
+				trace("onUploadFileSuccess. fileUploadTask.metadata.contentLanguage = " + 		fileUploadTask.metadata.contentLanguage);
+				trace("onUploadFileSuccess. fileUploadTask.metadata.contentType = " + 			fileUploadTask.metadata.contentType);
+				trace("onUploadFileSuccess. fileUploadTask.metadata.creationTimeMillis = " + 	new Date(fileUploadTask.metadata.creationTimeMillis).toLocaleString());
+				trace("onUploadFileSuccess. fileUploadTask.metadata.updatedTimeMillis = " + 	new Date(fileUploadTask.metadata.updatedTimeMillis).toLocaleString());
+				trace("onUploadFileSuccess. fileUploadTask.metadata.customMetadata = " + 		JSON.stringify(fileUploadTask.metadata.customMetadata));
+				trace("onUploadFileSuccess. fileUploadTask.metadata.generation = " + 			fileUploadTask.metadata.generation);
+				trace("onUploadFileSuccess. fileUploadTask.metadata.metadataGeneration = " + 	fileUploadTask.metadata.metadataGeneration);
+				trace("onUploadFileSuccess. fileUploadTask.metadata.name = " + 					fileUploadTask.metadata.name);
+				trace("onUploadFileSuccess. fileUploadTask.metadata.path = " + 					fileUploadTask.metadata.path);
+				trace("onUploadFileSuccess. fileUploadTask.metadata.sizeBytes = " + 			fileUploadTask.metadata.sizeBytes);
+				trace("------------------------------------------------------");
 			}
 			
 			function onUploadFileComplete(e:StorageEvents):void
@@ -468,6 +552,7 @@ package
 				if(e.error)
 				{
 					C.log("onUploadFileComplete: " + e.error.message);
+					trace("onUploadFileComplete: " + e.error.message);
 				}
 				else
 				{
@@ -486,6 +571,22 @@ package
 					C.log("onUploadFileComplete. fileUploadTask.metadata.path = " + 				fileUploadTask.metadata.path);
 					C.log("onUploadFileComplete. fileUploadTask.metadata.sizeBytes = " + 			fileUploadTask.metadata.sizeBytes);
 					C.log("------------------------------------------------------");
+
+					trace("onUploadFileComplete. fileUploadTask.metadata.bucket = " + 				fileUploadTask.metadata.bucket);
+					trace("onUploadFileComplete. fileUploadTask.metadata.cacheControl = " + 		fileUploadTask.metadata.cacheControl);
+					trace("onUploadFileComplete. fileUploadTask.metadata.contentDisposition = " + 	fileUploadTask.metadata.contentDisposition);
+					trace("onUploadFileComplete. fileUploadTask.metadata.contentEncoding = " + 		fileUploadTask.metadata.contentEncoding);
+					trace("onUploadFileComplete. fileUploadTask.metadata.contentLanguage = " + 		fileUploadTask.metadata.contentLanguage);
+					trace("onUploadFileComplete. fileUploadTask.metadata.contentType = " + 			fileUploadTask.metadata.contentType);
+					trace("onUploadFileComplete. fileUploadTask.metadata.creationTimeMillis = " + 	new Date(fileUploadTask.metadata.creationTimeMillis).toLocaleString());
+					trace("onUploadFileComplete. fileUploadTask.metadata.updatedTimeMillis = " + 	new Date(fileUploadTask.metadata.updatedTimeMillis).toLocaleString());
+					trace("onUploadFileComplete. fileUploadTask.metadata.customMetadata = " + 		JSON.stringify(fileUploadTask.metadata.customMetadata));
+					trace("onUploadFileComplete. fileUploadTask.metadata.generation = " + 			fileUploadTask.metadata.generation);
+					trace("onUploadFileComplete. fileUploadTask.metadata.metadataGeneration = " + 	fileUploadTask.metadata.metadataGeneration);
+					trace("onUploadFileComplete. fileUploadTask.metadata.name = " + 				fileUploadTask.metadata.name);
+					trace("onUploadFileComplete. fileUploadTask.metadata.path = " + 				fileUploadTask.metadata.path);
+					trace("onUploadFileComplete. fileUploadTask.metadata.sizeBytes = " + 			fileUploadTask.metadata.sizeBytes);
+					trace("------------------------------------------------------");
 				}
 			}
 
@@ -499,6 +600,7 @@ package
 			{
 				fileUploadTask.pause();
 				C.log("pauseUpload");
+				trace("pauseUpload");
 			}
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -511,6 +613,7 @@ package
 			{
 				fileUploadTask.resume();
 				C.log("resumeUpload");	
+				trace("resumeUpload");
 			}
 
 // ----------------------------------------------------------------------------------------------------------------
@@ -532,18 +635,20 @@ package
 			
 			function updateMetadata(e:MouseEvent):void
 			{
-				var metadata:StorageMetadata = new StorageMetadata([{var1:"Value01"}, {var2:"Value02"}, {var3:30}, {var4:40}]);
+				var metadata:StorageMetadata = new StorageMetadata([{var1:"Value02"}, {var2:"Value03"}, {var3:31}, {var4:41}]);
 				imgRef.updateMetadata(metadata, onMetadataUpdateSuccess, onMetadataUpdateFailed);
 			}
 			
 			function onMetadataUpdateFailed(e:StorageEvents):void
 			{
 				C.log("onMetadataUpdateFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
+				trace("onMetadataUpdateFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
 			}
 			
 			function onMetadataUpdateSuccess(e:StorageEvents):void
 			{
 				C.log("onMetadataUpdateSuccess");
+				trace("onMetadataUpdateSuccess");
 			}
 
 // ----------------------------------------------------------------------------------------------------------------
@@ -560,11 +665,13 @@ package
 			function onGetDownloadUrlFailed(e:StorageEvents):void
 			{
 				C.log("onGetDownloadUrlFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
+				trace("onGetDownloadUrlFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
 			}
 			
 			function onGetDownloadUrlSuccess(e:StorageEvents):void
 			{
 				C.log("onGetDownloadUrlSuccess url = " + e.url);
+				trace("onGetDownloadUrlSuccess url = " + e.url);
 			}
 
 // ----------------------------------------------------------------------------------------------------------------
@@ -595,11 +702,13 @@ package
 			function onDownloadFileFailed(e:StorageEvents):void
 			{
 				C.log("onDownloadFileFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
+				trace("onDownloadFileFailed with errorCode '" + e.errorCode + "' and msg: " + e.msg);
 			}
 			
 			function onDownloadFilePaused(e:StorageEvents):void
 			{
 				C.log("onDownloadFilePaused");
+				trace("onDownloadFilePaused");
 			}
 			
 			function onDownloadFileProgress(e:StorageEvents):void
@@ -607,11 +716,13 @@ package
 				var percent:Number = fileDownloadTask.bytesTransferred / fileDownloadTask.bytesTotal * 100;
 				
 				C.log("onDownloadFileProgress = " + Math.floor(percent) + "%");
+				trace("onDownloadFileProgress = " + Math.floor(percent) + "%");
 			}
 			
 			function onDownloadFileSuccess(e:StorageEvents):void
 			{
 				C.log("onDownloadFileSuccess");
+				trace("onDownloadFileSuccess");
 			}
 			
 			function onDownloadFileComplete(e:StorageEvents):void
@@ -626,10 +737,12 @@ package
 				if(e.error)
 				{
 					C.log("onDownloadFileComplete: " + e.error.message);
+					trace("onDownloadFileComplete: " + e.error.message);
 				}
 				else
 				{
 					C.log("onDownloadFileComplete");
+					trace("onDownloadFileComplete");
 				}
 			}
 
@@ -643,6 +756,7 @@ package
 			{
 				fileDownloadTask.pause();
 				C.log("pauseUpload");	
+				trace("pauseUpload");
 			}
 
 // ----------------------------------------------------------------------------------------------------------------
@@ -655,6 +769,7 @@ package
 			{
 				fileDownloadTask.resume();
 				C.log("resumeUpload");	
+				trace("resumeUpload");
 			}
 
 // ----------------------------------------------------------------------------------------------------------------
@@ -667,6 +782,7 @@ package
 			{
 				fileDownloadTask.cancel();
 				C.log("cancelDownload");
+				trace("cancelDownload");
 			}
 
 // ----------------------------------------------------------------------------------------------------------------
