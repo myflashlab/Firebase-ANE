@@ -1,6 +1,6 @@
 # Firebase Air Native Extension
 
-*Mar 01, 2020 - v9.1.0*
+*May 01, 2020 - v9.1.0*
 - (**Performanc**) Removed the deprecated counter API. Use metrics API going forward.
 - (**Analytics**) Adds the ability for an app to specify whether events logged by Google Analytics can be used to [personalize ads](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/analytics/AnalyticsParam.html#ALLOW_PERSONALIZED_ADS) for the user.
 - (**Database**) Added support for the Firebase Realtime Database Emulator. To connect to the emulator, specify "http://:/?ns=" as your Database URL (via [DB.init(String)](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/db/DB.html#init())). Note that if you are running the Realtime Database Emulator on "localhost" and connecting from an app that is running inside an Android Emulator, the Realtime Database Emulator host will be "10.0.2.2" followed by its port.
