@@ -195,7 +195,10 @@ package
 			// You can create a root reference to the storage with either these two ways
 			//var rootRef:StorageReference = Storage.getReference(null, "gs://your-storage.appspot.com");
 			var rootRef:StorageReference = Storage.getReference();
-			
+
+			//
+			var dirRef:StorageReference = rootRef.child("folder");
+
 			// If you have a file already uploaded to your storage at the location "folder/myflashlab2.png", you should
 			// create a reference to it like below.
 			var imgRef:StorageReference = rootRef.child("folder/myflashlab2.png");
@@ -207,7 +210,53 @@ package
 			
 			var fileUploadRef:StorageReference;
 			var fileDownloadRef:StorageReference;
-			
+
+// ----------------------------------------------------------------------------------------------------------------
+
+			var btn15:MySprite = createBtn("list");
+			btn15.addEventListener(MouseEvent.CLICK, list);
+			_list.add(btn15);
+
+			function list(e:MouseEvent):void
+			{
+				dirRef.list(100, "", onListSuccess, onListFailure);
+			}
+
+			function onListFailure(e:StorageEvents):void
+			{
+				C.log("onListFailure with errorCode '" + e.errorCode + "' and msg: " + e.msg);
+				trace("onListFailure with errorCode '" + e.errorCode + "' and msg: " + e.msg);
+			}
+
+			function onListSuccess(e:StorageEvents):void
+			{
+				C.log("onListSuccess files = " + e.files);
+				trace("onListSuccess files = " + e.files);
+			}
+
+// ----------------------------------------------------------------------------------------------------------------
+
+			var btn16:MySprite = createBtn("listAll");
+			btn16.addEventListener(MouseEvent.CLICK, listAll);
+			_list.add(btn16);
+
+			function listAll(e:MouseEvent):void
+			{
+				dirRef.listAll(onListAllSuccess, onListAllFailure);
+			}
+
+			function onListAllFailure(e:StorageEvents):void
+			{
+				C.log("onListAllFailure with errorCode '" + e.errorCode + "' and msg: " + e.msg);
+				trace("onListAllFailure with errorCode '" + e.errorCode + "' and msg: " + e.msg);
+			}
+
+			function onListAllSuccess(e:StorageEvents):void
+			{
+				C.log("onListAllSuccess files = " + e.files);
+				trace("onListAllSuccess files = " + e.files);
+			}
+
 // ---------------------------------------------------------------------------------------------------------------
 			
 			var btn0:MySprite = createBtn("getBytes");

@@ -271,6 +271,28 @@ import flash.desktop.NativeApplication;
 				C.log("value = " + value);
 				trace("value = " + value);
 			}
+
+			var btn4:MySprite = createBtn("fetchAndActivate");
+			btn4.addEventListener(MouseEvent.CLICK, fetchAndActivate);
+			_list.add(btn4);
+
+			function fetchAndActivate(e:MouseEvent):void
+			{
+				RemoteConfig.fetchAndActivate(function ($error:Error):void
+				{
+					if($error)
+					{
+						C.log($error.message);
+						trace($error.message);
+					}
+					else
+					{
+						C.log("Fetch and activate was successful!");
+						trace("Fetch and activate was successful!");
+					}
+				});
+			}
+
 		}
 
 		private function createBtn($str:String):MySprite

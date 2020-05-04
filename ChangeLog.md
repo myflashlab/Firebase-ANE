@@ -1,5 +1,13 @@
 Firebase Air Native Extension
 
+*Mar 01, 2020 - v9.1.0*
+- (Performance) Removed the deprecated counter API. Use metrics API going forward.
+- (Analytics) Adds the ability for an app to specify whether events logged by Google Analytics can be used to [personalize ads](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/analytics/AnalyticsParam.html#ALLOW_PERSONALIZED_ADS) for the user.
+- (Database) Added support for the Firebase Realtime Database Emulator. To connect to the emulator, specify "http://:/?ns=" as your Database URL (via [FirebaseDatabase.getInstance(String)](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/)). Note that if you are running the Realtime Database Emulator on "localhost" and connecting from an app that is running inside an Android Emulator, the Realtime Database Emulator host will be "10.0.2.2" followed by its port.
+- (Storage) Added StorageReference.list() and StorageReference.listAll(), which allows developers to list the files and folders under the given StorageReference.
+- (Storage) Added getCacheControl(), getContentDisposition(), getContentEncoding(), getContentLanguage(), and getContentType() to StorageMetadata.Builder to provide access to the current state of the metadata.
+- (Auth) Added integration support for authenticate using apple signin.
+
 *Apr 04, 2020 - V9.0.1*
 - Upgraded to Androidx libraries.
 - Upgraded to Firebase SDK 17.2.1 for Android. update the dependencies based on [this list](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md)
