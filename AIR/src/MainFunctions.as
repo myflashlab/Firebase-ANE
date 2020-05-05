@@ -173,17 +173,17 @@ public class MainFunctions extends Sprite
 	private function initFirebaseFunctions():void
 	{
 		Functions.init(null);
-		
+
 		var btn1:MySprite = createBtn("call Function 'HelloWorld'");
 		btn1.addEventListener(MouseEvent.CLICK, callFunctionHelloWorld);
 		_list.add(btn1);
-		
+
 		function callFunctionHelloWorld(e:MouseEvent):void
 		{
 			C.log("callFunctionHelloWorld... Please Wait...");
-			
+
 			var obj:Object = {text:"This msg is sent from AIR!"};
-			
+
 			Functions.callFunction("addMessageFromApp", obj, function ($data:String, $error:Error):void
 			{
 				if($error)
@@ -198,33 +198,10 @@ public class MainFunctions extends Sprite
 				}
 			});
 		}
-		
-		
+
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	private function createBtn($str:String):MySprite
 	{
 		var sp:MySprite = new MySprite();
