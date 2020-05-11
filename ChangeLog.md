@@ -1,5 +1,8 @@
 # Firebase Air Native Extension
 
+*May 11, 2020 - v9.5.0*
+- Upgraded to [Firebase SDK 6.9.0](https://dl.google.com/firebase/sdk/ios/6_9_0/Firebase-6.9.0.zip) for iOS. update all the older .framework and resources. based on [this list](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md)
+
 *May 01, 2020 - v9.1.0*
 - (**Performanc**) Removed the deprecated counter API. Use metrics API going forward.
 - (**Analytics**) Adds the ability for an app to specify whether events logged by Google Analytics can be used to [personalize ads](http://myflashlab.github.io/asdoc/com/myflashlab/air/extensions/firebase/analytics/AnalyticsParam.html#ALLOW_PERSONALIZED_ADS) for the user.

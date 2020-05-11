@@ -37,8 +37,8 @@ firebase_common.ane | GoogleUtilities.framework
 firebase_iid.ane | nanopb.framework
 firebase_measurementConnector.ane | FIRAnalyticsConnector.framework
 googlePlayServices_ads.ane | FirebaseCoreDiagnostics.framework
-googlePlayServices_base.ane | .
-googlePlayServices_basement.ane | .
+googlePlayServices_base.ane | GoogleDataTransport.framework
+googlePlayServices_basement.ane | GoogleDataTransportCCTSupport.framework
 googlePlayServices_measurementBase.ane | .
 googlePlayServices_stats.ane | .
 googlePlayServices_tasks.ane | .
