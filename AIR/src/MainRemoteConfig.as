@@ -187,9 +187,15 @@ import flash.desktop.NativeApplication;
 		{
 			// initialize RemoteConfig only once in your app
 			RemoteConfig.init();
-			
-			// when developing, set this to true so the developer mode will be on
-			RemoteConfig.setConfigSettings(true);
+
+			// RemoteConfigSettings can be used to configure how Remote Config operates.
+			var mySettings:RemoteConfigSettings = new RemoteConfigSettings();
+			mySettings.setDeveloperModeEnabled(true);
+			mySettings.setFetchTimeoutInSeconds(60);
+			mySettings.setMinimumFetchIntervalInSeconds(12*60*60);
+
+			// Set the configuration settings for this RemoteConfig instance.
+			RemoteConfig.setConfigSettingsAsync(mySettings);
 			
 			// create an object with the following format (key/value) and add all your default values to it.
 			var myDefaults:Object = {};
