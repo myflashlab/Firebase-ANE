@@ -1,5 +1,8 @@
 # Firebase Air Native Extension
 
+*May 19, 2020 - v9.9.0*
+- Upgraded to [Firebase SDK 6.18.0](https://dl.google.com/firebase/sdk/ios/6_18_0/Firebase-6.18.0.zip) for iOS. update all the older .framework and resources. based on [this list](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md)
+
 *May 11, 2020 - v9.5.0*
 - Upgraded to [Firebase SDK 6.9.0](https://dl.google.com/firebase/sdk/ios/6_9_0/Firebase-6.9.0.zip) for iOS. update all the older .framework and resources. based on [this list](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md)
 
