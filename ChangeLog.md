@@ -1,5 +1,23 @@
 # Firebase Air Native Extension
 
+*May 24, 2020 - v9.10.1*
+- Fix a minor issue on FirebaseCore related to ANE-LAB.
+
+*May 23, 2020 - v9.10.0*
+- (**Firestore**) Added `whereIn()` and `whereArrayContainsAny()` query operators. `whereIn()` finds documents where a specified field’s value is IN a specified array. `whereArrayContainsAny()` finds documents where a specified field is an array and contains ANY element of a specified array.
+- (**Firestore**) Added `limitToLast(long)`, which returns the last n documents as the result.
+- (**Firestore**) Added a `Firestore.terminate()` method which terminates the instance, releasing any held resources. Once it completes, you can optionally call `clearPersistence()` to wipe persisted Cloud Firestore data from disk.
+- (**RemoteConfig**) Added a method that fetches configs and activates them: `RemoteConfig.fetchAndActivate()`.
+- (**RemoteConfig**) Network connection timeout for fetch requests is now customizable. To set the network timeout, use `setFetchTimeoutInSeconds(long)` on `RemoteConfigSettings`.
+- (**RemoteConfig**) The default minimum fetch interval is now customizable. To set the default minimum fetch interval, use `setMinimumFetchIntervalInSeconds(long)` on `RemoteConfigSettings`.
+- (**Performance**) Upgrade RemoteConfig dependency version.
+
+*May 21, 2020 - v9.9.2*
+- (**Functions**) Fix a minor issue related to the FirebaseCore.
+
+*May 20, 2020 - v9.9.1*
+- Fix a minor issue on FirebaseCore related to ANE-LAB.
+
 *May 19, 2020 - v9.9.0*
 - Upgraded to [Firebase SDK 6.18.0](https://dl.google.com/firebase/sdk/ios/6_18_0/Firebase-6.18.0.zip) for iOS. update all the older .framework and resources. based on [this list](https://github.com/myflashlab/Firebase-ANE/blob/master/Dependencies.md)
 
