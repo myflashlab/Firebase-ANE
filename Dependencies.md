@@ -23,7 +23,7 @@ Supported Firebase Features:
 - [ ] In-App Messaging
 
 # V9.x.x #
-Find the latest Android dependencies [here](https://github.com/myflashlab/common-dependencies-ANE). And download the iOS frameworks **V6.5.0 [from here](https://dl.google.com/firebase/sdk/ios/6_5_0/Firebase-6.5.0.zip)**. And finally, if you want to use Crashlytics, you should download the frameworks **V3.14.0 [from here](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.14.0/com.crashlytics.ios-manual.zip)**.
+Find the latest Android dependencies [here](https://github.com/myflashlab/common-dependencies-ANE). And download the iOS frameworks **V6.18.0 [from here](https://dl.google.com/firebase/sdk/ios/6_18_0/Firebase-6.18.0.zip)**. And finally, if you want to use Crashlytics, you should download the frameworks **V3.14.0 [from here](https://s3.amazonaws.com/kits-crashlytics-com/ios/com.twitter.crashlytics.ios/3.14.0/com.crashlytics.ios-manual.zip)**.
 
 **firebaseCore.ane**
 Android | iOS
@@ -37,10 +37,10 @@ firebase_common.ane | GoogleUtilities.framework
 firebase_iid.ane | nanopb.framework
 firebase_measurementConnector.ane | FIRAnalyticsConnector.framework
 googlePlayServices_ads.ane | FirebaseCoreDiagnostics.framework
-googlePlayServices_base.ane | .
-googlePlayServices_basement.ane | .
-googlePlayServices_measurementBase.ane | .
-googlePlayServices_stats.ane | .
+googlePlayServices_base.ane | GoogleDataTransport.framework
+googlePlayServices_basement.ane | GoogleDataTransportCCTSupport.framework
+googlePlayServices_measurementBase.ane | FirebaseInstallations.framework
+googlePlayServices_stats.ane | PromisesObjC.framework
 googlePlayServices_tasks.ane | .
 
 
