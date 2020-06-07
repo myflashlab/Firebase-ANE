@@ -147,7 +147,7 @@ public class MainCrashlytics extends Sprite
 		// Remove OverrideAir debugger in production builds
 		OverrideAir.enableDebugger(function ($ane:String, $class:String, $msg:String):void
 		{
-			trace($ane+" ("+$class+") "+$msg);
+			toTrace($ane+" ("+$class+") "+$msg);
 		});
 		
 		var isConfigFound:Boolean = Firebase.init();
@@ -155,19 +155,19 @@ public class MainCrashlytics extends Sprite
 		if(isConfigFound)
 		{
 			var config:FirebaseConfig = Firebase.getConfig();
-			C.log("default_web_client_id = " + config.default_web_client_id);
-			C.log("firebase_database_url = " + config.firebase_database_url);
-			C.log("gcm_defaultSenderId = " + config.gcm_defaultSenderId);
-			C.log("google_api_key = " + config.google_api_key);
-			C.log("google_app_id = " + config.google_app_id);
-			C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
-			C.log("google_storage_bucket = " + config.google_storage_bucket);
-			C.log("project_id = " + config.project_id);
+			toTrace("default_web_client_id = " + config.default_web_client_id);
+			toTrace("firebase_database_url = " + config.firebase_database_url);
+			toTrace("gcm_defaultSenderId = " + config.gcm_defaultSenderId);
+			toTrace("google_api_key = " + config.google_api_key);
+			toTrace("google_app_id = " + config.google_app_id);
+			toTrace("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
+			toTrace("google_storage_bucket = " + config.google_storage_bucket);
+			toTrace("project_id = " + config.project_id);
 			
 			startWithCrashlytics();
 		} else
 		{
-			C.log("Config file is not found!");
+			toTrace("Config file is not found!");
 		}
 	}
 	
@@ -192,7 +192,7 @@ public class MainCrashlytics extends Sprite
 		
 		function crashTheApp(e:MouseEvent):void
 		{
-			C.log("calling: Crashlytics.crash();");
+			toTrace("calling: Crashlytics.crash();");
 			Crashlytics.crash();
 		}
 		
@@ -202,7 +202,7 @@ public class MainCrashlytics extends Sprite
 		
 		function logSomething(e:MouseEvent):void
 		{
-			C.log("calling: Crashlytics.log");
+			toTrace("calling: Crashlytics.log");
 			Crashlytics.log("key1", 1); //int
 			Crashlytics.log("key2", 1.2); // Number
 			Crashlytics.log("key3", true); // Boolean
@@ -210,25 +210,6 @@ public class MainCrashlytics extends Sprite
 			Crashlytics.log("key5", "String");
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	private function createBtn($str:String):MySprite
 	{
@@ -274,6 +255,13 @@ public class MainCrashlytics extends Sprite
 		
 		return sp;
 	}
+
+	private function toTrace(...rest):void
+	{
+		C.log(rest);
+		trace(rest);
+	}
+
 }
 	
 }
