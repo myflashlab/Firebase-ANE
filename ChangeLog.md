@@ -1,10 +1,10 @@
 # Firebase Air Native Extension
 
 *Jun 08, 2020 - v9.11.1*
-- (Crashlytics) Bug fixes and some improvements. 
+- (**Crashlytics**) Bug fixes and some improvements. 
 
 *Jun 07, 2020 - v9.11.0*
-- (Crashlytics) Upgrade to the Firebase Crashlytics SDK.
+- (**Crashlytics**) Upgrade to the Firebase Crashlytics SDK.
 
 *May 24, 2020 - v9.10.1*
 - Fix a minor issue on FirebaseCore related to ANE-LAB.
