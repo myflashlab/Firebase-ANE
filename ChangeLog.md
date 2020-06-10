@@ -1,5 +1,15 @@
 # Firebase Air Native Extension
 
+*Jun 09, 2020 - v9.12.0*
+- (**Firestore**) Added an `addSnapshotsInSyncListener()` method to Firestore that notifies you when all your snapshot listeners are in sync with each other. You can remove listener using `removeSnapshotsInSyncListener()` method.
+- (**Firestore**) Added a dependency on the `abseil` on iOS for ANELAB. If you're manually tracking dependencies, you need to add it to your SDK path.
+- (**Firestore**) Removed Firestore's dependency on the `Protobuf` on iOS for ANELAB. If you're manually tracking dependencies, you may be able to remove it from your SDK path (note, however, that other Firebase components may still require it).
+- (**Firestore**) Firestore no longer loads its TLS certificates from a bundle, which fixes crashes at startup when the bundle can't be loaded. This fixes a specific case where the bundle couldn't be loaded due to non-ASCII characters in the application name. If you're manually tracking dependencies, you can now remove `gRPCCertificates-Cpp.bundle` from your build.
+- (**Analytics**) Firebase InstanceID SDK dependency replaced by Firebase Installations SDK for iOS.
+- (**Auth**) Added support for Sign-in with Apple.
+- (**Auth**) Fixed rawNonce in encoder credential.
+- (**Crashlytics**) Removed the Fabric API Key. Now, Crashlytics uses the `GoogleService-Info.plist` and `google-services.json` files to associate your app with your project. If you linked your app from Fabric and want to upgrade to the new SDK, remove the Fabric API key from your run and upload-symbols scripts. We also recommend removing the Fabric section from your app's manifest (when you upgrade, Crashlytics uses the new configuration you set up in Firebase).
+
 *Jun 08, 2020 - v9.11.1*
 - (**Crashlytics**) Bug fixes and some improvements. 
 
