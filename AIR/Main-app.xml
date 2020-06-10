@@ -342,12 +342,7 @@
 				        Required by firebaseCrashlytics.ane
 				        Change {PACKAGE_NAME} to your own app package name
 				-->
-				<!--<provider
-					android:name="com.crashlytics.android.CrashlyticsInitProvider"
-					android:authorities="{PACKAGE_NAME}.crashlyticsinitprovider"
-					android:exported="false"
-					android:initOrder="99"/>
-				<meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false"/>
+				<!--<meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false"/>
 				<activity android:name="com.myflashlab.firebase.crashlytics.CrashlyticsActivity"/>-->
 
                 
