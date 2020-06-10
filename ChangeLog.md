@@ -1,5 +1,15 @@
 # Firebase Air Native Extension
 
+*Jun 10, 2020 - v9.12.1*
+- (**Crashlytics**) Fix an issue related to updating manifest on the ANELAB. If you are applying changes manually you have to remove this part from your manifest.
+```xml
+<provider
+  android:name="com.crashlytics.android.CrashlyticsInitProvider"
+  android:authorities="{PACKAGE_NAME}.crashlyticsinitprovider"
+  android:exported="false"
+  android:initOrder="99"/>
+```
+
 *Jun 09, 2020 - v9.12.0*
 - (**Firestore**) Added an `addSnapshotsInSyncListener()` method to Firestore that notifies you when all your snapshot listeners are in sync with each other. You can remove listener using `removeSnapshotsInSyncListener()` method.
 - (**Firestore**) Added a dependency on the `abseil` on iOS for ANELAB. If you're manually tracking dependencies, you need to add it to your SDK path.
