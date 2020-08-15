@@ -1,5 +1,11 @@
 # Firebase Air Native Extension
 
+_Aug 15, 2020 - v10.2.1_
+
+- Upgrade Firebase iOS SDK to v6.30.0.
+- Migrate from Firebase Instance Id to Firebase Installations Service.
+- Firebase Instance Id deprecated and will be removed in next version
+
 _Jul 31, 2020 - v10.0.0_
 
 - Upgrade dependencies for Android to the latest versions.
