@@ -102,8 +102,7 @@ package
 		{
 			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE;
 			
-			C.log("framerate: " + stage.frameRate);
-			trace("framerate: " + stage.frameRate);
+			toTrace("framerate: " + stage.frameRate);
 		}
 		
 		private function handleDeactivate(e:Event):void
@@ -161,23 +160,14 @@ package
 			if (isConfigFound)
 			{
 				var config:FirebaseConfig = Firebase.getConfig();
-				C.log("default_web_client_id = " + 			config.default_web_client_id);
-				C.log("firebase_database_url = " + 			config.firebase_database_url);
-				C.log("gcm_defaultSenderId = " + 			config.gcm_defaultSenderId);
-				C.log("google_api_key = " + 				config.google_api_key);
-				C.log("google_app_id = " + 					config.google_app_id);
-				C.log("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
-				C.log("google_storage_bucket = " + 			config.google_storage_bucket);
-				C.log("project_id = " + 					config.project_id);
-
-				trace("default_web_client_id = " + 			config.default_web_client_id);
-				trace("firebase_database_url = " + 			config.firebase_database_url);
-				trace("gcm_defaultSenderId = " + 			config.gcm_defaultSenderId);
-				trace("google_api_key = " + 				config.google_api_key);
-				trace("google_app_id = " + 					config.google_app_id);
-				trace("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
-				trace("google_storage_bucket = " + 			config.google_storage_bucket);
-				trace("project_id = " + 					config.project_id);
+				toTrace("default_web_client_id = " + 			config.default_web_client_id);
+				toTrace("firebase_database_url = " + 			config.firebase_database_url);
+				toTrace("gcm_defaultSenderId = " + 			config.gcm_defaultSenderId);
+				toTrace("google_api_key = " + 				config.google_api_key);
+				toTrace("google_app_id = " + 					config.google_app_id);
+				toTrace("google_crash_reporting_api_key = " + config.google_crash_reporting_api_key);
+				toTrace("google_storage_bucket = " + 			config.google_storage_bucket);
+				toTrace("project_id = " + 					config.project_id);
 				
 				// You must initialize any of the other Firebase children after a successful initialization
 				// of the Core ANE.
@@ -185,67 +175,70 @@ package
 			}
 			else
 			{
-				C.log("Config file is not found!");
-				trace("Config file is not found!");
+				toTrace("Config file is not found!");
 			}
 		}
 		
 		private function readyToUseFirebase():void
 		{
-			Firebase.iid.addEventListener(FirebaseEvents.IID_TOKEN, onIdTokenReceived);
-			Firebase.iid.addEventListener(FirebaseEvents.IID_ID, onIdReceived);
-			
-			var btn1:MySprite = createBtn("get iid instanceId");
-			btn1.addEventListener(MouseEvent.CLICK, getInstanceId);
-			_list.add(btn1);
-			
-			function getInstanceId(e:MouseEvent):void
+			Firebase.installations.addEventListener(FirebaseEvents.FIS_FID, onInstallationsIdReceived)
+			Firebase.installations.addEventListener(FirebaseEvents.FIS_TOKEN, onInstallationsTokenReceived)
+
+			var btn10:MySprite = createBtn("get installations id");
+			btn10.addEventListener(MouseEvent.CLICK, getInstallationsId);
+			_list.add(btn10);
+
+			function getInstallationsId(e:MouseEvent):void
 			{
-				// you must be listening to FirebaseEvents.IID_TOKEN
-				Firebase.iid.getInstanceId();
+				// you must be listening to FirebaseEvents.FIS_FID
+				Firebase.installations.getId();
 			}
-			
-			var btn2:MySprite = createBtn("get iid id");
-			btn2.addEventListener(MouseEvent.CLICK, getId);
-			_list.add(btn2);
-			
-			function getId(e:MouseEvent):void
+
+			var btn11:MySprite = createBtn("get installations token");
+			btn11.addEventListener(MouseEvent.CLICK, getInstallationsToken);
+			_list.add(btn11);
+
+			function getInstallationsToken(e:MouseEvent):void
 			{
-				Firebase.iid.getID();
+				// you must be listening to FirebaseEvents.FIS_TOKEN
+				Firebase.installations.getToken(false);
 			}
-			
-			var btn4:MySprite = createBtn("delete iid");
-			btn4.addEventListener(MouseEvent.CLICK, deliid);
-			_list.add(btn4);
-			
-			function deliid(e:MouseEvent):void
+
+			var btn12:MySprite = createBtn("delete installations");
+			btn12.addEventListener(MouseEvent.CLICK, deleteInstallations);
+			_list.add(btn12);
+
+			function deleteInstallations(e:MouseEvent):void
 			{
-				Firebase.iid.deleteIID();
+				Firebase.installations.remove();
 			}
-			
+
 			var btn5:MySprite = createBtn("get frame rate");
 			btn5.addEventListener(MouseEvent.CLICK, getFrameRate);
 			_list.add(btn5);
 			
 			function getFrameRate(e:MouseEvent):void
 			{
-				C.log("framerate: " + stage.frameRate);
-				trace("framerate: " + stage.frameRate);
+				toTrace("framerate: " + stage.frameRate);
 			}
 			
 			onResize();
 		}
-		
-		private function onIdTokenReceived(e:FirebaseEvents):void
+
+		private function onInstallationsIdReceived(e:FirebaseEvents):void
 		{
-			C.log("iidToken = "+e.iidToken);
-			trace("iidToken = "+e.iidToken);
+			toTrace("installations id = "+e.installationsId);
 		}
-		
-		private function onIdReceived(e:FirebaseEvents):void
+
+		private function onInstallationsTokenReceived(e:FirebaseEvents):void
 		{
-			C.log("iid id = "+e.iidID);
-			trace("iid id = "+e.iidID);
+			toTrace("installations token = "+e.installationsToken);
+		}
+
+		private function toTrace(...rest):void
+		{
+			C.log(rest);
+			trace(rest);
 		}
 
 		private function createBtn($str:String):MySprite
